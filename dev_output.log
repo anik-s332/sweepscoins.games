@@ -1,0 +1,12 @@
+
+> sweepscoins.games@4.1.1 dev
+> next dev
+
+   ▲ Next.js 15.5.14
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.10.199:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 9.7s
+ ○ Compiling /[[...slug]] ...

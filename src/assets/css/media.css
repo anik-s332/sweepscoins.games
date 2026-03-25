@@ -1,0 +1,1482 @@
+/* responsive media css start here */
+@media only screen and (max-width: 1399px) {
+    .footer_section .col-4 {width: 40.333333%;}
+}
+@media only screen and (max-width: 1280px) {
+    .posterlistwraps .poserrbooksrow .col-md-2.col-sm-4.col-xs-12 {width: 21.666667%;}
+    .paymentforms.paymentFormsWrapper {max-height: calc(100vh - 320px) !important;overflow: auto;}
+}
+@media only screen and (max-width: 1201px) {
+    .extrasectionwraps .container {float: none;}
+    .logogheader .logohere img {width: 190px;height: 190px;}
+    .logogheader .logohere {margin: 0px !important;padding-left: 0px;}
+    .wrapper {padding-top: 200px;}
+    .Header_section {padding: 5px 0px;}
+    .container.pravcypolicycontainer {float: none;}
+    .container {float: left; width: 100%; max-width: 100%;}
+    .row {float: none;display: table;margin: 0 auto;}
+    .posterlistwraps .poserrbooksrow .col-md-2.col-sm-4.col-xs-12 {width: 24.666667%;}
+    .chosseCustomNumber {width: 100%;}
+    .choosebundleModal h1 {font-size: 38px;}
+    .testimoniWraps .col-md-4 {height: 350px;}
+}
+@media only screen and (max-width: 1150px) {
+    .Header_section .container-fluid{padding: 0px 10px !important;}
+    .Header_section .container-fluid .col-md-12 {padding: 0px;}
+}
+@media only screen and (max-width: 1100px) {
+    .logo_main_wrapper .NewHeader_wrapper_flex:last-child {
+        flex-basis: 100%;
+    }
+    .userLoginSignupwrapsrow .dropdown-toggle {
+        text-align: right;
+    }
+    .userLoginSignupwraps .userLoginSignupwrapsrow .loginbtnbx h1.accountlogin {
+        width: calc(100% - 20px);
+    }
+    .userLoginSignupwrapsrow .dropdown {
+        width: 220px;
+    }
+    .userLoginSignupwrapsrowRelative .loginbtnbx:last-child {
+        right: 90px;
+    }
+    .userLoginSignupwraps .userLoginSignupwrapsrow .loginbtnbx {
+        width: auto !important;
+    }
+    .NewHeader_wrapper .NewHeader_wrapper_flex {
+        margin: 10px 0 15px;
+    }
+    .NewHeader_wrapper {
+        width: 100% !important;
+    }
+    .NewHeader_wrapper h3 {
+        width: 100% !important;
+        margin: 10px 0px 10px 0px !important;
+        text-align: center;
+    }
+    header.Header_section.Header_after_login .userLoginSignupwraps .userLoginSignupwrapsrow {
+        /* justify-content: center; */
+        padding-right: 10px!important;padding-left: 10px!important;}
+    header.Header_section.Header_after_login .userLoginSignupwraps .userLoginSignupwrapsrow .loginbtnbx{width: auto;}
+    header.Header_section.Header_after_login .userLoginSignupwraps .userLoginSignupwrapsrow.userLoginSignupwrapsrowcenter .loginbtnbx {width: 120px;}
+    header.Header_section.Header_after_login .logogheader .logohere {margin-right: 0px;}
+    .logogheader .userLoginSignupwraps:last-child {left: 0;right: 0;}
+    .logogheader {flex-direction: column;}
+    /* .userLoginSignupwraps .userLoginSignupwrapsrow {align-items: center;justify-content: center;} */
+    .userLoginSignupwraps .userLoginSignupwrapsrow .loginbtnbx span {font-size: 13px;}
+    .userLoginSignupwraps .userLoginSignupwrapsrow .loginbtnbx h1 {font-size: 19px;}
+    .logogheader .logohere img {width: 95px !important;height: 95px !important;}
+    .userLoginSignupwraps .userLoginSignupwrapsrow .loginbtnbx img {width: 75px;height: 65px;}
+    .wrapper {padding-top: 0px;}
+    .Header_section {
+        /* position: relative; */
+        padding: 6px 0px !important;}
+    .loginsignuptabsresetpssword {height: calc(100vh - 140px) !important;margin: 0px;}
+    .GamesGridwrapper{height: auto !important;}
+
+}
+@media only screen and (max-width: 1021px) {
+    .header_section .logowraphead img {width: 170px;}
+}
+@media only screen and (max-width: 991px) {
+    .packagesContainer {width: 100% !important;}
+    .testimoniWraps .col-md-4 {height: auto;width: 100%;border-right: 1px solid #333;}
+    .RedeemCreditModalMain {width: 86% !important;}
+    .myacountsatabswrps .row .col-md-3 {width: 40% !important;}
+    .myacountsatabswrps .row .col-md-9 {width: 60% !important;}
+    .redeemprizewrapper img {width: 100% !important;height: auto !important;}
+    .redeemprizewrapper .col-4 {width: 25%;}
+    .redeemformadd {margin-bottom: 20px;}
+    .redeemprizebest .col-md-6 {width: 100%;}
+    .checkoutpaymnt {width: 100% !important;padding: 0px !important;}
+    .headermainwrps {padding: 0px !important;}
+    .headerLinks ul li a {font-size: 21px;}
+    .header_section .logowraphead img {width: 135px;}
+    .commonheader h1 {font-size: 36px;}
+    .commonheader h4 {font-size: 64px;}
+    .purchesswraps {float: left;width: 100%;}
+    .header_section .logowraphead{width: auto;}
+    .footer_section .col-md-5 {width: 50%;}
+    .footer_section .col-4 {width: 50%;}
+    .videoModalwrapper .videoplayer iframe {width: 600px !important;height: 380px !important;}
+    .Refer-container{
+        padding: 10px;
+        background-size: cover;
+    }
+    .title{
+        font-size: 24px;
+    }
+    .title .subtitle{
+        width: 105px;
+    }
+    .rewards-box{
+        width: 100%;
+        padding: 7px;
+    }
+    .rewards-box p{
+        font-size: 13px;
+    }
+    .rewards-box p:nth-child(2)::after {
+    right: 312px;
+    height: 76%;
+    }
+    .Invite_Friend_Btn {
+    padding: 10px;
+    }
+    .referral-code-section{
+        padding: 3px;
+    }
+    .Button_Conatiner{
+        gap:10px;
+        width:100%;
+    }
+    .description {
+    font-size: 13px;
+    }
+    .refer-and-earn h2{
+        font-size: 24px;
+    }
+    .refer-and-earn h2 span{
+        width: 157px;
+    }
+    .refer-and-earn{
+        padding-left: 0px;
+    }
+    .step p {
+    font-size: 14px;
+    }
+    .step-number{
+        height: 35px;
+        width: 35px;
+        font-size: 14px;
+    }
+    .steps-container .step:not(:last-child):after {
+   margin: 14px auto;
+    }
+    .steps-container {
+     margin-left: 28px;
+    }
+
+}
+@media only screen and (max-width: 900px) {
+    .GamesGridwrapper{height: auto !important;}
+    .bookspreviewModal .closePreviewModal {width: 22px;height: 22px;right: 15px;top: 15px;}
+    .bookspreviewModal {width: 100%;padding: 20px 15px;}
+    .PurchesPostersction .purchesswraps .col-6 {width: 100%;}
+    .posterlistwraps .poserrbooksrow .col-md-2.col-sm-4.col-xs-12 {width: 32.666667%;padding: 0px 10px !important;}
+    .purchespassage {margin-bottom: 50px;}
+    .iframPayment {width: 90% !important;}
+    .Refer-container{
+        padding: 10px;
+        background-size: cover;
+    }
+    .title{
+        font-size: 24px;
+    }
+    .title .subtitle{
+        width: 105px;
+    }
+    .rewards-box{
+        width: 100%;
+        padding: 7px;
+    }
+    .rewards-box p{
+        font-size: 13px;
+        width: 83%;
+
+    }
+    .rewards-box p:nth-child(2)::after {
+    right: 277px;
+    height: 76%;
+    }
+    .Invite_Friend_Btn {
+    padding: 10px;
+    }
+    .referral-code-section{
+        padding: 3px;
+    }
+    .Button_Conatiner{
+        gap:10px;
+        width:100%;
+    }
+    .description {
+    font-size: 13px;
+    }
+    .refer-and-earn h2{
+        font-size: 24px;
+    }
+    .refer-and-earn h2 span{
+        width: 157px;
+    }
+    .refer-and-earn{
+        padding-left: 0px;
+    }
+    .step p {
+    font-size: 14px;
+    }
+    .step-number{
+        height: 35px;
+        width: 35px;
+        font-size: 14px;
+    }
+    .steps-container .step:not(:last-child):after {
+   margin: 14px auto;
+    }
+    .steps-container {
+     margin-left: 28px;
+    }
+    .new_reward_box p{
+        font-size: 13px;
+    }
+
+}
+@media only screen and (max-width: 840px) {
+    .kiponwrpsbanner {height: 350px;}
+    .kiponcasualDataCols {width: 100%;margin: -135px 0 0;}
+    .kiponwrpssection {padding: 0px 0px 0px;position: relative;}
+    .landingfixedpage video {width: 80%;height: 390px;}
+    .chosseCustomNumber {width: 100%;display: block;}
+    .chosseCustomNumber .formgroup {width: 48%;float: left;margin-bottom: 15px;}
+    .aboutgamessection {padding: 40px 0 40px;}
+    .aboutgamessection h5 {font-size: 17px;}
+    .aboutgamessection h1 {font-size: 35px;}
+    .aboutparagraphsection {height: auto;}
+    .aboutparagraphsection .col-md-4 , .aboutparagraphsection .col-md-8{width: 100%;}
+    .aboutparagraphsection p {width: 100%;padding: 25px 25px;}
+    .aboutgamessection .col-md-7 {width: 100%;}
+    .whtweareaboutsection h1 {font-size: 35px;}
+    .whtweareaboutsection {padding: 40px 0;}
+    .meetfounderssectionsww h4 {font-size: 35px;}
+    .ourstudiosection {padding: 90px 0;}
+    .ourstudiodata {width: 100%;}
+    .ourstudiodata h1 {font-size: 35px;}
+    .welovworkthemsection {width: 100%;}
+    .Refer-container{
+        padding: 10px;
+        background-size: cover;
+    }
+    .title{
+        font-size: 24px;
+    }
+    .title .subtitle{
+        width: 105px;
+    }
+    .rewards-box{
+        width: 100%;
+        padding: 7px;
+    }
+    .rewards-box p{
+        font-size: 13px;
+        width: 90%;
+    }
+    .rewards-box p:nth-child(2)::after {
+    right: 248px;
+    height: 76%;
+    }
+    .Invite_Friend_Btn {
+    padding: 10px;
+    }
+    .referral-code-section{
+        padding: 3px;
+    }
+    .Button_Conatiner{
+        gap:10px;
+        width:100%;
+    }
+    .description {
+    font-size: 13px;
+    }
+    .refer-and-earn h2{
+        font-size: 24px;
+    }
+    .refer-and-earn h2 span{
+        width: 157px;
+    }
+    .refer-and-earn{
+        padding-left: 0px;
+    }
+    .step p {
+    font-size: 14px;
+    }
+    .step-number{
+        height: 35px;
+        width: 35px;
+        font-size: 14px;
+    }
+    .steps-container .step:not(:last-child):after {
+   margin: 14px auto;
+    }
+    .steps-container {
+     margin-left: 28px;
+    }
+    .new_reward_box p{
+        font-size: 13px;
+    }
+
+}
+@media only screen and (max-width: 800px) {
+    .GamesGridwrapper{height: auto !important;}
+    .btn.resetbtn {padding: 8px 9px;font-size: 15px;width: auto;}
+    .searchfilterbookswraps select {width: 260px;height: 41px;padding: 5px;font-size: 14px;}
+    .searchfilterbookswraps h4{font-size: 17px;}
+    .sectionheader {font-size: 30px;}
+    .header_section .logowraphead {width: auto !important;float: none;margin: 0 auto;}
+    .dropdousericon {margin: 0px 18px -3px 0px !important;}
+    .responsiveSidebar {padding: 30px 20px !important;}
+    .Refer-container{
+        padding: 10px;
+        background-size: cover;
+    }
+    .title{
+        font-size: 22px;
+    }
+    .title .subtitle{
+        width: 105px;
+    }
+    .rewards-box{
+        width: 100%;
+        padding: 7px;
+    }
+    .rewards-box p{
+        font-size: 12px;
+        width: 90%;
+
+    }
+    .new_reward_box p{
+        font-size: 12px;
+        width: 95%;
+
+    }
+    .rewards-box p:nth-child(2)::after {
+    right: 223px;
+    height: 66%;
+    }
+    .Invite_Friend_Btn {
+    padding: 10px;
+    }
+    .referral-code-section{
+        padding: 3px;
+    }
+    .Button_Conatiner{
+        gap:10px;
+        width:100%;
+    }
+    .description {
+    font-size: 13px;
+    }
+    .refer-and-earn h2{
+        font-size: 22px;
+    }
+    .refer-and-earn h2 span{
+        width: 157px;
+    }
+    .refer-and-earn{
+        padding-left: 0px;
+    }
+    .step p {
+    font-size: 14px;
+    }
+    .step-number{
+        height: 35px;
+        width: 35px;
+        font-size: 14px;
+    }
+    .steps-container .step:not(:last-child):after {
+   margin: 14px auto;
+    }
+    .steps-container {
+     margin-left: 28px;
+    }
+    .for_two{
+        padding: 10px;
+    }
+    .for_two p{
+        margin-bottom: 5px;
+        width: 100%;
+
+    }
+   .gamelistwraps {width: 100% !important; height: 168px !important;}
+   .banner{height: 60vh !important;}
+
+}
+@media only screen and (max-width: 767px) {
+    .packagespage {padding: 45px 0 !important;}
+    .packagesContainer h1 {font-size: 35px !important;}
+    .package_cols {flex-basis: 46.33% !important;}
+    .ourstudiosection div:first-child {background-size: cover !important;}
+    .kiponwrpsbanner div{background-size: auto !important;background-position: left !important;}
+    .ourstudiodata.ourstudiodatacenter, .ourstudiodata.ourstudiodatacenter p {width: 100% !important;}
+    .reviewRating {flex-direction: column-reverse;}
+    .reviewRating h1 {margin: 0 0 15px 0px;font-size: 40px;}
+    .screenshotMain {margin-bottom: 40px;}
+    .myacountsatabswrps .row .col-md-3, .myacountsatabswrps .row .col-md-9 {width: 100% !important;padding: 0 5px !important;}
+    .ourstudiosection {padding: 40px 0;}
+    .ourstudiodata {margin-bottom: 70px;}
+    .whtweareaboutcols h2 {font-size: 22px;margin: 0 0 15px;}
+    .meetfounderssectionsww {padding: 35px 30px 35px;}
+    .copyright {padding: 25px 0px 25px;}
+    .contactlinks {margin-bottom: 30px;}
+    .contactlinks h4 {font-size: 18px !important;margin: 0 0 10px !important;}
+    .footwrapper {padding: 25px 0px 30px !important;}
+    .gamesonlinewrps iframe {width: 100% !important;height: 320px !important;}
+    .gamelistwraps {border-radius: 45px !important;display: flex;align-items: center;justify-content: center;}
+    .gamelistwraps h4 {width: 76%;bottom: auto;font-size: 45px;word-break: break-word;}
+    .GamesGridwrapper .col-md-3.col-xs-6 {width: 50%;}
+    .GamesGridwrapper {margin: 0;padding: 45px 0;}
+    /* .bannerSectionWrp {display: none;} */
+    .closeModal {z-index: 99;}
+    .paymentheadermain {margin: 6px 0 13px;}
+    .pymenttitle {margin: 0 0 15px;padding: 13px 15px 0px 15px;}
+    .CheckoutModalWrapper {padding: 0px;width: 100%;}
+    .CheckoutModalWrapper .paymentWrappers {padding: 0px 20px;}
+    .paymentheadermain h4 {padding-left: 20px;}
+    .paymentforms {max-height: calc(100vh - 245px) !important;}
+    .height-100 .paymentforms {max-height: 100% !important;}
+    .dropdowncustome .amountdetailsdropdown {right: -15px;}
+    .paymentforms.paymentFormsWrapper {max-height: calc(100vh - 245px) !important;}
+    .myaccountprofilepic h4 {font-size: 23px !important;text-align: left;}
+    .myaccountprofilepic {height: auto;padding: 25px 33px;}
+    .acctprofile {float: left;width: 120px;height: 120px;margin-bottom: 20px;background-color: #fff;}
+    .checkoulistwrps {width: 100% !important;margin-bottom: 40px !important;}
+    .profileacountset {float: left;width: 100%;text-align: left;margin: 80px 0 0;}
+    .checkoutpaymnt h1 {font-size: 34px !important;margin: 0 0 20px !important;}
+    .singlepostersection.PosterBundleswraper .purchesBundletypes {width: 100%;}
+    .singlepostersection.PosterBundleswraper .purchesswraps .col-md-6:last-child .purchesBundletypes {margin: 0px;}
+    .commonheader h1 {font-size: 33px;line-height: 55px;}
+    .commonheader h4 {font-size: 50px;}
+    .row {display: block;}
+    .contadetails h4 {font-size: 18px !important;margin: 0 0 10px !important;}
+    .packages_wrapps .package_cols:nth-last-child(-n+3) {margin-bottom: 30px !important;}
+    .packagesContainer{padding-bottom: 20px !important;}
+    .package_cols img {max-height: 245px !important;}
+    .redeemprizebest .row{display: flex !important;}
+    .Refer-container{
+        padding: 10px !important;
+        background-size: cover !important;
+    }
+    .title{
+        font-size: 24px !important;
+    }
+    .title .subtitle{
+        width: 105px !important;
+    }
+    .rewards-box{
+        width: 100% !important;
+        padding: 7px !important;
+    }
+    .rewards-box p{
+        font-size: 14px;
+        width: 65%;
+
+    }
+    .new_reward_box p{
+        font-size: 13px;
+        width: 80%;
+
+    }
+    .rewards-box p:nth-child(2)::after {
+    right: 323px;
+    height: 76%;
+    }
+    .Invite_Friend_Btn {
+    padding: 10px;
+    width: 310px;
+
+    }
+    .referral-code-section{
+        padding: 3px;
+        width: 310px;
+
+    }
+    .Button_Conatiner{
+        gap:10px;
+        width:100%;
+    }
+    .description {
+    font-size: 13px;
+    }
+    .refer-and-earn h2{
+        font-size: 24px;
+    }
+    .refer-and-earn h2 span{
+        width: 157px;
+    }
+    .refer-and-earn{
+        padding-left: 0px;
+    }
+    .step p {
+    font-size: 14px;
+    }
+    .step-number{
+        height: 35px;
+        width: 35px;
+        font-size: 14px;
+    }
+    .steps-container .step:not(:last-child):after {
+   margin: 14px auto;
+    }
+    .steps-container {
+     margin-left: 28px;
+    }
+    .for_two{
+        padding: 10px;
+    }
+    .for_two p{
+        margin-bottom: 5px;
+    }
+    .Main_Title{
+        font-size: 36px;
+    }
+    .kyc-tooltip{
+        top: 425px;
+    }
+}
+    
+@media only screen and (max-width: 700px) {
+    .kiponcasualDataCols h1 {font-size: 35px;line-height: 50px;}
+    .commonpopup {width: 95%;padding: 40px 32px;}
+    .footer_section .col-md-5, .footer_section .col-4 {width: 100%;}
+    .footermailjoin p {margin: 20px 0 20px;}
+    .choosebundleModal h1 {font-size: 28px;margin: 0 0 45px;}
+    .chosseCustomNumber .formgroup .CustomRadio { font-size: 22px;}
+    .privacypage.RefundPolicypage {padding: 40px 0px;}
+    .Refer-container{
+        padding: 10px;
+        background-size: cover;
+    }
+    .title{
+        font-size: 24px;
+    }
+    .title .subtitle{
+        width: 105px;
+    }
+    .rewards-box{
+        width: 100%;
+        padding: 7px;
+    }
+    .rewards-box p{
+        font-size: 13px;
+        width: 70%;
+
+    }
+    .new_reward_box p{
+        font-size: 15px;
+        width: 99%;
+
+    }
+    .rewards-box p:nth-child(2)::after {
+    right: 355px;
+    height: 70%;
+    }
+    .Invite_Friend_Btn {
+    padding: 10px;
+    width: 310px;
+
+    }
+    .referral-code-section{
+        padding: 3px;
+        width: 310px;
+
+    }
+    .Button_Conatiner{
+        gap:10px;
+        width:100%;
+    }
+    .description {
+    font-size: 13px;
+    }
+    .refer-and-earn h2{
+        font-size: 24px;
+    }
+    .refer-and-earn h2 span{
+        width: 157px;
+    }
+    .refer-and-earn{
+        padding-left: 0px;
+    }
+    .step p {
+    font-size: 14px;
+    }
+    .step-number{
+        height: 35px;
+        width: 35px;
+        font-size: 14px;
+    }
+    .steps-container .step:not(:last-child):after {
+   margin: 14px auto;
+    }
+    .steps-container {
+     margin-left: 28px;
+    }
+    .for_two{
+        padding: 10px;
+    }
+    .for_two p{
+        margin-bottom: 5px;
+    }
+    .Main_Title{
+        font-size: 34px;
+    }
+}
+@media only screen and (max-width: 640px) {
+    .banner_container{margin-top:150px;padding-bottom: 30px;}
+     .Dragon{margin-left: -12px;
+    /* height: 231px !important;
+    width: 262px !important; */
+    }
+     .Dragon2{position: relative; 
+        right:-25px !important;
+    }
+    .banner_images{width: 50% !important;height: auto;}
+    .mt-mobile-4rem {margin-top: -3rem !important;gap: 0px !important; }
+    .GamesGridwrapper{height: auto !important;}
+    .footer_title{font-size: 40px!important;}
+    .buy_bunndle_button {width: 350px;}
+    .banner h1 { font-size: 52px !important;width: 300px !important;}
+    .GamesGridwrapper{background-image: url('../img/new_home_page/MobileGridBg.svg')!important;background-size: cover !important;background-position: center !important;}
+    .banner {
+      position: relative;
+      background-image: url('https://sweepscoinsgames.s3.us-east-2.amazonaws.com/images/MobileBannerBg1.png');
+      background-size: cover;
+      background-position: center;
+      height: auto !important;
+      color: white;
+      display: flex;
+      align-items: center;
+    }
+    .packagesContainer {
+        padding: 0px !important;
+    }
+    .logo_main_wrapper .NewHeader_wrapper_flex:last-child {
+        padding-bottom: 14px;
+    }
+    .NewHeader_wrapper .NewHeader_wrapper_flex {
+        margin: 0px !important;
+        padding-top: 29px;
+    }
+    .NewHeader_wrapper h3 {
+        margin: 0px 0px 10px 0px !important;
+    }
+    .landingfixedpage video {width: 95% !important;height: 390px !important;}
+    .videoModalwrapper .videoplayer iframe {width: 95% !important;}
+    .contactDetails {margin: 0 0 30px;}
+    .privacypage h1 {font-size: 25px;margin: 0px 0px 15px;}
+    .privacypage p {font-size: 13px;}
+    .privacypage.RefundPolicypage h4 {font-size: 15px;}
+    .privacypage.RefundPolicypage h4 {font-size: 15px;}
+    .contactDetails div {font-size: 13px;margin: 0 5px;}
+    .sidebarcommon {width: 100% !important;padding: 20px 20px 20px !important;}
+    .sidebarcommon h2 {margin: 0px 0px 0px !important;font-size: 27px !important;}
+    .sidebarcommon p {font-size: 16px !important;}
+    .NewHeader_wrapper .newheader_columns img {
+        width: 20px;
+    }
+    .NewHeader_wrapper .newheader_columns h4 {
+        font-size: 0.8rem;
+    }
+    .NewHeader_wrapper .newheader_columns small {
+        font-size: 0.7rem;
+    }
+    .NewHeader_wrapper .NewHeader_wrapper_flex .newheader_columns:nth-child(2)::after {
+        width: 7px;
+        height: 40px;
+        right: -6px
+    }
+    .NewHeader_wrapper .NewHeader_wrapper_flex .newheader_columns:nth-child(4)::after {
+        width: 7px;
+        height: 40px;
+        right: -6px
+    }
+    .userLoginSignupwraps .userLoginSignupwrapsrow .loginbtnbx h1 {
+        font-size: 16px;
+    }
+    .popup-content-crypto h4 {
+        font-size: 23px;
+        margin: 0 0 13px;
+    }
+    .payment-method{padding: 0px 0px;margin: 0px;width: 100%;}
+    .popup-content-crypto {padding: 20px 15px 15px;}
+    .CheckoutModalWrapper h4{padding: 0px 20px;}
+    .CheckoutModalWrapper p{padding: 0px 20px;}
+    .checkoutsection{padding-top: 40px !important;padding-bottom: 10px !important;}
+    .checkoutsection .checkoulistwrps{margin-bottom:0px !important;}
+    .checkoutsection .checkoutpaymnt h1 {margin: 0 0 6px !important;}
+    .checkoutsection .checkoutpaymnt h2{margin-bottom: 10px !important;}
+    .checkoutsection .checkoutpaymnt .clickpaymnt{padding: 10px 0px !important;margin-bottom: 10px !important;}
+    .Refer-container{
+        padding: 10px;
+        background-size: cover;
+    }
+    .title{
+        font-size: 24px;
+    }
+    .title .subtitle{
+        width: 105px;
+    }
+    .rewards-box{
+        width: 100%;
+        padding: 7px;
+    }
+    .rewards-box p{
+        font-size: 13px;
+        width: 70%;
+
+    }
+    .new_reward_box p{
+        font-size: 13px;
+        width: 99%;
+
+    }
+    .rewards-box p:nth-child(2)::after {
+    right: 323px;
+    height: 70%;
+    }
+    .Invite_Friend_Btn {
+    padding: 10px;
+    width: 275px;
+
+    }
+    .referral-code-section{
+        padding: 3px;
+        width: 275px;
+
+    }
+    
+    .Button_Conatiner{
+        gap:10px;
+        width:100%;
+    }
+    .description {
+    font-size: 13px;
+    }
+    .refer-and-earn h2{
+        font-size: 24px;
+    }
+    .refer-and-earn h2 span{
+        width: 157px;
+    }
+    .refer-and-earn{
+        padding-left: 0px;
+    }
+    .step p {
+    font-size: 14px;
+    }
+    .step-number{
+        height: 35px;
+        width: 35px;
+        font-size: 14px;
+    }
+    .steps-container .step:not(:last-child):after {
+   margin: 14px auto;
+    }
+    .steps-container {
+     margin-left: 28px;
+    }
+    .for_two{
+        padding: 10px;
+    }
+    .for_two p{
+        margin-bottom: 5px;
+        width: 75%;
+
+    }
+    .Main_Title{
+        font-size: 30px;
+    }
+
+
+}
+@media only screen and (max-width: 600px) { 
+    .modal_close_wrapper {
+        width: 93%;
+    }
+    .card-header-New {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        row-gap: 11px;
+    }
+    .EighteenYearsOldModelWrapper {width: 95% !important;padding: 25px 15px !important;}
+    .EighteenYearsOldModelWrapper img {width: 125px !important;}
+    .EighteenYearsOldModelWrapper h1 {font-size: 30px !important;}
+    .EighteenYearsOldModelWrapper p {font-size: 17px !important;}
+    .btngroupmange {padding: 0px !important;}
+    .playwrapper h1 {font-size: 30px;}
+    .testimonialSections .container, .testimonialSections .col-md-12 {padding: 0px;} 
+    .screenshotswraps {padding: 0px;}
+    .screenshotssection h1 {font-size: 25px;margin-bottom: 35px;}
+    .screenshotssection {padding: 40px 0 10px;}
+    .kiponcasualDatails h4 {font-size: 18px;}
+    .kiponboximagg {width: 70px;height: 70px;padding: 3px;margin-right: 15px;}
+    .myaccountprofilepic {padding: 15px 15px !important;}
+    .acctprofile {width: 90px !important;height: 90px !important;margin-bottom: 15px !important;}
+    .myaccountprofilepic h4 {font-size: 17px !important;}
+    .selectAccountssct {font-size: 18px !important;}
+    .closebtn {top: 7px !important;right: 7px !important;width: 18px !important;height: 18px !important;}
+    .RedeemCreditModalMain {width: 95% !important;}
+    .RedeemCreditModalMain h1 {font-size: 24px !important;}
+    .RedeemCreditModalMain {padding: 19px 19px !important;}
+    .contactussubmit .formcomnbtn {width: 100% !important;padding: 8px 50px !important;}
+    .bookspreviewModal .closePreviewModal {width: 18px !important;height: 18px !important;right: 19px !important;top: 19px !important;}
+    .booksummrysetwrapper h4 {margin-bottom: 20px;font-size: 21px;}
+    .booksummryset p {font-size: 14px;float: left;width: 100%;word-break: break-word;}
+    .checkoutlistwrapper .checkoutlist {flex-direction: column !important;align-items: flex-start !important;}
+    .checkoutlistwrapper .checkoutlist img{margin-bottom: 10px !important;}
+    .footercopyright {font-size: 13px !important;}
+    .Toastify__toast-container {width: 92% !important;top: 15px !important;left: 0 !important;right: 0 !important;margin: 0 auto !important;}
+    .footermailjoin .footemialform .form-group {flex-direction: column; }
+    .footermailjoin .footemialform .form-group input {margin: 0 0 10px;font-size: 15px !important;width: 100%;}
+    .footermailjoin .danger-colorset {margin: 0px 0 10px;}
+    .footermailjoin .footemialform .form-group .btn, .footermailjoin .footemialform .form-group .btn:focus {margin-top: 10px;width: 100%;}
+    .myaccountwrpsheader .headertitle h4 {font-size: 28px;}
+    .myaccountwrps {padding: 12px 12px;}
+    .container.custom_container_new {width: 100%;}
+    .commonheader {padding: 0px 10px;}
+    .checkoulistwrps h2 {font-size: 24px;}
+    .checkoutlistwrapper .checkoutlist h5 {font-size: 22px;}
+    .checkoutlistwrapper .checkoutlist .previewImage img {width: 140px;height: 140px;margin: 0 0 15px 0px;}
+    h1.sectionheaders {font-size: 30px;}
+    .footer_section .col-md-5 .col-6 {width: 100%;}
+    .posterlistwraps .poserrbooksrow .col-md-2.col-sm-4.col-xs-12{width: 100%;}
+    .searchfilterbookswraps {flex-direction: column;}
+    .searchfilterbookswraps select{margin: 10px 0 10px 0;}
+    .searchfilterbookswraps h4{margin: 0px;}
+    .responsiveSidebar {width: 100% !important;}
+    .successpymentwrapper {width: 90% !important;padding: 50px 10px 0 !important;}
+    .powerbysections .container.container_header .row>.col-md-12{padding: 0px!important;}
+    .Refer-container{
+        padding: 10px;
+        background-size: cover;
+    }
+    .title{
+        font-size: 24px;
+    }
+    .title .subtitle{
+        width: 105px;
+    }
+    .rewards-box{
+        width: 100%;
+        padding: 7px;
+    }
+    .rewards-box p{
+        font-size: 13px;
+        width: 77%;
+
+    }
+    .new_reward_box p{
+        font-size: 14px;
+        width: 90%;
+
+    }
+    .rewards-box p:nth-child(2)::after {
+    right: 300px;
+    height: 66%;
+    }
+    .Invite_Friend_Btn {
+    padding: 10px;
+    width: 275px;
+
+    
+    }
+    .referral-code-section{
+        padding: 3px;
+        width: 275px;
+
+    }
+    .Button_Conatiner{
+        gap:10px;
+        width:100%;
+    }
+    .description {
+    font-size: 13px;
+    }
+    .refer-and-earn h2{
+        font-size: 24px;
+    }
+    .refer-and-earn h2 span{
+        width: 157px;
+    }
+    .refer-and-earn{
+        padding-left: 0px;
+    }
+    .step p {
+    font-size: 12px;
+    }
+    .step-number{
+        height: 35px;
+        width: 35px;
+        font-size: 14px;
+    }
+    .steps-container .step:not(:last-child):after {
+   margin: 14px auto;
+    }
+    .steps-container {
+     margin-left: 28px;
+    }
+    .for_two{
+        padding: 10px;
+    }
+    .for_two p{
+        margin-bottom: 5px;
+    }
+    .new_reward_box{
+        width: 95%;
+    }
+    .Main_Title{
+        font-size: 30px;
+    }
+    #GamesGridwrapper .container {
+        margin-top: 30px !important;
+    }
+}
+@media only screen and (max-width: 540px) {
+    .payment_wrapper ul {
+        flex-wrap: wrap;
+    }
+    .ordevidedst span {
+        font-size: 17px !important;
+    }
+    .togglebuttonrespo {
+        height: 22px !important;
+        margin-top: 15px !important;
+        right: 37px !important;
+        top: 37px !important;
+        width: 40px !important;
+    }
+    .banner-content button {
+        width: 100% !important;
+    }
+    .banner-content{
+        padding: 1rem !important;
+        width: 100% !important;
+    }
+    .modal_close_wrapper h4 {
+        font-size: 23px;
+        line-height: 26px;
+    }
+    .btngroupswrapper span {font-size: 10px;padding: 5px;top: 8px;}
+    .package_cols {
+        flex-basis: 92.33% !important;
+    }
+    header.Header_section.Header_after_login .userLoginSignupwraps .userLoginSignupwrapsrow .loginbtnbx {
+        margin-right: 38px;
+    }
+    .NewHeader_wrapper .newheader_columns {
+        width: 50%;
+    }
+    .NewHeader_wrapper .newheader_columns:nth-child(2), .NewHeader_wrapper .newheader_columns:nth-child(3) {
+        margin-bottom: 20px;
+    }
+    .NewHeader_wrapper h3 {
+        position: relative;
+    }
+    .NewHeader_wrapper .NewHeader_wrapper_flex {
+        display: block;
+    }
+    .loginsignuptabs h1 {font-size: 28px;margin: 0 0 20px;}
+    .loginPopupMain {width: 93%;font-size: 28px !important;margin: 0 auto 20px !important;}
+    .testimonialSections {padding: 50px 0 0px;}
+    .testimoniWraps .col-md-4 {border-left: 0;border-right: 0px;}
+    .testimoniWraps .col-md-4:last-child {border-right: 0px;}
+    .reviewRating h1 {font-size: 30px;}
+    .reviewtitle {padding: 0px;}
+    .kiponcasualDatails span {font-size: 14px;}
+    .kiponwrpsbanner div{background-position: 29% !important;}
+    .kiponcasualDataCols {padding: 27px 27px;}
+    .kiponcasualDataCols h1 {font-size: 24px;line-height: 36px;}
+    .kiponcasualDataCols p {line-height: 25px;font-size: 15px;}
+    .landingfixedpage video {height: 290px;}
+    header.Header_section.Header_after_login .userLoginSignupwraps .userLoginSignupwrapsrow {
+        /* justify-content: center; */
+        align-items: center;padding: 0px 10px;}
+    .privacypage.RefundPolicypage {padding: 0px;}
+    .Explorebtn {padding: 15px 20px;font-size: 15px;}
+    .welovworkthemsection {padding: 25px 25px;}
+    .ourstudiosection { margin-bottom: 0px;}
+    .ourstudiosoffiwraps .col-md-6 {padding: 0px;}
+    .ourstudiodata h4 {font-size: 16px;margin: 0 0 13px;}
+    .ourstudiodata h1 {font-size: 26px;}
+    .meetfounderssection {margin-bottom: 0px;}
+    .meetfoundercolswrps .meetfoundercols {margin-bottom: 35px;}
+    .meetfounderssectionsww {padding: 30px 5px 30px;}
+    .meetfounderssectionsww h4 {margin: 0 0 35px;}
+    .meetfounderssection .col-md-12, .meetfounderssection .container {padding: 0px;}
+    .whtweareaboutcols {text-align: center;padding: 25px 20px;}
+    .aboutgamessection h1, .whtweareaboutsection h1, .meetfounderssectionsww h4 {font-size: 26px;}
+    .sidebarcommon h2 svg {width: 20px !important;height: 20px !important;}
+    .termscondtaceptsection .form-group-checkbox input:checked + label:after {top: 1px;}
+    .prvidethiswhytoggleinfo {float: left;width: 100%;}
+    .form-group-checkbox {font-size: 14px;}
+    .prvidethiswhytoggleinfo div {font-size: 15px;}
+    .prvidethiswhy img {width: 120px;height: 120px;}
+    .paymentformsWraps.signupfields {width: 100% !important;padding: 17px 17px !important;}
+    .userLoginSignupwraps .userLoginSignupwrapsrow.userLoginSignupwrapsrowcenter .loginbtnbx {width: 100px;}
+    .copyright {padding: 15px 0px 15px !important;font-size: 13px !important;}
+    .contadetails img {width: 90px !important;height: 90px !important;}
+    .contadetails h4 {font-size: 16px !important;}
+    .footprofilecol {width: 70% !important;}
+    .footsocialcol {width: 30% !important;}
+    .contactlinks h4 {font-size: 16px !important;}
+    .contactlinks ul li {font-size: 14px !important;}
+    .powerbysections p {width: 100% !important;font-size: 16px !important;}
+    .powerbysections h3 {font-size: 15px !important;line-height: 27px !important;}
+    .powerbysections {padding: 37px 0px 0px !important;}
+    .powerbysections.powerbysectionsfooter {padding: 25px 15px 25px !important;}
+    .gamesonlinewrps {margin: 0;}
+    .gamesonlinewrps .imageONvideo {position: relative;bottom: 0;left: 0;right: 0;margin: 0 auto;float: none;width: 150px;}
+    .gamesonlinewrps iframe {height: 260px;}
+    .signcmnbtn, .signcmnbtn:focus {padding: 10px 10px;font-size: 13px;}
+    .btngroupswrapper {max-width: 250px;margin: 10px auto 10px!important;width: auto;}
+    .powerbysections h5 {margin: 0 0 12px;}
+    .powerbysections h1 {font-size: 30px;}
+    .GamesGridwrapper .col-md-12 {padding: 0px;}
+    .GamesGridwrapper {padding: 20px 0;}
+    .gamelistwraps {border-radius: 24px !important;margin-bottom: 15px;width: 100% !important;height: 170px !important;}
+    .gamelistwraps h4 {font-size: 18px;left: 20px;bottom: 0px; padding-bottom: 14px;}
+    .togglebuttonrespo {top: 37px !important;right: 37px !important;width: 40px !important;height: 22px !important;margin-top: 15px !important;}
+    .userLoginSignupwraps .userLoginSignupwrapsrow .loginbtnbx a {font-size: 12px;}
+    .userLoginSignupwraps .userLoginSignupwrapsrow .loginbtnbx img {width: 68px;height: 60px;}
+    .userLoginSignupwraps.userLoginSignupwrapswraps p {font-size: 12px;}
+    .logogheader .logohere img {width: 75px !important;height: 75px !important;}
+    .userLoginSignupwraps .userLoginSignupwrapsrow {align-items: center;}
+    .userLoginSignupwrapsrowRelative .loginbtnbx:first-child {left: auto;}
+    .userLoginSignupwrapsrowRelative .loginbtnbx:last-child {right: auto;}
+    .userLoginSignupwraps .userLoginSignupwrapsrow .loginbtnbx span {font-size: 11px;}
+    .userLoginSignupwraps .userLoginSignupwrapsrow .loginbtnbx h1 {font-size: 20px;}
+    .Purchasebtn, .Purchasebtn:focus {font-size: 10px;}
+    .commonheader h4 {margin: 55px 0px 0px;}
+    .digitalposterssliders {padding: 60px 0px 60px;}
+    .logo_main_wrapper {display: block;}
+    .logo_main_wrapper .NewHeader_wrapper_flex:last-child {padding: 10px 0 13px;}
+    .cancelmodal, .cancelmodal:focus {padding: 7px 25px;}
+    .discardmodal, .discardmodal:focus {padding: 7px 25px;}
+    .paymentssteps {column-gap: 0px !important;}
+    .myaccountwrpsheader .poserrbooksrow .posterblogswrp {flex-direction: column;}
+    .myaccountwrpsheader .poserrbooksrow .posterblogswrp .previewImage, .myaccountwrpsheader .poserrbooksrow .posterblogswrp img {width: 100%;height: auto;}
+    .checkoutsection{padding-top: 30px !important;}
+    .Refer-container{
+        padding: 10px;
+        background-size: cover;
+    }
+    .title{
+        font-size: 24px;
+    }
+    .title .subtitle{
+        width: 105px;
+    }
+    .rewards-box{
+        width: 100%;
+        padding: 7px;
+    }
+    .rewards-box p{
+        font-size: 13px;
+        width: 94%;
+    }
+    .new_reward_box{
+        width: 95%;
+    }
+    .new_reward_box p{
+        font-size: 13px;
+        width: 100%;
+
+    }
+    .rewards-box p:nth-child(2)::after {    
+    right: 257px;
+    height: 66%;
+    }
+    .Invite_Friend_Btn {
+    padding: 10px;
+    width: 225px;
+    }
+    .referral-code-section{
+        padding: 3px;
+        width: 225px;
+
+    }
+    .Button_Conatiner{
+        gap:10px;
+        width:100%;
+    }
+    .description {
+    font-size: 13px;
+    }
+    .refer-and-earn h2{
+        font-size: 24px;
+    }
+    .refer-and-earn h2 span{
+        width: 157px;
+    }
+    .refer-and-earn{
+        padding-left: 0px;
+    }
+    .step p {
+    font-size: 12px;
+    }
+    .step-number{
+        height: 35px;
+        width: 35px;
+        font-size: 14px;
+    }
+    .steps-container .step:not(:last-child):after {
+   margin: 14px auto;
+    }
+    .steps-container {
+     margin-left: 28px;
+    }
+    .for_two{
+        padding: 10px;
+    }
+    .for_two p{
+        margin-bottom: 5px;
+    }
+    .Main_Title{
+        font-size: 28px;
+    }
+}
+@media only screen and (max-width: 500px) {
+    .payment_wrapper {
+        width: 100%;
+    }
+    .payment_method_wrapper {
+        padding: 20px 0px;
+    }
+    .statusPendingModel h1 {
+        font-size: 18px;
+        line-height: 26px;
+        margin-bottom: 16px;
+    }
+    .statusPendingModel {
+        width: 93%;    
+        top: 5%;
+    }
+    .Error_message_wraps {
+        padding: 30px 15px !important;
+    }
+    .testimoniWraps .col-md-4 {padding: 50px 25px !important;}
+    .redeemcreditform input {    font-size: 14px;}
+    .redeemcreditform{width: 100% !important;}
+    .videoModalwrapper .videoplayer iframe {height: 275px !important;}
+    .powerbysections h5 {font-size: 16px !important;}
+    .powerbysections h1 {font-size: 25px !important;}
+    .PurchesPostersction .purchesswraps .col-6 {padding: 0px !important;}
+    .commonheader h1 {font-size: 28px;line-height: 41px !important;}
+    .commonheader h4 {font-size: 36px !important;}
+    .clickpaymnt, .clickpaymnt:focus {font-size: 15px !important;}
+    .paymentforms .rowcustom:last-child {margin-bottom: 20px !important;}
+    .rowcustom {margin-bottom: 10px !important;}
+    .react-datepicker__month .react-datepicker__month-text, .react-datepicker__month .react-datepicker__quarter-text {width: 30.33% !important;}
+    .dropdowncustome .amountdetailsdropdown {width: 96%;position: fixed;left: 0;right: 0;float: none;margin: 0 auto;top: 50px;}
+    .digitalposterssliders {padding: 36px 0px 0px !important;}
+    .rowcustom-col-2 {flex-direction: column !important;}
+    .rowcustom.rowcustom-col-2 .form-group:first-child {margin-bottom: 10px !important;}
+    .purchesBundleGroups {width: 331px !important;}
+    .singlepostersection.PosterBundleswraper .purchesBundletypes .Purchasebtnbig {width: 100%;font-size: 11px;padding: 12px 4px;}
+    .purchesswraps .col-md-6 {padding: 0px;}
+    .succesiocn {width: 80px !important;height: 80px !important;top: -30px !important;}
+    .successpymentbutns .btn {padding: 11px 7px !important;font-size: 13px !important;border-radius: 8px !important;}
+    .successpymentbutns {padding: 18px 0px 18px !important;column-gap: 9px !important;}
+    .successpymentwrapper h4 {font-size: 20px !important;margin: 10px 0 10px !important;}
+    .successpymentwrapper p {float: left;width: 100% !important;font-size: 13px !important;line-height: 24px !important; margin: 0px auto 10px !important;}
+    .tarnsitionId {font-size: 12px;}
+    .loginPopupMain {width: 90% !important;}
+    .loginsignuptabs h1 {font-size: 38px !important;margin: 0 0 10px !important;}
+    .loginsignuptabs h4 {font-size: 16px !important;margin: 0 0 15px !important;}
+    .loginwitemilformwrps .form-group {margin: 0 0 15px !important;}
+    .forgotpassword {margin: 0 0 20px;font-size: 14px;}
+    .loginbtn, .loginbtn:hover, .loginbtn:focus {padding: 8px 19px;}
+    .ordevidedstmrgin {margin: 10px 0 10px !important;}
+    .userLoginSignupwraps .userLoginSignupwrapsrow .loginbtnbx h1.accountlogin{width: calc(100% - 20px);}
+    .userLoginSignupwrapsrow .dropdown{width: 100% !important;}
+    .sweepscoinbtn {padding: 7px 16px !important;font-size: 17px !important;}
+    .checkoutsection .checkoutpaymnt h2, .checkoulistwrps h2{font-size: 20px !important;}
+
+    .Refer-container{
+        padding: 10px;
+        background-size: cover;
+    }
+    .title{
+        font-size: 21px;
+    }
+    .title .subtitle{
+        width: 105px;
+    }
+    .rewards-box{
+        width: 100%;
+        padding: 7px;
+    }
+    .rewards-box p{
+        font-size: 13px;
+        width: 94%;
+
+    }
+    .new_reward_box p{
+        font-size: 12px;
+        width: 100%;
+
+    }
+    .rewards-box p:nth-child(2)::after {
+    right: 242px;
+    height: 66%;
+    }
+    .new_reward_box{
+        width: 95%;
+    }
+    .Invite_Friend_Btn {
+    padding: 10px;
+    width: 200px;
+    }
+    .referral-code-section{
+        padding: 3px;
+        width: 200px;
+    }
+    .Button_Conatiner{
+        gap:10px;
+        width:100%;
+        
+    }
+    .description {
+    font-size: 13px;
+    }
+    .refer-and-earn h2{
+        font-size: 23px;
+    }
+    .refer-and-earn h2 span{
+        width: 146px;
+    }
+    .refer-and-earn{
+        padding-left: 0px;
+    }
+    .step p {
+    font-size: 12px;
+    }
+    .step-number{
+        height: 35px;
+        width: 35px;
+        font-size: 14px;
+    }
+    .steps-container .step:not(:last-child):after {
+   margin: 14px auto;
+    }
+    .steps-container {
+     margin-left: 28px;
+    }
+    .for_two{
+        padding: 10px;
+    }
+    .for_two p{
+        margin-bottom: 5px;
+        width: 98%;
+
+    }
+    .Main_Title{
+        font-size: 28px;
+    }
+}
+@media only screen and (max-width: 440px) {
+    .payment_wrapper ul {
+        flex-direction: column;
+    }
+    .banner h1 {font-size: 47px !important;}
+    .googlfacebookwrapper a {margin: 0 5px;}
+    .googlfacebookwrapper a img {width: 120px;height: 40px;}
+    .landingfixedpage video {height: 223px;}
+    .chosseCustomNumber .formgroup {width: 100%;}
+    .gamesonlinewrps iframe {height: 200px;}
+    .card-header-right {display: flex;}
+    .card-header-right select {width: 50%!important;}
+    .card-header-right, .searchBoxwithbtn {width: 100% !important;}
+    .successpymentwrapper_transaction .close_icons, .modal_close_wrapper .close_icons {
+        width: 23px;
+        right: -6px;
+        top: -8px;
+    }
+    .payment_wrapper li img {
+        width: 56px;
+        height: 40px;
+    }
+    .payment_wrapper li {
+        padding: 25px 17px;
+    }
+    .payment_wrapper ul {
+        column-gap: 15px;
+    }
+    .Refer-container{
+        padding: 10px;
+        background-size: cover;
+    }
+    .title{
+        font-size: 19px;
+    }
+    .title .subtitle{
+        width: 90px;
+    }
+    .rewards-box{
+        width: 100%;
+        padding: 7px;
+    }
+    .rewards-box p{
+        font-size: 11px;
+        width: 93%;
+
+    }
+    .new_reward_box p{
+        font-size: 10px;
+        width: 100%;
+
+    }
+    .rewards-box p:nth-child(2)::after {
+    right: 210px;
+    height: 66%;
+    }
+    .Invite_Friend_Btn {
+    padding: 10px;
+    width: 175px;
+
+    }
+    .referral-code-section{
+        padding: 3px;
+        width: 175px;
+
+    }
+    .new_reward_box{
+        width: 95%;
+    }
+    .Button_Conatiner{
+        gap:10px;
+        width:100%;
+    }
+    .description {
+    font-size: 13px;
+    }
+    .refer-and-earn h2{
+        font-size: 23px;
+    }
+    .refer-and-earn h2 span{
+        width: 146px;
+    }
+    .refer-and-earn{
+        padding-left: 0px;
+    }
+    .step p {
+    font-size: 12px;
+    }
+    .step-number{
+        height: 30px;
+        width: 30px;
+        font-size: 14px;
+    }
+    .steps-container .step:not(:last-child):after {
+   margin: 14px auto;
+    }
+    .steps-container {
+     margin-left: 19px;
+    }
+    .for_two{
+        padding: 10px;
+    }
+    .for_two p{
+        margin-bottom: 5px;
+        width: 98%;
+
+    }
+    .Main_Title{
+        font-size: 24px;
+    }
+}
+@media only screen and (max-width: 400px) {
+    header.Header_section.Header_after_login .userLoginSignupwraps .userLoginSignupwrapsrow .loginbtnbx {margin-right: 0px !important;    width: calc(100% - 105px) !important;}
+    header.Header_section.Header_after_login .userLoginSignupwraps .userLoginSignupwrapsrow{padding-left: 0px;}
+    /* .togglebuttonrespo {top: 69px;} */
+    /* .userLoginSignupwrapsrow .dropdown {width: 190px;} */
+    .userLoginSignupwraps .userLoginSignupwrapsrow .loginbtnbx h1.accountlogin {width: calc(100% - 20px);}
+    .videoModalwrapper .videoplayer iframe {height: 230px;}
+    .userLoginSignupwraps .userLoginSignupwrapsrow .loginbtnbx h1 {font-size: 16px;}
+    .userLoginSignupwraps .userLoginSignupwrapsrow .loginbtnbx span {font-size: 10px;}
+    .purchesBundleGroups {width: 100% !important;}
+    .powerbysections h3 {font-size: 15px !important;}
+    .togglebuttonrespo{
+        top: 34px !important;
+        right: 34px !important;
+    }
+    .Refer-container{
+        padding: 10px !important;
+        background-size: cover !important;
+    }
+    .title{
+        font-size: 18px !important;
+    }
+    .title .subtitle{
+        width: 75px !important;
+    }
+    .rewards-box{
+        width: 100% !important;
+        padding: 7px !important;
+    }
+    .rewards-box p{
+        font-size: 9px !important;
+        width: 90% !important;
+
+    }
+    .new_reward_box p{
+        font-size: 9px !important;
+        width: 100% !important;
+
+    }
+    .rewards-box p:nth-child(2)::after {
+    right: 177px;
+    height: 60%;
+    }
+    .Invite_Friend_Btn {
+    padding: 10px;
+    width: 155px;
+
+    }
+    .new_reward_box{
+        width: 100%;
+    }
+    .referral-code-section{
+        padding: 3px;
+        width: 155px;
+
+    }
+    .Button_Conatiner{
+        gap:10px;
+        width:100%;
+    }
+    .description {
+    font-size: 13px;
+    }
+    .refer-and-earn h2{
+        font-size: 23px;
+    }
+    .refer-and-earn h2 span{
+        width: 146px;
+    }
+    .refer-and-earn{
+        padding-left: 0px;
+    }
+    .step p {
+    font-size: 12px;
+    }
+    .step-number{
+        height: 30px;
+        width: 30px;
+        font-size: 14px;
+    }
+    .steps-container .step:not(:last-child):after {
+   margin: 14px auto;
+    }
+    .steps-container {
+     margin-left: 19px;
+    }
+    .for_two{
+        padding: 10px;
+    }
+    .for_two p{
+        margin-bottom: 5px;
+    }
+    .Main_Title{
+        font-size: 22px;
+    }
+
+}

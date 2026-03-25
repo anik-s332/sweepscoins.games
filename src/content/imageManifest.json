@@ -1,0 +1,46 @@
+{
+  "shared": {
+    "logo": "/content/shared/logo.webp",
+    "nowifi": "/content/shared/nowifi.png"
+  },
+  "common": {
+    "successIcon": "/content/common/success.svg",
+    "errorIcon": "/content/common/error.svg",
+    "defaultProduct": "/content/common/default-product.jpg",
+    "closeButton": "/content/common/close-button.png",
+    "closeX": "/content/common/close-x.png",
+    "alarmClock": "/content/common/alarm-clock.png",
+    "caretDown": "/content/common/caret-down.svg",
+    "ageGateLogo": "/content/common/age-gate-logo.webp"
+  },
+  "home": {
+    "successAnimation": "/content/home/success.gif",
+    "bannerGuy": "/content/home/banner-guy.svg",
+    "dragon": "/content/home/dragon.svg",
+    "mobileGuy": "/content/home/mobile-guy.svg",
+    "mobileDragon": "/content/home/mobile-dragon.svg"
+  },
+  "account": {
+    "defaultProfile": "/content/account/default-profile.png",
+    "profileLoader": "/content/account/profile-loader.svg",
+    "cashPayment": "/content/account/cash-payment.png"
+  },
+  "auth": {
+    "facebook": "/content/auth/facebook.png",
+    "google": "/content/auth/google.png",
+    "info": "/content/auth/info.png",
+    "sweepsGames": "/content/auth/sweeps-games.webp",
+    "infoIcon": "/content/auth/info.png"
+  },
+  "checkout": {
+    "secure": "/content/checkout/secure.webp",
+    "rightArrow": "/content/checkout/right-arrow.svg",
+    "debitCard": "/content/checkout/debit-card.png",
+    "crypto": "/content/checkout/crypto.png",
+    "tierlockLogo": "/content/checkout/tierlock-logo.png"
+  },
+  "locate": {
+    "closeMark": "/content/locate/close-mark.png",
+    "checkMark": "/content/locate/check-mark.png"
+  }
+}

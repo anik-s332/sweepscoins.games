@@ -1,0 +1,52 @@
+
+> sweepscoins.games@4.1.1 dev
+> next dev
+
+   ▲ Next.js 15.5.14
+   - Local:        http://localhost:3000
+   - Network:      http://10.119.12.136:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 4.6s
+ ○ Compiling /[[...slug]] ...
+ ✓ Compiled /[[...slug]] in 17.9s (1402 modules)
+ GET /home 200 in 12008ms
+ GET / 200 in 18630ms
+ GET /.well-known/appspecific/com.chrome.devtools.json 200 in 254ms
+ GET /[object%20Object] 200 in 279ms
+ GET /checkout-package/06f958ef-0709-416b-8385-2c546bffa52c 200 in 263ms
+ GET /checkout-package/[object%20Object] 200 in 264ms
+ GET /[object%20Object] 200 in 269ms
+ GET /.well-known/appspecific/com.chrome.devtools.json 200 in 239ms
+ GET /home 200 in 263ms
+ GET /.well-known/appspecific/com.chrome.devtools.json 200 in 261ms
+ GET /[object%20Object] 200 in 276ms
+ GET /checkout-package/06f958ef-0709-416b-8385-2c546bffa52c 200 in 251ms
+ GET /.well-known/appspecific/com.chrome.devtools.json 200 in 254ms
+ GET /checkout-package/[object%20Object] 200 in 274ms
+ GET /[object%20Object] 200 in 248ms
+ GET /[object%20Object] 200 in 269ms
+ ✓ Compiled in 2.1s (1404 modules)
+ ✓ Compiled in 1666ms (1418 modules)
+ ✓ Compiled in 5.5s (1412 modules)
+ ✓ Compiled in 5s (1402 modules)
+ GET /my-account 200 in 748ms
+ GET /.well-known/appspecific/com.chrome.devtools.json 200 in 259ms
+ ✓ Compiled in 5.7s (1382 modules)
+ ✓ Compiled in 925ms (1382 modules)
+ ✓ Compiled in 956ms (1382 modules)
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 2.6s (1491 modules)
+ GET /my-account 500 in 11230ms
+ GET /my-account 500 in 186ms
+ GET /_next/static/chunks/_pages-dir-browser_src_App_tsx.js 500 in 11087ms
+ GET /_next/static/chunks/_pages-dir-browser_src_App_tsx.js 500 in 186ms
+ GET /.well-known/appspecific/com.chrome.devtools.json 500 in 218ms
+ GET /.well-known/appspecific/com.chrome.devtools.json 500 in 116ms
+ GET /favicon.ico 500 in 90ms
+ GET / 500 in 372ms
+ GET / 500 in 188ms
+ GET /.well-known/appspecific/com.chrome.devtools.json 500 in 481ms
+ GET /.well-known/appspecific/com.chrome.devtools.json 500 in 166ms
+ GET /favicon.ico 500 in 147ms

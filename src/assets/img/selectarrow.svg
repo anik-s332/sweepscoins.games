@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <g id="arrow" transform="translate(-640 -881)">
+    <circle id="Ellipse_516" data-name="Ellipse 516" cx="8" cy="8" r="8" transform="translate(640 881)" fill="#e8e8e8"/>
+    <path id="Icon_ionic-ios-arrow-down" data-name="Icon ionic-ios-arrow-down" d="M9.491,13.776l2.5-2.4a.484.484,0,0,1,.667,0,.443.443,0,0,1,0,.641L9.825,14.736a.486.486,0,0,1-.651.013L6.325,12.022a.442.442,0,0,1,0-.641.484.484,0,0,1,.667,0Z" transform="translate(638.51 875.943)"/>
+  </g>
+</svg>

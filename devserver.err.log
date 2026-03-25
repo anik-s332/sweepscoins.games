@@ -1,0 +1,202 @@
+ ⨯ ./src/App.tsx
+Error:   [31mx[0m Expected ';', '}' or <eof>
+   ,-[[36;1;4mE:\Aniket\nextjs\sweepscoins.games\src\App.tsx[0m:3:1]
+ [2m1[0m | // @ts-nocheck
+ [2m2[0m | /* eslint-disable */
+ [2m3[0m | import axios from 'axios';`r`nimport AppImage from "./components/Common/AppImage";`r`nimport { images } from "@/content";
+   : [35;1m                          ^|^[0m[33;1m^^^^^^^[0m
+   :                            [35;1m`-- [35;1mThis is the expression part of an expression statement[0m[0m
+ [2m4[0m | import React, { useEffect, useState } from 'react';
+ [2m5[0m | import { Accordion, Image } from 'react-bootstrap';
+ [2m5[0m | import { useDispatch, useSelector } from 'react-redux';
+   `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/App.tsx
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⨯ [Error: ENOENT: no such file or directory, open 'E:\Aniket\nextjs\sweepscoins.games\.next-runtime\server\pages\_document.js'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'E:\\Aniket\\nextjs\\sweepscoins.games\\.next-runtime\\server\\pages\\_document.js'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'E:\Aniket\nextjs\sweepscoins.games\.next-runtime\server\pages\_document.js'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'E:\\Aniket\\nextjs\\sweepscoins.games\\.next-runtime\\server\\pages\\_document.js'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'E:\Aniket\nextjs\sweepscoins.games\.next-runtime\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'E:\\Aniket\\nextjs\\sweepscoins.games\\.next-runtime\\routes-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'E:\Aniket\nextjs\sweepscoins.games\.next-runtime\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'E:\\Aniket\\nextjs\\sweepscoins.games\\.next-runtime\\routes-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'E:\Aniket\nextjs\sweepscoins.games\.next-runtime\server\pages\_document.js'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'E:\\Aniket\\nextjs\\sweepscoins.games\\.next-runtime\\server\\pages\\_document.js'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'E:\Aniket\nextjs\sweepscoins.games\.next-runtime\server\pages\_document.js'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'E:\\Aniket\\nextjs\\sweepscoins.games\\.next-runtime\\server\\pages\\_document.js'
+}
+[Error: ENOENT: no such file or directory, open 'E:\Aniket\nextjs\sweepscoins.games\.next-runtime\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'E:\\Aniket\\nextjs\\sweepscoins.games\\.next-runtime\\routes-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'E:\Aniket\nextjs\sweepscoins.games\.next-runtime\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'E:\\Aniket\\nextjs\\sweepscoins.games\\.next-runtime\\routes-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'E:\Aniket\nextjs\sweepscoins.games\.next-runtime\server\pages\_document.js'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'E:\\Aniket\\nextjs\\sweepscoins.games\\.next-runtime\\server\\pages\\_document.js'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'E:\Aniket\nextjs\sweepscoins.games\.next-runtime\server\pages\_document.js'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'E:\\Aniket\\nextjs\\sweepscoins.games\\.next-runtime\\server\\pages\\_document.js'
+}
+[Error: ENOENT: no such file or directory, open 'E:\Aniket\nextjs\sweepscoins.games\.next-runtime\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'E:\\Aniket\\nextjs\\sweepscoins.games\\.next-runtime\\routes-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'E:\Aniket\nextjs\sweepscoins.games\.next-runtime\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'E:\\Aniket\\nextjs\\sweepscoins.games\\.next-runtime\\routes-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'E:\Aniket\nextjs\sweepscoins.games\.next-runtime\server\pages\_document.js'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'E:\\Aniket\\nextjs\\sweepscoins.games\\.next-runtime\\server\\pages\\_document.js',
+  page: '/.well-known/appspecific/com.chrome.devtools.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'E:\Aniket\nextjs\sweepscoins.games\.next-runtime\server\pages\_document.js'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'E:\\Aniket\\nextjs\\sweepscoins.games\\.next-runtime\\server\\pages\\_document.js'
+}
+[Error: ENOENT: no such file or directory, open 'E:\Aniket\nextjs\sweepscoins.games\.next-runtime\server\pages\_document.js'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'E:\\Aniket\\nextjs\\sweepscoins.games\\.next-runtime\\server\\pages\\_document.js',
+  page: '/.well-known/appspecific/com.chrome.devtools.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'E:\Aniket\nextjs\sweepscoins.games\.next-runtime\server\pages\_document.js'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'E:\\Aniket\\nextjs\\sweepscoins.games\\.next-runtime\\server\\pages\\_document.js'
+}
+[Error: ENOENT: no such file or directory, open 'E:\Aniket\nextjs\sweepscoins.games\.next-runtime\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'E:\\Aniket\\nextjs\\sweepscoins.games\\.next-runtime\\routes-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'E:\Aniket\nextjs\sweepscoins.games\.next-runtime\server\pages\_document.js'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'E:\\Aniket\\nextjs\\sweepscoins.games\\.next-runtime\\server\\pages\\_document.js',
+  page: '/favicon.ico'
+}
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'E:\Aniket\nextjs\sweepscoins.games\.next-runtime\cache\webpack\client-development-fallback\0.pack.gz_' -> 'E:\Aniket\nextjs\sweepscoins.games\.next-runtime\cache\webpack\client-development-fallback\0.pack.gz'
+ ⨯ [Error: ENOENT: no such file or directory, open 'E:\Aniket\nextjs\sweepscoins.games\.next-runtime\server\pages\_document.js'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'E:\\Aniket\\nextjs\\sweepscoins.games\\.next-runtime\\server\\pages\\_document.js',
+  page: '/'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'E:\Aniket\nextjs\sweepscoins.games\.next-runtime\server\pages\_document.js'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'E:\\Aniket\\nextjs\\sweepscoins.games\\.next-runtime\\server\\pages\\_document.js'
+}
+[Error: ENOENT: no such file or directory, open 'E:\Aniket\nextjs\sweepscoins.games\.next-runtime\server\pages\_document.js'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'E:\\Aniket\\nextjs\\sweepscoins.games\\.next-runtime\\server\\pages\\_document.js',
+  page: '/'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'E:\Aniket\nextjs\sweepscoins.games\.next-runtime\server\pages\_document.js'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'E:\\Aniket\\nextjs\\sweepscoins.games\\.next-runtime\\server\\pages\\_document.js'
+}
+[Error: ENOENT: no such file or directory, open 'E:\Aniket\nextjs\sweepscoins.games\.next-runtime\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'E:\\Aniket\\nextjs\\sweepscoins.games\\.next-runtime\\routes-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'E:\Aniket\nextjs\sweepscoins.games\.next-runtime\server\pages\_document.js'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'E:\\Aniket\\nextjs\\sweepscoins.games\\.next-runtime\\server\\pages\\_document.js',
+  page: '/.well-known/appspecific/com.chrome.devtools.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'E:\Aniket\nextjs\sweepscoins.games\.next-runtime\server\pages\_document.js'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'E:\\Aniket\\nextjs\\sweepscoins.games\\.next-runtime\\server\\pages\\_document.js'
+}
+[Error: ENOENT: no such file or directory, open 'E:\Aniket\nextjs\sweepscoins.games\.next-runtime\server\pages\_document.js'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'E:\\Aniket\\nextjs\\sweepscoins.games\\.next-runtime\\server\\pages\\_document.js',
+  page: '/.well-known/appspecific/com.chrome.devtools.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'E:\Aniket\nextjs\sweepscoins.games\.next-runtime\server\pages\_document.js'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'E:\\Aniket\\nextjs\\sweepscoins.games\\.next-runtime\\server\\pages\\_document.js'
+}
+[Error: ENOENT: no such file or directory, open 'E:\Aniket\nextjs\sweepscoins.games\.next-runtime\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'E:\\Aniket\\nextjs\\sweepscoins.games\\.next-runtime\\routes-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'E:\Aniket\nextjs\sweepscoins.games\.next-runtime\server\pages\_document.js'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'E:\\Aniket\\nextjs\\sweepscoins.games\\.next-runtime\\server\\pages\\_document.js',
+  page: '/favicon.ico'
+}
