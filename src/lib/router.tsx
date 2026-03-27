@@ -7,7 +7,7 @@ import React, {
   useMemo,
 } from "react";
 import NextLink from "next/link";
-import { useRouter } from "next/router";
+import Router from "next/router";
 import type { UrlObject } from "url";
 
 type NavigationOptions = {
@@ -225,23 +225,24 @@ export const Link = ({
 };
 
 export const useNavigate = () => {
-  const router = useRouter();
-
   return (to: ToValue, options: NavigationOptions = {}) => {
     storeNavigationState(to, options.state);
 
     if (options.replace) {
-      router.replace(to);
+      Router.replace(to);
       return;
     }
 
-    router.push(to);
+    Router.push(to);
   };
 };
 
 export const useLocation = (): LocationShape => {
-  const router = useRouter();
-  const asPath = router.asPath || "/";
+  const asPath =
+    Router.asPath ||
+    (typeof window !== "undefined"
+      ? `${window.location.pathname}${window.location.search}${window.location.hash}`
+      : "/");
   const [pathname, search = ""] = asPath.split("?");
 
   return {

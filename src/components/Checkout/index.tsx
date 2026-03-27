@@ -1,7 +1,6 @@
 // @ts-nocheck
 /* eslint-disable */
 import { useEffect, useState } from "react";
-import Head from "next/head";
 import { Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from '@/lib/router';
@@ -33,16 +32,6 @@ const Checkout = (props) => {
             CheckoutPaymentModal()
         }
     },[order_id == selectedPosters?.id])
-
-    useEffect(() => {
-        if (!order_id && selectedPosters?.id) {
-            navigate(`${CHECK_OUT_PACKAGE}/${selectedPosters?.id}`, {
-                replace: true,
-                state: selectedPosters,
-            });
-        }
-    }, [navigate, order_id, selectedPosters]);
-
     const CheckoutPaymentModal = () => {
         if(accessToken === "" && is_login === "no") {
             setLoginSigupUp(true);
@@ -58,18 +47,6 @@ const Checkout = (props) => {
             navigate(`${CHECK_OUT_PACKAGE}/${selectedPosters?.id}`, {state: selectedPosters})
         }
     };
-
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.NEXT_PUBLIC_SITE === "STAGING" ? "https://scc.appristine.in" : "https://www.sweepscoins.cash");
-    const packageImage = selectedPosters?.package_image_path
-        ? (selectedPosters?.package_image_path?.startsWith("http") ? selectedPosters?.package_image_path : `${siteUrl}${selectedPosters?.package_image_path}`)
-        : `${siteUrl}/sweepcoinscash-01.png`;
-    const packageTitle = selectedPosters?.name
-        ? `${selectedPosters?.name} Checkout | $${Number(selectedPosters?.price || 0).toLocaleString()} | Sweeps Coins`
-        : checkoutContent.pageTitle;
-    const packageDescription = selectedPosters?.name
-        ? `Buy ${selectedPosters?.name} for $${Number(selectedPosters?.price || 0).toLocaleString()} on Sweeps Coins.${selectedPosters?.sweep_coins ? ` Includes ${Number(selectedPosters?.sweep_coins).toLocaleString()} credits.` : ""}`
-        : checkoutContent.summaryTitle;
-    const canonicalCheckoutUrl = selectedPosters?.id ? `${siteUrl}${CHECK_OUT_PACKAGE}/${selectedPosters?.id}` : `${siteUrl}${CHECK_OUT_PACKAGE}`;
 
     const PaymentDetails = (props) =>{
         return(
@@ -116,19 +93,6 @@ const Checkout = (props) => {
     }
 
     return(
-        <>
-        <Head>
-            <title>{packageTitle}</title>
-            <meta name="description" content={packageDescription} />
-            <meta property="og:title" content={packageTitle} />
-            <meta property="og:description" content={packageDescription} />
-            <meta property="og:image" content={packageImage} />
-            <meta property="og:url" content={canonicalCheckoutUrl} />
-            <meta name="twitter:title" content={packageTitle} />
-            <meta name="twitter:description" content={packageDescription} />
-            <meta name="twitter:image" content={packageImage} />
-            <link rel="canonical" href={canonicalCheckoutUrl} />
-        </Head>
         <section className="checkoutsection">
             <PaymentDetails>
                 <div className="col-md-6">
@@ -153,8 +117,7 @@ const Checkout = (props) => {
         {checkoutPoup?.open && (<CheckoutModal modalState={false} selectedProduct={selectedPosters} SuccessPopup={SuccessPopup} setSuccessPopup={setSuccessPopup} checkoutPoup={checkoutPoup} setCheckoutPoup={setCheckoutPoup}  />)}
         {SuccessPopup?.open && (<SuccessModal SuccessPopup={SuccessPopup} setSuccessPopup={setSuccessPopup} />)}
         {(checkoutPoup?.open || SuccessPopup?.open) && (<div className="ModalBackground"></div>)}
-    </section>
-    </>)
+    </section>)
 };
 
 export default Checkout;

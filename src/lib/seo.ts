@@ -3,7 +3,6 @@ import siteContent from "@/content/siteContent.json";
 export type SeoEntry = {
   title: string;
   description: string;
-  image?: string;
 };
 
 const DEFAULT_SEO: SeoEntry = {
@@ -32,4 +31,17 @@ export const getSeoForPath = (pathname: string): SeoEntry => {
   }
 
   return SEO_MAP[pathname] || DEFAULT_SEO;
+};
+
+
+// ✅ NEW: DYNAMIC PACKAGE SEO
+export const getDynamicPackageSeo = (pkg: any): SeoEntry => {
+  if (!pkg) return DEFAULT_SEO;
+
+  return {
+    title: `${pkg.name} | Buy Now`,
+    description:
+      pkg.description ||
+      `Buy ${pkg.name} for $${pkg.price} with secure checkout.`,
+  };
 };
