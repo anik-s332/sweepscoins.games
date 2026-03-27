@@ -1,0 +1,18 @@
+
+> sweepscoins.games@4.1.1 dev
+> next dev
+
+   ▲ Next.js 15.5.14
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.10.123:3000
+   - Environments: .env
+
+ ✓ Starting...
+ ✓ Ready in 6.5s
+ ○ Compiling /[[...slug]] ...
+ ✓ Compiled /[[...slug]] in 25.2s (1388 modules)
+ GET /home 200 in 26091ms
+ GET /checkout-package 200 in 26125ms
+ GET /checkout-package 200 in 278ms
+ GET /.well-known/appspecific/com.chrome.devtools.json 200 in 322ms
+[?25h

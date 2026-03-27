@@ -11354,3 +11354,13 @@ column-gap: 15px;
     padding: 20px 15px;
     border-radius: 17px;
 }
+.react-datepicker__input-container input {
+	background-image: url(../img/calendar.png);
+	background-size: 27px;
+    background-position: 97% center;
+    background-repeat: no-repeat;
+	cursor: pointer;
+}
+.date-picker-wrapper .form-groupfiled .errorsuccessicon {
+    right: 45px;
+}

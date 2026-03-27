@@ -177,7 +177,7 @@ const CheckoutModal = (props) => {
     const [ errorExpiryDate, setErrorExpiryDate ] = useState("");
     const EmailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/;
 
-    const { register, handleSubmit, setValue, trigger, formState: { errors } } = useForm({
+    const { register, handleSubmit, setValue, trigger, setError, clearErrors, formState: { errors } } = useForm({
         mode: "onChange",
         reValidateMode: "onChange",
         defaultValues: {
@@ -425,6 +425,15 @@ const CheckoutModal = (props) => {
 
     // fill form then submit
     const PaymentSelectMethod = () => {
+        if (Birthdate === "" || Birthdate === null) {
+            setError("birthdate", {
+                type: "manual",
+                message: "Birth date cannot be empty",
+            });
+        } else {
+            clearErrors("birthdate");
+        }
+
         if(Birthdate !== ""&& 
             zipCodeBillingValids === true &&
             KycAddress?.country !== "" && KycAddress?.state !== "" && KycAddress?.city !== "" && KycAddress?.zip !== "" && KycAddress?.street2 !== "" &&
@@ -1559,7 +1568,7 @@ const PayWithCoinFlow = (data) =>{
                         </div>
                         {!profiledata?.kyc_verified &&(
                         <div className="rowcustom rowcustom-col-2">
-                    <div className={errors.birthdate ? "form-group error" : "form-group"}>
+                    <div className={errors.birthdate ? "form-group date-picker-wrapper error" : "form-group date-picker-wrapper"}>
                         <label>Date of Birth *</label>
                         <div className="form-groupfiled">
                             <input type="hidden" {...register("birthdate", { required: "Birth date cannot be empty" })} />
@@ -1568,6 +1577,9 @@ const PayWithCoinFlow = (data) =>{
                                 onChange={async (date) => {
                                     setBirthdate(date);
                                     setValue("birthdate", date);
+                                    if (date) {
+                                        clearErrors("birthdate");
+                                    }
                                     await trigger("birthdate");
                                 }} 
                                 peekNextMonth 

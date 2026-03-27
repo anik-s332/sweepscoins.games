@@ -1135,7 +1135,7 @@ const SelectCityChange = (e) => {
                                                 {MobileNo?.number?.toString()?.length !== 10 && <div className="danger-color">{MobileError}</div>}
                                             </div>
                                         </div>
-                                        <div className={accountErrors.birthdate ? "form-group error" : "form-group"}>
+                                        <div className={accountErrors.birthdate ? "form-group date-picker-wrapper error" : "form-group date-picker-wrapper"}>
                                             <label>Date of Birth *</label>
                                             <div className="form-groupfiled">
                                                 <input type="hidden" {...registerAccount("birthdate", { required: "Date of birth cannot be empty" })} />

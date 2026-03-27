@@ -3,6 +3,7 @@ import siteContent from "@/content/siteContent.json";
 export type SeoEntry = {
   title: string;
   description: string;
+  image?: string;
 };
 
 const DEFAULT_SEO: SeoEntry = {

@@ -177,8 +177,8 @@ const CommonBillingAddressForm = (props) => {
                         value={KycAddress.zip}
                         disabled={isDisabled}
                     />
-                    {zipCodeBillingValids === true && <AppImage src={images.common.successIcon} className="errorsuccessicon" alt={"success icon"} width={18} height={18} />}
-                    {zipCodeBillingValids === false && <AppImage src={images.common.errorIcon} className="errorsuccessicon" alt={"success icon"} width={18} height={18} />}
+                    {(KycAddress.zip && zipCodeBillingValids === true) && <AppImage src={images.common.successIcon} className="errorsuccessicon" alt={"success icon"} width={18} height={18} />}
+                    {(KycAddress.zip && zipCodeBillingValids === false) && <AppImage src={images.common.errorIcon} className="errorsuccessicon" alt={"success icon"} width={18} height={18} />}
                     {errorZip !== "" && <div className="danger-color">{errorZip}</div>}
                 </div>
             </div>
