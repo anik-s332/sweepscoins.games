@@ -38,7 +38,7 @@ const Packages = () => {
 
     const AddToCart = (elm) => {
         dispatch(AddToCartPosters(elm));
-        setTimeout(() => Navigate(CHECK_OUT_PACKAGE), 100);
+        setTimeout(() => Navigate(`${CHECK_OUT_PACKAGE}/${elm?.id}`, { state: elm }), 100);
     };
 
     const safePackageList = Array.isArray(packageList) ? packageList : [];
