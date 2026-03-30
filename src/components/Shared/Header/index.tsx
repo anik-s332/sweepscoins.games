@@ -9,7 +9,7 @@ import { content, getPageTitle, images } from "@/content";
 import { accountNavigate, CallLogoutUser, checkLogin, getAccessToken, getRegioLcTime, getUser } from "../../../redux/actions";
 import AppImage from "../../Common/AppImage";
 import CommonDropdown from "../../Common/CommonDropdown";
-import { ALL_SESSION_LOGOUT_API_URL, HOME_URL, LOGOUT_API_URL, MY_ACCOUNT } from "../constant";
+import { ALL_SESSION_LOGOUT_API_URL, BLOGS, CONTACT, HOME_URL, LOGOUT_API_URL, MY_ACCOUNT, PACKAGES } from "../constant";
 
 const Header = (props) => {
     const Navigate = useNavigate();
@@ -122,6 +122,12 @@ const Header = (props) => {
                         <div className="NewHeader_wrapper">
                             <div className="logo_main_wrapper">
                                 <div className="NewHeader_wrapper_flex">
+                                    <div className="headerNavLinks">
+                                        <Link to={HOME_URL} className={LocationUrl.pathname === HOME_URL ? "active" : ""}>Home</Link>
+                                        <Link to={PACKAGES} className={LocationUrl.pathname === PACKAGES ? "active" : ""}>Packages</Link>
+                                        <Link to={BLOGS} className={LocationUrl.pathname.startsWith(BLOGS) ? "active" : ""}>Blogs</Link>
+                                        <Link to={CONTACT} className={LocationUrl.pathname === CONTACT ? "active" : ""}>Contact</Link>
+                                    </div>
                                     <h3 className="text-align-center" style={{color:"#FFD924"}}>{headerContent.promoText}</h3>
                                 </div>
                             </div>
@@ -175,3 +181,4 @@ const Header = (props) => {
 }
 
 export default Header;
+

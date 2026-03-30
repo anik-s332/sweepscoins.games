@@ -33,6 +33,8 @@ const persistedAllReducersKeys = [
   "referData",
   "selectPosterMulti",
   "selectedPosters",
+  "blogList",
+  "blogDetail",
 ] as const;
 
 const allReducersTransform = createTransform(
@@ -67,4 +69,5 @@ export type RootState = ReturnType<typeof reducers>;
 export type AppStore = typeof store;
 
 export default store;
+
 

@@ -43,6 +43,8 @@ const initailData = {
     isbillingAsHomeAddress: true,
     zipCodesAll: [],
     reload: false,
+    blogList: [],
+    blogDetail: null,
 }
 
 export const posterReducers = (state = initailData, action) => {
@@ -261,6 +263,16 @@ export const posterReducers = (state = initailData, action) => {
                 ...state,
                 zipCodesAll: action.payload
             };
+        case ActionTypes.GET_BLOG_LIST:
+            return {
+                ...state,
+                blogList: action.payload,
+            };
+        case ActionTypes.GET_BLOG_DETAIL:
+            return {
+                ...state,
+                blogDetail: action.payload,
+            };
         case  ActionTypes.SET_LOGOUT_USER :
             return {
                 ...state,
@@ -281,6 +293,8 @@ export const posterReducers = (state = initailData, action) => {
                 checkCacheNewz: "",
                 isbillingAsHomeAddress: true,
                 isSiteBlock: true,
+                blogList: [],
+                blogDetail: null,
             };
         case  ActionTypes.SET_CLEAR_REDUX_FLOW :
             return initailData;
@@ -288,3 +302,4 @@ export const posterReducers = (state = initailData, action) => {
             return state;
     }
 }
+

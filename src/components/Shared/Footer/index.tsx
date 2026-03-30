@@ -3,6 +3,7 @@
 import React from "react";
 import { content, images } from "@/content";
 import {
+  BLOGS,
   PRIVACY_POLICY,
   TERMS_CONDITIONS,
   PROMOTIONAL_RULES,
@@ -62,6 +63,9 @@ const Footer = () => {
                   <div className="contactlinks">
                     <h4>{footerContent.policyHeading}</h4>
                     <ul>
+                      <li>
+                        <Link to={BLOGS}>{footerContent.policyLinks.blog}</Link>
+                      </li>
                       <li>
                         <Link to={CONTACT}>{footerContent.policyLinks.contact}</Link>
                       </li>

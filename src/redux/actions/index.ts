@@ -39,6 +39,8 @@ export const ActionTypes = {
     CHECK_RELOAD_CACHE: "CHECK_RELOAD_CACHE",
     BILLING_AS_HOME_ADDRESS: "BILLING_AS_HOME_ADDRESS",
     GET_ALL_ZIPCODES: "GET_ALL_ZIPCODES",
+    GET_BLOG_LIST: "GET_BLOG_LIST",
+    GET_BLOG_DETAIL: "GET_BLOG_DETAIL",
 };
 
 export const EighteenPlusModelFunction = (status) => {
@@ -325,3 +327,17 @@ export const getAllZipCodes = (zipcodes) => {
         payload: zipcodes,
     }
 }
+export const getBlogList = (blogs) => {
+    return {
+        type: ActionTypes.GET_BLOG_LIST,
+        payload: blogs,
+    }
+}
+
+export const getBlogDetail = (blog) => {
+    return {
+        type: ActionTypes.GET_BLOG_DETAIL,
+        payload: blog,
+    }
+}
+

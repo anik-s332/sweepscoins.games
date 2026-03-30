@@ -10,6 +10,7 @@ export const PROMOTIONAL_RULES = "/promotional-rules";
 export const CONTACT = "/contact";
 export const RESET_PASSWORD = "/reset-password";
 export const PACKAGES = "/packages";
+export const BLOGS = "/blogs";
 export const CHECK_OUT_PACKAGE = "/checkout-package";
 export const USER_DATA_DETECTION = "/user-data-deletion";
 export const FREE_CREDIT = "/free-credit";

@@ -5,7 +5,7 @@ import { Dropdown } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from '@/lib/router';
 import CommonDropdown from "../Common/CommonDropdown";
-import { CONTACT, HOME_URL } from './constant';
+import { BLOGS, CONTACT, HOME_URL, PACKAGES } from './constant';
 
 const ResponsiveSidebar = (props) => {
     const { accessToken, is_login, profiledata } = useSelector((state) => state.allReducers);
@@ -46,6 +46,12 @@ const ResponsiveSidebar = (props) => {
                 </>)}
                 <li className={LocationUrl.pathname === HOME_URL ? "active" : ""} onClick={() => closeRespSidebar()}>
                     <Link to={HOME_URL} className="side_bar_text">Home</Link>
+                </li>
+                <li className={LocationUrl.pathname === PACKAGES ? "active" : ""} onClick={() => closeRespSidebar()}>
+                    <Link to={PACKAGES} className="side_bar_text">Packages</Link>
+                </li>
+                <li className={LocationUrl.pathname.startsWith(BLOGS) ? "active" : ""} onClick={() => closeRespSidebar()}>
+                    <Link to={BLOGS} className="side_bar_text">Blogs</Link>
                 </li>
                 <li className={LocationUrl.pathname === CONTACT ? "active" : ""} onClick={() => closeRespSidebar()}>
                     <Link to={CONTACT} className="side_bar_text">Contact</Link>

@@ -18,6 +18,8 @@ import CommonTermsPrivacy from './components/Common/CommonTermsPrivacy';
 import EighteenYearsOldModel from './components/Common/EighteenYearsOldModel';
 import FacebookPixel from './components/Common/FacebookPixel';
 import Contact from "./components/Contact";
+import Blogs from './components/Blogs';
+import BlogDetail from './components/Blogs/BlogDetail';
 import FreeCredit from './components/FreeCredit';
 import Home from './components/Home';
 import LoginSignupModal from './components/LoginSignupModal';
@@ -29,6 +31,7 @@ import ResponsibleGamePlay from './components/ResponsibleGamePlay';
 import ScrollToTop from './components/ScrollToTop';
 import {
     CHECK_OUT_PACKAGE,
+    BLOGS,
     CONTACT,
     FREE_CREDIT,
     GET_PRODUCT_API_URL,
@@ -339,6 +342,8 @@ function App() {
                     <Route path={`${CHECK_OUT_PACKAGE}/:order_id/:payment_id`} element={<PackageCheckout setLoginSigupUp={setLoginSigupUp} />} />
                     <Route path={CHECK_OUT_PACKAGE_TIERLOCK} element={<TierlockPayment setLoginSigupUp={setLoginSigupUp} />} />
                     <Route path={`${FREE_CREDIT}/:free_credit`} element={<FreeCredit setLoginSigupUp={setLoginSigupUp} />} />
+                    <Route path={BLOGS} element={<Blogs />} />
+                    <Route path={`${BLOGS}/:documentId`} element={<BlogDetail />} />
                     <Route path={CONTACT} element={<Contact />} />
                     <Route
                         path={`${RESET_PASSWORD}/:roomId`}
@@ -379,6 +384,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
