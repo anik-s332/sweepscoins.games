@@ -42,6 +42,10 @@
         "title": "Packages | Sweeps Coins",
         "description": "Compare Sweeps Coins package options, review credits included, and choose the bundle that fits your preferred play style."
       },
+      "/blogs": {
+        "title": "Blogs | Sweeps Coins",
+        "description": "Read the latest Sweeps Coins blogs, product updates, expert insights, and featured articles in one place."
+      },
       "/checkout-package": {
         "title": "Checkout Package | Sweeps Coins",
         "description": "Complete your Sweeps Coins package checkout with secure payment options, billing details, and order confirmation tools."
@@ -77,6 +81,7 @@
       "/member-dashboard": "Member Dashboard",
       "/my-account": "My Account | Sweeps Coins",
       "/packages": "Packages | Sweeps Coins",
+      "/blogs": "Blogs | Sweeps Coins",
       "/checkout-package": "Secure Checkout | Sweeps Coins",
       "/checkout-package-tierlock": "Tierlock Checkout | Sweeps Coins",
       "/locate-check": "Location Check | Sweeps Coins",

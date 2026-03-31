@@ -3,6 +3,7 @@ import siteContent from "@/content/siteContent.json";
 export type SeoEntry = {
   title: string;
   description: string;
+  image?: string;
 };
 
 const DEFAULT_SEO: SeoEntry = {
@@ -36,6 +37,7 @@ const ROUTE_PREFIX_MAP: Array<[string, string]> = [
   ["/contact", "/contact"],
   ["/my-account", "/my-account"],
   ["/packages", "/packages"],
+  ["/blogs", "/blogs"],
   ["/home", "/home"],
   ["/", "/"],
 ];

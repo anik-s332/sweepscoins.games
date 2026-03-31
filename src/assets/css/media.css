@@ -79,6 +79,13 @@
     .header_section .logowraphead img {width: 170px;}
 }
 @media only screen and (max-width: 991px) {
+    .blogDetailPage__layout {
+        display: grid;
+        grid-template-columns: 230px minmax(0, 1fr) 230px;
+        gap: 20px;
+    }
+    .blogsPage__layout {display: flex !important; flex-direction: column;}
+    .blogsPage, .blogDetailPage {padding: 80px 0 72px !important;}
     .packagesContainer {width: 100% !important;}
     .testimoniWraps .col-md-4 {height: auto;width: 100%;border-right: 1px solid #333;}
     .RedeemCreditModalMain {width: 86% !important;}
@@ -787,6 +794,18 @@
 
 }
 @media only screen and (max-width: 600px) { 
+    .blogCard h2 {
+        font-size: 15px;
+        margin: 0 0 5px;
+    }
+    .blogCard__excerpt {
+        margin: 0 0 5px;
+        font-size: 13px;
+        margin: 0 0 2px;
+    }
+    .blogCard {
+        grid-template-columns: 170px minmax(0, 1fr) !important;
+    }
     .modal_close_wrapper {
         width: 93%;
     }
@@ -1134,6 +1153,13 @@
     }
 }
 @media only screen and (max-width: 500px) {
+    .blogCard__image {
+        height: 180px;
+    }
+    .blogCard {
+        display: flex !important;
+        flex-direction: column !important;
+    }
     .payment_wrapper {
         width: 100%;
     }
@@ -1486,11 +1512,15 @@
     .blogsSidebar {
         position: static;
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 16px;
     }
     .blogDetailPage__layout {
         grid-template-columns: 1fr;
+        grid-template-areas:
+            "article"
+            "toc"
+            "sidebar";
     }
     .blogDetailPage__toc,
     .blogDetailPage__sidebar {
@@ -1520,12 +1550,37 @@
     }
 }
 @media only screen and (max-width: 767px) {
+    .blogsSidebar,
+    .blogDetailPage__toc,
+    .blogDetailPage__sidebar {
+        position: static;
+        top: auto;
+    }
+    .blogDetailPage__topLink {
+        text-align: left;
+        margin-bottom: 16px;
+    }
+    .blogDetailPage__topLink a {
+        float: none;
+        display: inline-block;
+    }
+    .blogDetailPage__layout {
+        gap: 18px;
+    }
     .blogCard h2 {
         font-size: 24px;
     }
     .blogsSidebar__card,
     .blogDetailPage__panel {
         padding: 18px;
+    }
+    .blogDetailPage__article h1 {
+        font-size: 28px;
+    }
+    .blogsSidebar__socials a,
+    .blogDetailPage__share button {
+        width: 42px;
+        height: 42px;
     }
     .blogDetailPage__content h2 {
         font-size: 24px;
@@ -1541,6 +1596,10 @@
     .blogsPage__header h1,
     .blogDetailPage__article h1 {
         font-size: 28px;
+    }
+    .blogDetailPage__popularItem {
+        grid-template-columns: 72px minmax(0, 1fr);
+        gap: 10px;
     }
     .blogPagination button {
         min-width: 34px;

@@ -1,8 +1,9 @@
 // @ts-nocheck
 /* eslint-disable */
 import { useCallback, useEffect, useMemo, useState } from "react";
+import Head from "next/head";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from '@/lib/router';
+import { Link, useParams } from "@/lib/router";
 import AppImage from "../Common/AppImage";
 import { BLOGS } from "../Shared/constant";
 import {
@@ -18,7 +19,7 @@ import { getBlogDetail, getBlogList } from "../../redux/actions";
 const SOCIAL_ITEMS = [
   {
     label: "LinkedIn",
-    action: (url, title) => window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, "_blank", "noopener,noreferrer"),
+    action: (url) => window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, "_blank", "noopener,noreferrer"),
     short: "in",
   },
   {
@@ -34,6 +35,7 @@ const SOCIAL_ITEMS = [
 ];
 
 const HEADER_OFFSET = 118;
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.sweepscoins.cash";
 
 const BlogDetail = () => {
   const dispatch = useDispatch();
@@ -103,7 +105,9 @@ const BlogDetail = () => {
     return getRichTextHeadingNodes(blog?.content);
   }, [blog]);
 
-  const currentUrl = typeof window !== "undefined" ? window.location.href : "";
+  const currentUrl = typeof window !== "undefined" ? window.location.href : `${SITE_URL}${BLOGS}/${documentId}`;
+  const shareImage = blog?.image || `${SITE_URL}/sweepcoinscash-01.png`;
+  const shareDescription = blog?.excerpt || "Read the latest Sweeps Coins blog article, insights, and featured updates.";
 
   const handleSectionScroll = useCallback((event, sectionId) => {
     event.preventDefault();
@@ -165,65 +169,117 @@ const BlogDetail = () => {
   }
 
   return (
-    <section className="blogDetailPage">
-      <div className="container-fluid">
-        <div className="row" style={{ margin: '0 auto' }}>
-          <div className="col-md-12">
-            <div className="blogDetailPage__topLink">
-              <Link to={BLOGS}>Back to Blogs</Link>
-            </div>
+    <>
+      <Head>
+        <title>{blog.title} | Sweeps Coins</title>
+        <meta name="description" content={shareDescription} />
+        <meta property="og:title" content={`${blog.title} | Sweeps Coins`} />
+        <meta property="og:description" content={shareDescription} />
+        <meta property="og:image" content={shareImage} />
+        <meta property="og:url" content={currentUrl} />
+        <meta name="twitter:title" content={`${blog.title} | Sweeps Coins`} />
+        <meta name="twitter:description" content={shareDescription} />
+        <meta name="twitter:image" content={shareImage} />
+      </Head>
+      <section className="blogDetailPage">
+        <div className="container-fluid">
+          <div className="row" style={{ margin: "0 auto" }}>
+            <div className="col-md-12">
+              <div className="blogDetailPage__topLink">
+                <Link to={BLOGS}>Back to Blogs</Link>
+              </div>
 
-            <div className="blogDetailPage__layout">
-              <aside className="blogDetailPage__toc">
-                <div className="blogDetailPage__panel">
-                  <h3>Table of Contents</h3>
-                  {tableOfContents.length > 0 ? (
-                    <ul>
-                      {tableOfContents.map((item) => (
-                        <li key={item.id}>
-                          <a href={`#${item.id}`} onClick={(event) => handleSectionScroll(event, item.id)}>{item.title}</a>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p>No sections available.</p>
+              <div className="blogDetailPage__layout">
+                <aside className="blogDetailPage__toc">
+                  <div className="blogDetailPage__panel">
+                    <h3>Table of Contents</h3>
+                    {tableOfContents.length > 0 ? (
+                      <ul>
+                        {tableOfContents.map((item) => (
+                          <li key={item.id}>
+                            <a href={`#${item.id}`} onClick={(event) => handleSectionScroll(event, item.id)}>{item.title}</a>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p>No sections available.</p>
+                    )}
+                  </div>
+                </aside>
+
+                <article className="blogDetailPage__article">
+                  <h1>{blog.title}</h1>
+                  <div className="blogDetailPage__meta">
+                    <span>{formatBlogDate(blog.publishedAt)}</span>
+                  </div>
+
+                  <div className="blogDetailPage__hero">
+                    <AppImage
+                      src={blog.image || images.common.defaultProduct}
+                      fallbackSrc={images.common.defaultProduct}
+                      alt={blog.title}
+                      width={940}
+                      height={420}
+                      className="blogDetailPage__heroImage"
+                    />
+                  </div>
+
+                  <div className="blogDetailPage__content">
+                    {renderRichContent(blog.content)}
+                  </div>
+
+                  {blog.relatedBlogs?.length > 0 && (
+                    <div className="blogDetailPage__related">
+                      <h3>Related articles</h3>
+                      <div className="blogDetailPage__relatedGrid">
+                        {blog.relatedBlogs.map((item) => (
+                          <Link key={item.documentId} to={`${BLOGS}/${item.documentId}`} className="blogDetailPage__relatedCard">
+                            <AppImage
+                              src={item.image || images.common.defaultProduct}
+                              fallbackSrc={images.common.defaultProduct}
+                              alt={item.title}
+                              width={280}
+                              height={180}
+                            />
+                            <div>
+                              <h4>{item.title}</h4>
+                              <span>{formatBlogDate(item.publishedAt)}</span>
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
                   )}
-                </div>
-              </aside>
+                </article>
 
-              <article className="blogDetailPage__article">
-                <h1>{blog.title}</h1>
-                <div className="blogDetailPage__meta">
-                  <span>{formatBlogDate(blog.publishedAt)}</span>
-                </div>
+                <aside className="blogDetailPage__sidebar">
+                  <div className="blogDetailPage__panel">
+                    <h3>Share</h3>
+                    <div className="blogDetailPage__share">
+                      {SOCIAL_ITEMS.map((item) => (
+                        <button
+                          key={item.label}
+                          type="button"
+                          onClick={() => item.action(currentUrl, blog.title)}
+                          aria-label={item.label}
+                        >
+                          {item.short}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
 
-                <div className="blogDetailPage__hero">
-                  <AppImage
-                    src={blog.image || images.common.defaultProduct}
-                    fallbackSrc={images.common.defaultProduct}
-                    alt={blog.title}
-                    width={940}
-                    height={420}
-                    className="blogDetailPage__heroImage"
-                  />
-                </div>
-
-                <div className="blogDetailPage__content">
-                  {renderRichContent(blog.content)}
-                </div>
-
-                {blog.relatedBlogs?.length > 0 && (
-                  <div className="blogDetailPage__related">
-                    <h3>Related articles</h3>
-                    <div className="blogDetailPage__relatedGrid">
-                      {blog.relatedBlogs.map((item) => (
-                        <Link key={item.documentId} to={`${BLOGS}/${item.documentId}`} className="blogDetailPage__relatedCard">
+                  <div className="blogDetailPage__panel">
+                    <h3>Popular articles</h3>
+                    <div className="blogDetailPage__popular">
+                      {popularBlogs.map((item) => (
+                        <Link key={item.documentId} to={`${BLOGS}/${item.documentId}`} className="blogDetailPage__popularItem">
                           <AppImage
                             src={item.image || images.common.defaultProduct}
                             fallbackSrc={images.common.defaultProduct}
                             alt={item.title}
-                            width={280}
-                            height={180}
+                            width={88}
+                            height={60}
                           />
                           <div>
                             <h4>{item.title}</h4>
@@ -233,52 +289,13 @@ const BlogDetail = () => {
                       ))}
                     </div>
                   </div>
-                )}
-              </article>
-
-              <aside className="blogDetailPage__sidebar">
-                <div className="blogDetailPage__panel">
-                  <h3>Share</h3>
-                  <div className="blogDetailPage__share">
-                    {SOCIAL_ITEMS.map((item) => (
-                      <button
-                        key={item.label}
-                        type="button"
-                        onClick={() => item.action(currentUrl, blog.title)}
-                        aria-label={item.label}
-                      >
-                        {item.short}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="blogDetailPage__panel">
-                  <h3>Popular articles</h3>
-                  <div className="blogDetailPage__popular">
-                    {popularBlogs.map((item) => (
-                      <Link key={item.documentId} to={`${BLOGS}/${item.documentId}`} className="blogDetailPage__popularItem">
-                        <AppImage
-                          src={item.image || images.common.defaultProduct}
-                          fallbackSrc={images.common.defaultProduct}
-                          alt={item.title}
-                          width={88}
-                          height={60}
-                        />
-                        <div>
-                          <h4>{item.title}</h4>
-                          <span>{formatBlogDate(item.publishedAt)}</span>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              </aside>
+                </aside>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 

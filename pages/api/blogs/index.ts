@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 const buildHeaders = () => {
-  const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN || "";
+  const token = process.env.STRAPI_API_TOKEN || process.env.NEXT_PUBLIC_STRAPI_API_TOKEN || "";
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
   };
