@@ -180,7 +180,7 @@ const Blogs = () => {
                     <div className="blogsSidebar__socials">
                       {SOCIAL_ITEMS.map((item) => (
                         <a key={item.label} href={item.href} className={item.label} target="_blank" rel="noreferrer" aria-label={item.label}>
-                          {item.short}
+                          {item.short} 
                         </a>
                       ))}
                     </div>
