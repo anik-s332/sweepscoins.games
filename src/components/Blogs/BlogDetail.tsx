@@ -260,6 +260,7 @@ const BlogDetail = () => {
                         <button
                           key={item.label}
                           type="button"
+                          className={item.label}
                           onClick={() => item.action(currentUrl, blog.title)}
                           aria-label={item.label}
                         >
