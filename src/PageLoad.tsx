@@ -5,18 +5,8 @@ import packageJson from "../package.json";
 
 export default function PageLoad() {
     useEffect(() => {
-        clearCacheData();
         caching();
     }, [])
-    const clearCacheData = () => {
-        if('caches' in window){
-            caches.keys().then((names) => {
-                names.forEach((name) => {
-                    caches.delete(name);
-                });
-            });
-        }
-    };
     const caching = ()=> {
         let version = localStorage.getItem('version');
         if(version !== packageJson.version){

@@ -3,6 +3,10 @@ const webpack = require("webpack");
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   poweredByHeader: false,
+  compress: true,
+  experimental: {
+    optimizePackageImports: ["react-bootstrap"],
+  },
   webpack: (config) => {
     config.module.rules.push({
       test: /\.(wav|mp3|ogg)$/i,

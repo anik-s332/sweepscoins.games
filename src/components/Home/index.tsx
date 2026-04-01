@@ -1,6 +1,7 @@
 // @ts-nocheck
 /* eslint-disable */
 import React, { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import { Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from '@/lib/router';
@@ -8,9 +9,9 @@ import sound from "../../assets/audio/apple_pay_sound.wav";
 import { PACKAGES, USER_ORDER_STATUS_URL } from "../../components/Shared/constant";
 import { content, images } from "@/content";
 import AppImage from "../Common/AppImage";
-import VideoModal from "../Common/VideoModal";
 import BannerSection from "./BannerSection";
-import GamesGrid from "./GamesGrid";
+const VideoModal = dynamic(() => import("../Common/VideoModal"));
+const GamesGrid = dynamic(() => import("./GamesGrid"));
 
 const Home = (props) => {
     const { accessToken } = useSelector((state) => state.allReducers);

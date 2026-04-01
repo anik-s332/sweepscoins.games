@@ -9,7 +9,7 @@ const TawkChat = () => {
   return (
     <Script
       id="tawk-chat-script"
-      strategy="afterInteractive"
+      strategy="lazyOnload"
       dangerouslySetInnerHTML={{
         __html: `
           var Tawk_API = window.Tawk_API || {};

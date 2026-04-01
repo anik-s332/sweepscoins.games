@@ -1,6 +1,7 @@
 // @ts-nocheck
 /* eslint-disable */
 import axios from 'axios';
+import dynamic from "next/dynamic";
 import React, { useEffect, useState } from 'react';
 import { Accordion, Image } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,23 +12,6 @@ import { images } from "@/content";
 import CorrectIcon from "./assets/img/check_mark.png";
 import CloseNewIcon from "./assets/img/close_mark.png";
 import Nowifi from "./assets/img/nowifi.png";
-import Account from "./components/Account";
-import Checkout from './components/Checkout';
-import PackageCheckout from './components/Checkout/PackageCheckout';
-import CommonTermsPrivacy from './components/Common/CommonTermsPrivacy';
-import EighteenYearsOldModel from './components/Common/EighteenYearsOldModel';
-import FacebookPixel from './components/Common/FacebookPixel';
-import Contact from "./components/Contact";
-import Blogs from './components/Blogs';
-import BlogDetail from './components/Blogs/BlogDetail';
-import FreeCredit from './components/FreeCredit';
-import Home from './components/Home';
-import LoginSignupModal from './components/LoginSignupModal';
-import Packages from './components/Packages';
-import Privacy from './components/Privacy';
-import PromotionalRules from './components/PromotionalRules';
-import ResetPassword from './components/ResetPassword';
-import ResponsibleGamePlay from './components/ResponsibleGamePlay';
 import ScrollToTop from './components/ScrollToTop';
 import {
     CHECK_OUT_PACKAGE,
@@ -49,15 +33,32 @@ import {
 } from './components/Shared/constant';
 import Footer from './components/Shared/Footer';
 import Header from "./components/Shared/Header";
-import ResponsiveSidebar from './components/Shared/ResponsiveSidebar';
-import SignUpSidebar from './components/Shared/SignUp';
-import TermsConditions from './components/TermsConditions';
-import Userdatadeletion from './components/Userdatadeletion';
-import LocateCheck from './components/LocateCheck';
 import AppImage from "./components/Common/AppImage";
 import { CallLogoutUser, checkLogin, ClearReduxFlow, getAccessToken, getGeoCoplyLocation, getGeoCoplyMessage, getLicenseCoplyMessage, getProductList, GetProductsIdWise, getRegioLcTime, getSpoofingDetection, getUser, IsSiteIsBlockCheck } from './redux/actions';
 import LocationRedirect from './LocationRedirect';
-import TierlockPayment from './components/TierlockPayment';
+const Home = dynamic(() => import("./components/Home"));
+const Account = dynamic(() => import("./components/Account"));
+const Checkout = dynamic(() => import("./components/Checkout"));
+const PackageCheckout = dynamic(() => import("./components/Checkout/PackageCheckout"));
+const TierlockPayment = dynamic(() => import("./components/TierlockPayment"));
+const FreeCredit = dynamic(() => import("./components/FreeCredit"));
+const Blogs = dynamic(() => import("./components/Blogs"));
+const BlogDetail = dynamic(() => import("./components/Blogs/BlogDetail"));
+const Contact = dynamic(() => import("./components/Contact"));
+const Privacy = dynamic(() => import("./components/Privacy"));
+const ResponsibleGamePlay = dynamic(() => import("./components/ResponsibleGamePlay"));
+const TermsConditions = dynamic(() => import("./components/TermsConditions"));
+const PromotionalRules = dynamic(() => import("./components/PromotionalRules"));
+const ResetPassword = dynamic(() => import("./components/ResetPassword"));
+const Packages = dynamic(() => import("./components/Packages"));
+const Userdatadeletion = dynamic(() => import("./components/Userdatadeletion"));
+const LocateCheck = dynamic(() => import("./components/LocateCheck"));
+const LoginSignupModal = dynamic(() => import("./components/LoginSignupModal"));
+const SignUpSidebar = dynamic(() => import("./components/Shared/SignUp"));
+const ResponsiveSidebar = dynamic(() => import("./components/Shared/ResponsiveSidebar"));
+const CommonTermsPrivacy = dynamic(() => import("./components/Common/CommonTermsPrivacy"));
+const EighteenYearsOldModel = dynamic(() => import("./components/Common/EighteenYearsOldModel"));
+const FacebookPixel = dynamic(() => import("./components/Common/FacebookPixel"));
 window.axios = axios;
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
