@@ -45,8 +45,8 @@ const BannerSection = () => {
       <div
       style={containerStyle}
       className="d-flex gap-2 gap-sm-2 flex-row align-items-baseline mt-4 mt-mobile-4rem">
-           <AppImage src={dragonImage} alt="Dragon" className="w-100 banner_images Dragon" width={640} height={640} sizes="(max-width: 640px) 48vw, 32vw" priority />
-           <AppImage src={bannerGuyImage} alt="BannerGuy" className="w-100 banner_images Dragon2" width={640} height={640} sizes="(max-width: 640px) 48vw, 32vw" priority />
+           <AppImage src={dragonImage} alt="Dragon" className="w-100 banner_images Dragon" width={640} height={640} sizes="(max-width: 640px) 48vw, 32vw" />
+           <AppImage src={bannerGuyImage} alt="BannerGuy" className="w-100 banner_images Dragon2" width={640} height={640} sizes="(max-width: 640px) 48vw, 32vw" />
       </div>
       <div>
 

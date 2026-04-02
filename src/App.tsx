@@ -2,6 +2,8 @@
 /* eslint-disable */
 import axios from 'axios';
 import dynamic from "next/dynamic";
+import Head from "next/head";
+import Script from "next/script";
 import React, { useEffect, useState } from 'react';
 import { Accordion, Image } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -105,6 +107,11 @@ function App() {
         Url: "",
     });
     const networkState = useNetworkState();
+    const currentPath = LocationGet || window.location.pathname;
+    const shouldLoadCheckoutAssets =
+        currentPath.startsWith(CHECK_OUT_PACKAGE) ||
+        currentPath.startsWith(CHECK_OUT_PACKAGE_TIERLOCK) ||
+        currentPath.startsWith(FREE_CREDIT);
 
     useEffect(() => {
         if(LocationUrl === "?action=privacy-policy") {
@@ -324,6 +331,21 @@ function App() {
 
 
     return (<React.Fragment>
+    {shouldLoadCheckoutAssets && (
+        <>
+            <Head>
+                <link
+                    rel="stylesheet"
+                    type="text/css"
+                    href="https://i4m.i4go.com/css/wallets.css"
+                />
+            </Head>
+            <Script src="https://myportal.shift4.com/js/jquery/jquery-3.5.1.min.js" strategy="lazyOnload" />
+            <Script src="https://i4m.shift4test.com/js/jquery.i4goTrueToken.js" strategy="lazyOnload" />
+            <Script src="https://i4m.shift4test.com/js/jquery.cardswipe.js" strategy="lazyOnload" />
+            <Script src="https://pay.google.com/gp/p/js/pay.js" strategy="lazyOnload" />
+        </>
+    )}
     <div className="wrapper" style={{paddingTop:(LocationUrl==="home" || LocationUrl==="locate-check") ? "0px":"90px"}}>
         <BrowserRouter>
             <LocationRedirect>

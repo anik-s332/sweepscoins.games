@@ -23,7 +23,6 @@ import RedeemCreditsModal from "../Common/RedeemCreditsModal";
 import { timeSince } from "../Common/Timesince";
 import { trimValue } from "@/lib/formValidation";
 import { ADMIN_REFERRAL_CONDITION_DETAIL_API, GET_PRODUCT_API_URL, GET_PROFILE_API_URL, ORDER_LIST_API_URL, PROFILE_UPDATE_API_URL, PROFILE_UPLOAD_API_URL, REQUEST_FOR_REFERRAL, USER_CREDIT_LIST_API_URL, USER_KYC_API, USER_REDEEM_COUPON_API_URL } from "../Shared/constant";
-//Calling WOWjs
 import moment from 'moment';
 import { Link, useNavigate } from '@/lib/router';
 import { RWebShare } from "react-web-share";
@@ -154,26 +153,6 @@ const Account = () => {
     const [ searchNone, setSearchNone ] = useState(false);
     const [ zipCodeBillingValids, setZipCodeBillingValids ] = useState(false);
     const [ isDisableBilling, setisDisableBilling ] = useState(false);
-
-    useEffect(() => {
-        if (typeof window !== "undefined") {
-            import("wowjs").then((mod) => {
-                const WOWClass =
-                    mod?.WOW?.WOW ||
-                    mod?.default?.WOW ||
-                    mod?.WOW ||
-                    mod?.default;
-
-                if (typeof WOWClass === "function") {
-                    new WOWClass({
-                        live: false,
-                    }).init();
-                } else {
-                    console.error("WOW.js not loaded correctly", mod);
-                }
-            });
-        }
-    }, []);
 
     // code updated
     useEffect(() => {
@@ -1725,7 +1704,7 @@ const SelectCityChange = (e) => {
                                 </div>
                                 <div className="col-md-6">
                                     <div className="redeemprice_wrapper">
-                                        <h1 className="wow fadeInLeft">SWEEPS COINS WALLET</h1>
+                                        <h1>SWEEPS COINS WALLET</h1>
                                         <h4 className="avilableredeemprice">YOUR AVAILABLE CREDITS </h4>
                                         <h5 className="reedemPrice">
                                             {(profiledata?.user_balance === null || profiledata?.user_balance === 0) ? 0 : profiledata?.user_balance / 100}

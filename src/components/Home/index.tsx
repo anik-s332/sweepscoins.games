@@ -87,26 +87,6 @@ const Home = (props) => {
         }
     }, [ location, setLocationGet ]);
 
-    useEffect(() => {
-        if (typeof window !== "undefined") {
-            import("wowjs").then((mod) => {
-                const WOWClass =
-                    mod?.WOW?.WOW ||
-                    mod?.default?.WOW ||
-                    mod?.WOW ||
-                    mod?.default;
-
-                if (typeof WOWClass === "function") {
-                    new WOWClass({
-                        live: false,
-                    }).init();
-                } else {
-                    console.error("WOW.js not loaded correctly", mod);
-                }
-            });
-        }
-    }, []);
-
     const pendingHeading = popupMessage === homeContent.pendingModal.failureMessage
         ? homeContent.pendingModal.cancelHeading
         : homeContent.pendingModal.processingHeading;
