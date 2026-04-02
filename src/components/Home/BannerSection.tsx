@@ -1,13 +1,15 @@
 // @ts-nocheck
 /* eslint-disable */
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import { useNavigate } from '@/lib/router';
 import AppImage from "../Common/AppImage";
 import { images } from "@/content";
 
-const BannerSection = ({width}) => {
+const BannerSection = () => {
     const videoEl = useRef(null);
-    const Navigate = useNavigate()
+    const Navigate = useNavigate();
+    const [isFirefox, setIsFirefox] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
 
     const attemptPlay = () => {
         videoEl &&
@@ -19,15 +21,19 @@ const BannerSection = ({width}) => {
 
     useEffect(() => {
         attemptPlay();
-    }, [ ]);
+    }, []);
 
-    const [isFirefox, setIsFirefox] = useState(false);
     useEffect(() => {
       if (typeof navigator !== "undefined") {
         setIsFirefox(navigator?.userAgent?.toLowerCase()?.includes("firefox"));
       }
+      if (typeof window !== "undefined") {
+        setIsMobile(window.innerWidth <= 640);
+      }
     }, []);
     const containerStyle = isFirefox ? { width: "10000px" } : {};
+    const dragonImage = isMobile ? images.home.mobileDragon : images.home.dragon;
+    const bannerGuyImage = isMobile ? images.home.mobileGuy : images.home.bannerGuy;
 
     return(<section className="bannerSectionWrp">
   <div className="banner">
@@ -39,8 +45,8 @@ const BannerSection = ({width}) => {
       <div
       style={containerStyle}
       className="d-flex gap-2 gap-sm-2 flex-row align-items-baseline mt-4 mt-mobile-4rem">
-           <AppImage src={width>640 ? images.home.dragon : images.home.mobileDragon} alt="Dragon" className="w-100 banner_images Dragon" width={640} height={640} priority />
-           <AppImage src={width>640 ? images.home.bannerGuy: images.home.mobileGuy} alt="BannerGuy" className="w-100 banner_images Dragon2" width={640} height={640} priority />
+           <AppImage src={dragonImage} alt="Dragon" className="w-100 banner_images Dragon" width={640} height={640} sizes="(max-width: 640px) 48vw, 32vw" priority />
+           <AppImage src={bannerGuyImage} alt="BannerGuy" className="w-100 banner_images Dragon2" width={640} height={640} sizes="(max-width: 640px) 48vw, 32vw" priority />
       </div>
       <div>
 
@@ -49,6 +55,6 @@ const BannerSection = ({width}) => {
   </div>
 
     </section>)
-}
+};
 
-export default BannerSection;
+export default memo(BannerSection);

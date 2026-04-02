@@ -11181,6 +11181,10 @@ wallet-list {
 	color: #051D37;
 }
 
+.footer_title__mobile_break {
+	display: none;
+}
+
 .side_bar_text {
 	font-family: 'filson_softlight';
 }

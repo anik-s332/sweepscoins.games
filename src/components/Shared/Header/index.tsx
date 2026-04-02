@@ -1,6 +1,6 @@
 // @ts-nocheck
 /* eslint-disable */
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from '@/lib/router';
@@ -18,6 +18,7 @@ const Header = (props) => {
     const LocationUrl = useLocation();
     const { profiledata, accessToken, is_login, accountUrl } = useSelector((state) => state.allReducers);
     const [scrolled, setScrolled] = useState(false);
+    const [isDesktop, setIsDesktop] = useState(true);
     const headerContent = content.shared.header;
     const logoUrl = images.shared.logo;
 
@@ -26,9 +27,17 @@ const Header = (props) => {
             setScrolled(window.scrollY > 0);
         };
 
+        const mediaQuery = window.matchMedia("(min-width: 1101px)");
+        const handleDesktopChange = (event) => {
+            setIsDesktop(event.matches);
+        };
+
+        setIsDesktop(mediaQuery.matches);
+        mediaQuery.addEventListener("change", handleDesktopChange);
         window.addEventListener("scroll", handleScroll);
         return () => {
             window.removeEventListener("scroll", handleScroll);
+            mediaQuery.removeEventListener("change", handleDesktopChange);
         };
     }, []);
 
@@ -115,9 +124,9 @@ const Header = (props) => {
         <div className="container-fluid">
             <div className="row">
                 <div className="col-md-12">
-                    {screen.width > 1100 ? (<div className="logogheader">
+                    {isDesktop ? (<div className="logogheader">
                         <Link to={HOME_URL} className="logohere">
-                            <AppImage src={logoUrl} alt="Sweeps Coins" width={180} height={60} priority />
+                            <AppImage src={logoUrl} alt="Sweeps Coins" width={180} height={60} sizes="180px" priority />
                         </Link>
                         <div className="NewHeader_wrapper">
                             <div className="logo_main_wrapper">
@@ -164,7 +173,7 @@ const Header = (props) => {
                         <div className="userLoginSignupwraps">
                             <div className={(accessToken === "" && is_login === "no") ? "userLoginSignupwrapsrow userLoginSignupwrapsrowRelative" : "userLoginSignupwrapsrow"}>
                                 <Link to={HOME_URL} className="logohere">
-                                    <AppImage src={logoUrl} alt="Sweeps Coins" width={160} height={54} priority />
+                                    <AppImage src={logoUrl} alt="Sweeps Coins" width={160} height={54} sizes="160px" priority />
                                 </Link>
                             </div>
                         </div>
@@ -178,7 +187,7 @@ const Header = (props) => {
             </div>
         </div>
     </header>);
-}
+};
 
-export default Header;
+export default memo(Header);
 

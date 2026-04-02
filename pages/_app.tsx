@@ -1,4 +1,5 @@
 import type { AppProps } from "next/app";
+import dynamic from "next/dynamic";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-toastify/dist/ReactToastify.css";
 import "react-datepicker/dist/react-datepicker.css";
@@ -7,10 +8,11 @@ import "@/assets/css/style.css";
 import { useEffect, useState } from "react";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import PageLoad from "@/PageLoad";
-import TawkChat from "@/components/Common/TawkChat";
 import { checkLogin, getAccessToken } from "@/redux/actions";
 import store, { persistor } from "@/redux/store";
+
+const TawkChat = dynamic(() => import("@/components/Common/TawkChat"), { ssr: false });
+const PageLoad = dynamic(() => import("@/PageLoad"), { ssr: false });
 
 function AuthBootstrap({ children }: { children: React.ReactNode }) {
   const dispatch = useDispatch();

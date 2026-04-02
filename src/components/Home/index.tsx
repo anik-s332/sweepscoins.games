@@ -26,8 +26,6 @@ const Home = (props) => {
         open: false,
         url: "",
     });
-    const [width, setWidth] = useState(window.innerWidth);
-
     const location = useLocation();
     const navigate = useNavigate();
     const { setLocationGet } = props;
@@ -84,18 +82,6 @@ const Home = (props) => {
     }, [homepagepopup, isSuccess]);
 
     useEffect(() => {
-        const handleResize = () => {
-          setWidth(window.innerWidth);
-        };
-
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-          window.removeEventListener('resize', handleResize);
-        };
-    }, []);
-
-    useEffect(() => {
         if(location.pathname) {
             setLocationGet(location.pathname);
         }
@@ -126,8 +112,8 @@ const Home = (props) => {
         : homeContent.pendingModal.processingHeading;
 
     return(<React.Fragment>
-        <BannerSection width={width} />
-        <GamesGrid setVideoModal={setVideoModal} videoModal={videoModal} width={width}/>
+        <BannerSection />
+        <GamesGrid setVideoModal={setVideoModal} />
         {videoModal.open && (<VideoModal videoModal={videoModal} setVideoModal={setVideoModal} />)}
             {homepagepopup && (
                 isSuccess ? (

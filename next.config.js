@@ -7,7 +7,12 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ["react-bootstrap"],
   },
-  webpack: (config) => {
+  webpack: (config, { dev }) => {
+    if (dev) {
+      // Avoid flaky filesystem cache writes that have been corrupting `.next` in local dev.
+      config.cache = false;
+    }
+
     config.module.rules.push({
       test: /\.(wav|mp3|ogg)$/i,
       type: "asset/resource",

@@ -626,6 +626,9 @@
     }
 }
 @media only screen and (max-width: 640px) {
+    .footer_title__mobile_break {
+        display: inline;
+    }
     .banner_container{margin-top:150px;padding-bottom: 30px;}
      .Dragon{margin-left: -12px;
     /* height: 231px !important;
