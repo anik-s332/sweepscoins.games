@@ -1,5 +1,5 @@
 import Image, { type StaticImageData } from "next/image";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 type AppImageProps = {
   src: string | StaticImageData;
@@ -10,12 +10,11 @@ type AppImageProps = {
   style?: React.CSSProperties;
   sizes?: string;
   priority?: boolean;
+  unoptimized?: boolean;
   fallbackSrc?: string | StaticImageData;
   onClick?: React.MouseEventHandler<HTMLImageElement>;
   onError?: React.ReactEventHandler<HTMLImageElement>;
 };
-
-const isRemoteImage = (value: string) => /^https?:\/\//i.test(value);
 
 export default function AppImage({
   src,
@@ -26,24 +25,21 @@ export default function AppImage({
   style,
   sizes = "100vw",
   priority,
+  unoptimized,
   fallbackSrc,
   onClick,
   onError,
 }: AppImageProps) {
   const [currentSrc, setCurrentSrc] = useState(src);
 
-  const shouldSkipOptimization = useMemo(() => {
-    return typeof currentSrc === "string" && isRemoteImage(currentSrc);
-  }, [currentSrc]);
-
   return (
     <Image
-      unoptimized={shouldSkipOptimization}
       src={currentSrc}
       alt={alt}
       width={width}
       height={height}
       sizes={sizes}
+      unoptimized={unoptimized}
       className={className}
       style={style}
       priority={priority}

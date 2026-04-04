@@ -16,6 +16,7 @@ const LOCATE_IFRAME_URL_KEY = "LocateIframeUrl";
 const LOCATE_SUCCESS_KEY = "LocateCheckSuccess";
 const LOCATE_PASSED_KEY = "LocateCheckPassed";
 const POST_REDIRECT_URL_KEY = "PostLocationRedirectUrl";
+const LOCATE_API_PATH = "/api/assure-locate";
 
 const LocateCheck = () => {
   const navigate = useNavigate();
@@ -71,8 +72,7 @@ const LocateCheck = () => {
     sessionStorage.removeItem(LOCATE_SUCCESS_KEY);
 
     try {
-      const apiUrl = `${process.env.NEXT_PUBLIC_CHECK_LOCATION_BASE_URL}/assure-locate`;
-      const res = await axios.get(apiUrl);
+      const res = await axios.get(LOCATE_API_PATH);
 
       if (res?.status === 200 && res?.data?.data?.evs_url && res?.data?.data?.id) {
         const evsUrl = res.data.data.evs_url;
@@ -124,8 +124,7 @@ const LocateCheck = () => {
   const pollLocateResult = useCallback(
     async (locateId) => {
       try {
-        const apiUrl = `${process.env.NEXT_PUBLIC_CHECK_LOCATION_BASE_URL}/assure-locate/${locateId}`;
-        const response = await axios.get(apiUrl);
+        const response = await axios.get(`${LOCATE_API_PATH}/${locateId}`);
         const evsData = response?.data?.data?.evs_data;
 
         if (response?.status === 200 && evsData) {
