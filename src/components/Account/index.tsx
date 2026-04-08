@@ -1,5 +1,6 @@
 // @ts-nocheck
 /* eslint-disable */
+import axios from 'axios';
 import { City, Country, State } from 'country-state-city';
 import React, { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
@@ -153,6 +154,8 @@ const Account = () => {
     const [ searchNone, setSearchNone ] = useState(false);
     const [ zipCodeBillingValids, setZipCodeBillingValids ] = useState(false);
     const [ isDisableBilling, setisDisableBilling ] = useState(false);
+    const [ redeemLoading, setRedeemLoading ] = useState(false);
+    const axiosClient = (typeof window !== "undefined" && window.axios) ? window.axios : axios;
 
     // code updated
     useEffect(() => {
@@ -609,10 +612,14 @@ const Account = () => {
     };
 
     const submitCode = () => {
+        if (redeemLoading) {
+            return;
+        }
+
         dispatch(getRegioLcTime(""));
         dispatch(getOverCallingGeoLocation(true));
-        submitRedeemGeoFunction();
         document.getElementById("pageisLoading").style.display = "flex";
+        submitRedeemGeoFunction();
     }
         const[ipaddress,setIpAddress]= useState('')
         function callAPI(state) {
@@ -644,20 +651,29 @@ const Account = () => {
 
     // submit redeem code
     const submitRedeemGeoFunction = () => {
+        if (redeemLoading) {
+            return;
+        }
+
         if(sweepsCode !== "") {
-            window.axios.get(`${USER_REDEEM_COUPON_API_URL}${sweepsCode}?ipaddress=${ipaddress}` , {
+            setRedeemLoading(true);
+            axiosClient.get(`${USER_REDEEM_COUPON_API_URL}${sweepsCode}?ipaddress=${ipaddress}` , {
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
                     'Authorization': 'Bearer ' + accessToken,
                 }
             }).then(function (result) {
-                if(result?.data) {
+                if((result?.status === 200 || result?.status === 201) && result?.data && !result?.data?.error) {
                     document.getElementById("pageisLoading").style.display = "none";
                     dispatch(updateUserWallet(result.data.data));
                     setSweepsCode("");
+                    resetSweepsForm({ sweepsCode: "" });
                     setErrorSweepsCode("");
                     toast.success(result.data.msg);
+                } else {
+                    document.getElementById("pageisLoading").style.display = "none";
+                    toast.error(result?.data?.error || result?.data?.msg || "Something went wrong");
                 }
             }).catch(function (result) {
                 document.getElementById("pageisLoading").style.display = "none";
@@ -672,7 +688,8 @@ const Account = () => {
                 }else{
                     toast.error(result.response.data.error);
                 }
-
+            }).finally(function () {
+                setRedeemLoading(false);
             });
         } else {
             setErrorSweepsCode("Sweeps entry code cannot be empty");

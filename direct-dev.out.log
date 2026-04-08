@@ -1,0 +1,12 @@
+   ▲ Next.js 15.5.14
+   - Local:        http://localhost:3000
+   - Network:      http://0.0.0.0:3000
+   - Environments: .env
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+ ✓ Starting...
+ ✓ Ready in 4.7s
+ ○ Compiling /[[...slug]] ...
+ ✓ Compiled /[[...slug]] in 22.5s (1404 modules)
+ GET /blogs 200 in 25657ms

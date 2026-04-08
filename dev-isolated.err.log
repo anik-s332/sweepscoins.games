@@ -1,0 +1,13 @@
+Error: spawn EPERM
+    at ChildProcess.spawn (node:internal/child_process:420:11)
+    at spawn (node:child_process:762:9)
+    at fork (node:child_process:172:10)
+    at E:\Aniket\nextjs\Github\sweepscoins.games\node_modules\next\dist\cli\next-dev.js:237:45
+    at new Promise (<anonymous>)
+    at startServer (E:\Aniket\nextjs\Github\sweepscoins.games\node_modules\next\dist\cli\next-dev.js:213:16)
+    at runDevServer (E:\Aniket\nextjs\Github\sweepscoins.games\node_modules\next\dist\cli\next-dev.js:322:23)
+    at Module.nextDev (E:\Aniket\nextjs\Github\sweepscoins.games\node_modules\next\dist\cli\next-dev.js:330:11) {
+  errno: -4048,
+  code: 'EPERM',
+  syscall: 'spawn'
+}

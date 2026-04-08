@@ -1,4 +1,5 @@
 // @ts-nocheck
+import axios from 'axios';
 import React, { useEffect, useState, useRef } from 'react';
 import { useLocation, useNavigate } from '@/lib/router';
 import { toast } from 'react-toastify';
@@ -21,6 +22,7 @@ export default function TierlockPayment() {
   const navigate = useNavigate();
 
   const audioRef = useRef(new Audio(sound));
+  const axiosClient = (typeof window !== "undefined" && window.axios) ? window.axios : axios;
 
   const { accessToken } = useSelector((state) => state.allReducers);
 
@@ -40,17 +42,49 @@ export default function TierlockPayment() {
     statusCode: searchParams.get('status_code'),
   };
 
+  const paymentRequestKey =
+    paymentData.transactionId && paymentData.orderId
+      ? `tierlock-payment-${paymentData.transactionId}-${paymentData.orderId}`
+      : null;
+
+  const hideLoaders = () => {
+    document.getElementById("pageisLoading")?.style && (document.getElementById("pageisLoading").style.display = "none");
+    document.getElementById("pageisLoadingnew")?.style && (document.getElementById("pageisLoadingnew").style.display = "none");
+  };
+
+  const getPaymentErrorMessage = (error) => {
+    return error?.response?.data?.error || error?.response?.data?.msg || error?.message || "Something went wrong";
+  };
+
   // ----------------------------
   // Check payment status on mount
   // ----------------------------
   useEffect(() => {
-    document.getElementById("pageisLoading").style.display = "flex";
-    if (paymentData.status === "SUCCESS") {
+    document.getElementById("pageisLoading")?.style && (document.getElementById("pageisLoading").style.display = "flex");
+
+    const isPaymentSuccessful = paymentData.status?.toUpperCase() === "SUCCESS";
+    const hasRequiredParams = paymentData.transactionId && paymentData.orderId && paymentData.amount;
+
+    if (!hasRequiredParams) {
+      hideLoaders();
+      toast.error("Invalid payment response. Please try again.");
+      setTimeout(() => navigate(HOME_URL), 200);
+      return;
+    }
+
+    if (paymentRequestKey && sessionStorage.getItem(paymentRequestKey) === "submitted") {
+      hideLoaders();
+      return;
+    }
+
+    if (isPaymentSuccessful) {
+      if (paymentRequestKey) {
+        sessionStorage.setItem(paymentRequestKey, "submitted");
+      }
       callPaymentCompleteCashApp(paymentData);
     } else {
-      // toast.error("Payment Failed");
-      callPaymentCompleteCashApp(paymentData);
-      document.getElementById("pageisLoading").style.display = "none";
+      hideLoaders();
+      toast.error(`Payment ${paymentData.status?.toLowerCase() || "failed"}. Please try again.`);
       setTimeout(() => navigate(HOME_URL), 200);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -67,7 +101,7 @@ export default function TierlockPayment() {
       transaction_id: data.transactionId,
     };
 
-    window.axios
+    axiosClient
       .post(PAYMENT_PLACE_ORDER_API_URL, payload, {
         headers: {
           'Content-Type': 'application/json',
@@ -76,6 +110,14 @@ export default function TierlockPayment() {
         },
       })
       .then((result) => {
+        const isSuccessResponse =
+          (result?.status === 200 || result?.status === 201) &&
+          !result?.data?.error;
+
+        if (!isSuccessResponse) {
+          throw new Error(result?.data?.msg || result?.data?.error || "Something went wrong");
+        }
+
         // Show success modal
         setTimeout(() => {
             setSuccessPopup({...successPopup, open: true, title: "Thank you for the payment!", amount: result?.data?.data?.amount});
@@ -88,8 +130,7 @@ export default function TierlockPayment() {
           });
         }
 
-        document.getElementById("pageisLoading").style.display = "none";
-        document.getElementById("pageisLoadingnew").style.display = "none";
+        hideLoaders();
 
         // Update Redux state
         dispatch(cardDetailsGet(result.data.data));
@@ -104,8 +145,21 @@ export default function TierlockPayment() {
         closeCheckoutModal();
       })
       .catch((error) => {
-        document.getElementById("pageisLoading").style.display = "none";
-        toast.error(error?.response?.data?.error || "Something went wrong");
+        hideLoaders();
+
+        const errorMessage = getPaymentErrorMessage(error);
+
+        if (paymentRequestKey) {
+          sessionStorage.removeItem(paymentRequestKey);
+        }
+
+        if (errorMessage === "Payment is done for this order.") {
+          toast.info(errorMessage);
+          setTimeout(() => navigate(HOME_URL), 200);
+          return;
+        }
+
+        toast.error(errorMessage);
 
         if (error?.response?.data?.detail === "Token expired.") {
           accessTokenCheckLogout();
@@ -121,7 +175,6 @@ export default function TierlockPayment() {
   const closeCheckoutModal = () => {
     document.getElementById("flagsDropdownid")?.classList?.remove("active");
     document.getElementById("checkoutflag")?.classList?.remove("active");
-    setSuccessPopup({ ...successPopup, open: false });
   };
 
   const accessTokenCheckLogout = () => {

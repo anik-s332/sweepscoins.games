@@ -4074,6 +4074,10 @@ background-color: #f8f8f8;
 	z-index: 9;
 	overflow: hidden
 }
+.succesiocn img {
+	object-fit: contain;
+	margin: -5px 0 0;
+}
 
 .totalamount {
 	float: left;
