@@ -3,12 +3,13 @@ import Head from "next/head";
 import type { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { getSeoForPath, type SeoEntry } from "@/lib/seo";
-import { normalizeBlogDetailItem } from "@/lib/blogs";
+import { getStrapiEndpoint, getStrapiHeaders, normalizeBlogDetailItem } from "@/lib/blogs";
 
 const App = dynamic(() => import("@/App"), { ssr: false });
 
 type CatchAllPageProps = {
   initialSeo: SeoEntry;
+  initialPathname: string;
 };
 
 const getSiteUrl = () =>
@@ -43,16 +44,13 @@ const getPathnameFromSlug = (slug?: string[]) => {
 };
 
 const getBlogSeo = async (documentId: string): Promise<SeoEntry | null> => {
-  const strapiUrl = (process.env.NEXT_PUBLIC_STRAPI_URL || "").replace(/\/$/, "");
-  const token = process.env.STRAPI_API_TOKEN || process.env.NEXT_PUBLIC_STRAPI_API_TOKEN || "";
-
-  if (!strapiUrl || !documentId) {
+  if (!process.env.NEXT_PUBLIC_STRAPI_URL || !documentId) {
     return null;
   }
 
   try {
-    const response = await fetch(`${strapiUrl}/api/blogs/${documentId}?populate=*`, {
-      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+    const response = await fetch(getStrapiEndpoint(`/api/articles/${documentId}`, { populate: "*" }), {
+      headers: getStrapiHeaders(),
     });
 
     if (!response.ok) {
@@ -94,32 +92,43 @@ export const getServerSideProps: GetServerSideProps<CatchAllPageProps> = async (
   return {
     props: {
       initialSeo,
+      initialPathname: pathname,
     },
   };
 };
 
-export default function CatchAllPage({ initialSeo }: CatchAllPageProps) {
+export default function CatchAllPage({ initialSeo, initialPathname }: CatchAllPageProps) {
   const router = useRouter();
-  const pathname = router.asPath ? router.asPath.split("?")[0] : "/";
+  const pathname = router.asPath ? router.asPath.split("?")[0] : initialPathname;
   const seo = initialSeo || getSeoForPath(pathname);
   const canonicalUrl = getCanonicalUrl(pathname);
   const ogImage = ensureAbsoluteUrl(seo.image);
   const ogType = pathname.startsWith("/blogs/") ? "article" : "website";
+  const pageTitle = seo.title;
+  const pageDescription = seo.description;
 
   return (
     <>
       <Head>
-        <title>{seo.title}</title>
-        <meta name="description" content={seo.description} />
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:site_name" content="Sweeps Coins" />
         <meta property="og:type" content={ogType} />
-        <meta property="og:title" content={seo.title} />
-        <meta property="og:description" content={seo.description} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:image" content={ogImage} />
+        <meta property="og:image:url" content={ogImage} />
+        <meta property="og:image:secure_url" content={ogImage} />
+        <meta property="og:image:alt" content={pageTitle} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={seo.title} />
-        <meta name="twitter:description" content={seo.description} />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={pageDescription} />
         <meta name="twitter:image" content={ogImage} />
+        <meta name="twitter:url" content={canonicalUrl} />
         <link rel="canonical" href={canonicalUrl} />
       </Head>
       <App />

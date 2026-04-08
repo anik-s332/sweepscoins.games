@@ -40,6 +40,8 @@ const Blogs = () => {
       try {
         const response = await fetchBlogs();
 
+        console.log("response::", response)
+
         if (isMounted) {
           dispatch(getBlogList(response));
         }
@@ -65,6 +67,8 @@ const Blogs = () => {
   }, [dispatch]);
 
   const blogs = Array.isArray(blogList) ? blogList : [];
+
+  console.log("blogs12::", blogs)
 
   const filteredBlogs = useMemo(() => {
     const normalizedSearch = searchValue.trim().toLowerCase();
@@ -124,6 +128,7 @@ const Blogs = () => {
                   {!loading && !errorMessage && paginatedBlogs.map((blog) => (
                     <Link key={blog.documentId} to={`${BLOGS}/${blog.documentId}`} className="blogCard">
                       <div className="blogCard__imageWrap">
+                        {console.log("blog::", blog)}
                         <AppImage
                           src={blog.image || images.common.defaultProduct}
                           fallbackSrc={images.common.defaultProduct}

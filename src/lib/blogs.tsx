@@ -1,6 +1,8 @@
 import React from "react";
 
 const STRAPI_URL = (process.env.NEXT_PUBLIC_STRAPI_URL || "").replace(/\/$/, "");
+const STRAPI_API_TOKEN = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN || "";
+const BLOG_BASE_URL = process.env.NEXT_PUBLIC_BLOG_BASE_URL || "";
 
 const isObject = (value: unknown) =>
   value !== null && typeof value === "object" && !Array.isArray(value);
@@ -29,6 +31,26 @@ const slugify = (value: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 
+export function getBlogImageUrl(strapiUrl?: string): string | null {
+  if (!strapiUrl) {
+    return null;
+  }
+
+  const sanitizedUrl = strapiUrl.split("?")[0]?.split("#")[0] || strapiUrl;
+  const filename = sanitizedUrl.split("/").pop();
+
+  if (!filename) {
+    return null;
+  }
+
+  if (!BLOG_BASE_URL) {
+    return null;
+  }
+
+  const normalizedBaseUrl = BLOG_BASE_URL.endsWith("/") ? BLOG_BASE_URL : `${BLOG_BASE_URL}/`;
+  return `${normalizedBaseUrl}${filename}`;
+}
+
 const getMediaUrl = (value: unknown): string => {
   if (!value) {
     return "";
@@ -36,10 +58,11 @@ const getMediaUrl = (value: unknown): string => {
 
   if (typeof value === "string") {
     if (value.startsWith("http://") || value.startsWith("https://")) {
-      return value;
+      return getBlogImageUrl(value) || value;
     }
 
-    return STRAPI_URL ? `${STRAPI_URL}${value.startsWith("/") ? value : `/${value}`}` : value;
+    const mediaUrl = STRAPI_URL ? `${STRAPI_URL}${value.startsWith("/") ? value : `/${value}`}` : value;
+    return getBlogImageUrl(mediaUrl) || mediaUrl;
   }
 
   if (!isObject(value)) {
@@ -73,11 +96,17 @@ const getFormatsUrl = (formats: unknown) => {
 const getImageFromEntry = (entry: Record<string, unknown>) =>
   getMediaUrl(entry.coverImage) ||
   getMediaUrl(entry.cover_image) ||
+  getMediaUrl(entry.cover) ||
   getMediaUrl(entry.image) ||
+  getMediaUrl(entry.content_image) ||
   getMediaUrl(entry.thumbnail) ||
   getMediaUrl((entry.heroImage as Record<string, unknown>)?.data) ||
   getMediaUrl((entry.coverImage as Record<string, unknown>)?.data) ||
+  getMediaUrl((entry.cover as Record<string, unknown>)?.data) ||
+  getMediaUrl((entry.content_image as Record<string, unknown>)?.data) ||
   getFormatsUrl((entry.coverImage as Record<string, unknown>)?.formats) ||
+  getFormatsUrl((entry.cover as Record<string, unknown>)?.formats) ||
+  getFormatsUrl((entry.content_image as Record<string, unknown>)?.formats) ||
   getFormatsUrl((entry.image as Record<string, unknown>)?.formats) ||
   "";
 
@@ -268,12 +297,40 @@ export const formatBlogDate = (value: string) => {
   });
 };
 
+const buildStrapiHeaders = () => {
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+  };
+
+  if (STRAPI_API_TOKEN) {
+    headers.Authorization = `Bearer ${STRAPI_API_TOKEN}`;
+  }
+
+  return headers;
+};
+
+const buildStrapiEndpoint = (path: string, params?: Record<string, string>) => {
+  const url = new URL(`${STRAPI_URL}${path}`);
+
+  if (params) {
+    Object.entries(params).forEach(([key, value]) => {
+      if (value) {
+        url.searchParams.set(key, value);
+      }
+    });
+  }
+
+  return url.toString();
+};
+
 export const fetchBlogs = async () => {
   if (!STRAPI_URL) {
     throw new Error("NEXT_PUBLIC_STRAPI_URL is not configured.");
   }
 
-  const response = await fetch("/api/blogs");
+  const response = await fetch(buildStrapiEndpoint("/api/articles", { populate: "*" }), {
+    headers: buildStrapiHeaders(),
+  });
 
   if (!response.ok) {
     throw new Error(`Unable to load blogs. Strapi responded with ${response.status}.`);
@@ -288,7 +345,9 @@ export const fetchBlogDetail = async (documentId: string) => {
     throw new Error("NEXT_PUBLIC_STRAPI_URL is not configured.");
   }
 
-  const response = await fetch(`/api/blogs/${documentId}`);
+  const response = await fetch(buildStrapiEndpoint(`/api/articles/${documentId}`, { populate: "*" }), {
+    headers: buildStrapiHeaders(),
+  });
 
   if (!response.ok) {
     throw new Error(`Unable to load blog details. Strapi responded with ${response.status}.`);
@@ -297,6 +356,9 @@ export const fetchBlogDetail = async (documentId: string) => {
   const result = await response.json();
   return normalizeBlogDetailItem(result?.data);
 };
+
+export const getStrapiHeaders = buildStrapiHeaders;
+export const getStrapiEndpoint = buildStrapiEndpoint;
 
 type RichNode = {
   id: string;
@@ -428,4 +490,3 @@ export const renderRichContent = (content: unknown) => {
     </>
   );
 };
-

@@ -1,7 +1,8 @@
 // @ts-nocheck
 /* eslint-disable */
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Head from "next/head";
+import { useRouter as useNextRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "@/lib/router";
 import AppImage from "../Common/AppImage";
@@ -10,7 +11,6 @@ import {
   fetchBlogDetail,
   fetchBlogs,
   formatBlogDate,
-  getRichTextHeadingNodes,
   renderRichContent,
 } from "@/lib/blogs";
 import { images } from "@/content";
@@ -34,21 +34,43 @@ const SOCIAL_ITEMS = [
   },
 ];
 
-const HEADER_OFFSET = 118;
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.sweepscoins.cash";
 
 const BlogDetail = () => {
   const dispatch = useDispatch();
-  const { documentId } = useParams();
+  const nextRouter = useNextRouter();
+  const params = useParams();
   const { blogDetail, blogList } = useSelector((state) => state.allReducers);
   const [popularBlogs, setPopularBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
+  const documentId = useMemo(() => {
+    if (typeof params?.documentId === "string" && params.documentId) {
+      return params.documentId;
+    }
+
+    if (typeof nextRouter.query?.documentId === "string" && nextRouter.query.documentId) {
+      return nextRouter.query.documentId;
+    }
+
+    const pathname = typeof nextRouter.asPath === "string" ? nextRouter.asPath.split("?")[0] : "";
+    const segments = pathname.split("/").filter(Boolean);
+    return segments[0] === "blogs" ? segments[1] || "" : "";
+  }, [nextRouter.asPath, nextRouter.query?.documentId, params?.documentId]);
+
   useEffect(() => {
     let isMounted = true;
 
     const loadDetail = async () => {
+      if (!documentId) {
+        if (isMounted) {
+          setLoading(false);
+          setErrorMessage("Blog not found.");
+        }
+        return;
+      }
+
       setLoading(true);
       setErrorMessage("");
 
@@ -89,63 +111,12 @@ const BlogDetail = () => {
     return () => {
       isMounted = false;
     };
-  }, [dispatch, documentId]);
+  }, [blogDetail, blogList, dispatch, documentId]);
 
   const blog = blogDetail?.documentId === documentId ? blogDetail : null;
-
-  const tableOfContents = useMemo(() => {
-    if (blog?.tableOfContents?.length) {
-      return blog.tableOfContents.map((item) => ({
-        id: item.anchorId || item.id,
-        title: item.title,
-        level: Number(String(item.level).replace("h", "")) || 2,
-      }));
-    }
-
-    return getRichTextHeadingNodes(blog?.content);
-  }, [blog]);
-
   const currentUrl = typeof window !== "undefined" ? window.location.href : `${SITE_URL}${BLOGS}/${documentId}`;
   const shareImage = blog?.image || `${SITE_URL}/sweepcoinscash-01.png`;
   const shareDescription = blog?.excerpt || "Read the latest Sweeps Coins blog article, insights, and featured updates.";
-
-  const handleSectionScroll = useCallback((event, sectionId) => {
-    event.preventDefault();
-    const section = document.getElementById(sectionId);
-
-    if (!section) {
-      return;
-    }
-
-    const top = section.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
-    window.history.replaceState(null, "", `#${sectionId}`);
-    window.scrollTo({ top, behavior: "smooth" });
-  }, []);
-
-  useEffect(() => {
-    if (!blog || typeof window === "undefined") {
-      return;
-    }
-
-    const hash = window.location.hash.replace("#", "");
-
-    if (!hash) {
-      return;
-    }
-
-    const timeoutId = window.setTimeout(() => {
-      const section = document.getElementById(hash);
-
-      if (!section) {
-        return;
-      }
-
-      const top = section.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
-      window.scrollTo({ top, behavior: "auto" });
-    }, 50);
-
-    return () => window.clearTimeout(timeoutId);
-  }, [blog]);
 
   if (loading) {
     return (
@@ -190,23 +161,6 @@ const BlogDetail = () => {
               </div>
 
               <div className="blogDetailPage__layout">
-                <aside className="blogDetailPage__toc">
-                  <div className="blogDetailPage__panel">
-                    <h3>Table of Contents</h3>
-                    {tableOfContents.length > 0 ? (
-                      <ul>
-                        {tableOfContents.map((item) => (
-                          <li key={item.id}>
-                            <a href={`#${item.id}`} onClick={(event) => handleSectionScroll(event, item.id)}>{item.title}</a>
-                          </li>
-                        ))}
-                      </ul>
-                    ) : (
-                      <p>No sections available.</p>
-                    )}
-                  </div>
-                </aside>
-
                 <article className="blogDetailPage__article">
                   <h1>{blog.title}</h1>
                   <div className="blogDetailPage__meta">
@@ -221,6 +175,8 @@ const BlogDetail = () => {
                       width={940}
                       height={420}
                       className="blogDetailPage__heroImage"
+                      unoptimized
+                      priority
                     />
                   </div>
 
@@ -240,6 +196,7 @@ const BlogDetail = () => {
                               alt={item.title}
                               width={280}
                               height={180}
+                              unoptimized
                             />
                             <div>
                               <h4>{item.title}</h4>
@@ -281,6 +238,7 @@ const BlogDetail = () => {
                             alt={item.title}
                             width={88}
                             height={60}
+                            unoptimized
                           />
                           <div>
                             <h4>{item.title}</h4>

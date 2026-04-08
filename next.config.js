@@ -21,6 +21,7 @@ const getRemotePattern = (rawUrl) => {
 
 const imageRemotePatterns = [
   process.env.NEXT_PUBLIC_BASE_URL,
+  process.env.NEXT_PUBLIC_BLOG_BASE_URL,
   process.env.NEXT_PUBLIC_STRAPI_URL,
   process.env.NEXT_PUBLIC_SITE_URL,
   process.env.NEXT_PUBLIC_CHECK_LOCATION_BASE_URL,
