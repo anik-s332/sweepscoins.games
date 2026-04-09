@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  scg-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: scg-web:local
+
+    ports:
+      - "3002:3000"
+
+    env_file:
+      - .env
+
+    # Security hardening
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+
+    # Resource guardrails
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 512M
+
+    restart: always

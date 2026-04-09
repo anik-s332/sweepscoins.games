@@ -1,12 +1,14 @@
 const webpack = require("webpack");
 
 const getRemotePattern = (rawUrl) => {
-  if (!rawUrl) {
+  const normalizedUrl = rawUrl?.trim();
+
+  if (!normalizedUrl) {
     return null;
   }
 
   try {
-    const url = new URL(rawUrl);
+    const url = new URL(normalizedUrl);
 
     return {
       protocol: url.protocol.replace(":", ""),
@@ -30,6 +32,13 @@ const imageRemotePatterns = [
 imageRemotePatterns.push({
   protocol: "https",
   hostname: "nwchat.s3.amazonaws.com",
+  port: "",
+  pathname: "/**",
+});
+
+imageRemotePatterns.push({
+  protocol: "https",
+  hostname: "blog-static.appristine.com",
   port: "",
   pathname: "/**",
 });
