@@ -36,7 +36,7 @@ const SOCIAL_ITEMS = [
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.sweepscoins.cash";
 
-const BlogDetail = () => {
+const BlogDetail = () => { 
   const dispatch = useDispatch();
   const nextRouter = useNextRouter();
   const params = useParams();
