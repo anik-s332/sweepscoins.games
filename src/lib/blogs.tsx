@@ -3,6 +3,7 @@ import React from "react";
 const STRAPI_URL = (process.env.NEXT_PUBLIC_STRAPI_URL || "").replace(/\/$/, "");
 const STRAPI_API_TOKEN = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN || "";
 const BLOG_BASE_URL = process.env.NEXT_PUBLIC_BLOG_BASE_URL || "";
+const BLOGS_API_BASE = "/api/blogs";
 
 const isObject = (value: unknown) =>
   value !== null && typeof value === "object" && !Array.isArray(value);
@@ -324,16 +325,11 @@ const buildStrapiEndpoint = (path: string, params?: Record<string, string>) => {
 };
 
 export const fetchBlogs = async () => {
-  if (!STRAPI_URL) {
-    throw new Error("NEXT_PUBLIC_STRAPI_URL is not configured.");
-  }
-
-  const response = await fetch(buildStrapiEndpoint("/api/articles", { populate: "*" }), {
-    headers: buildStrapiHeaders(),
-  });
+  const response = await fetch(BLOGS_API_BASE);
 
   if (!response.ok) {
-    throw new Error(`Unable to load blogs. Strapi responded with ${response.status}.`);
+    const errorPayload = await response.json().catch(() => null);
+    throw new Error(errorPayload?.message || "Unable to load blogs.");
   }
 
   const result = await response.json();
@@ -341,16 +337,12 @@ export const fetchBlogs = async () => {
 };
 
 export const fetchBlogDetail = async (documentId: string) => {
-  if (!STRAPI_URL) {
-    throw new Error("NEXT_PUBLIC_STRAPI_URL is not configured.");
-  }
-
-  const response = await fetch(buildStrapiEndpoint(`/api/articles/${documentId}`, { populate: "*" }), {
-    headers: buildStrapiHeaders(),
-  });
+  const encodedId = encodeURIComponent(documentId);
+  const response = await fetch(`${BLOGS_API_BASE}/${encodedId}`);
 
   if (!response.ok) {
-    throw new Error(`Unable to load blog details. Strapi responded with ${response.status}.`);
+    const errorPayload = await response.json().catch(() => null);
+    throw new Error(errorPayload?.message || "Unable to load blog details.");
   }
 
   const result = await response.json();

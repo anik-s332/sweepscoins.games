@@ -17,7 +17,7 @@ import RightArrowIcon from "../../../assets/img/RightArrowIcon.svg";
 import SecureImage from "../../../assets/img/secure.webp";
 import SucessIcon from "../../../assets/img/success.svg";
 import { subtractYearsFromDate } from "../../../components/Account/function";
-import { AddMyProduct, CallLogoutUser, cardDetailsGet, checkLogin, customerDetailsGet, getAccessToken, getGeoCoplyMessage, getIsBillingAsHomeAddress, getOverCallingGeoLocation, getRegioLcTime, getUser, OrderIsInProcessModalStateFct, getAllZipCodes } from "../../../redux/actions";
+import { AddMyProduct, CallLogoutUser, cardDetailsGet, checkLogin, customerDetailsGet, getAccessToken, getGeoCoplyMessage, getIsBillingAsHomeAddress, getOverCallingGeoLocation, getRegioLcTime, getUser, OrderIsInProcessModalStateFct } from "../../../redux/actions";
 import PostRequest from "../../Account/PostRequest";
 import { CHECK_OUT_PACKAGE, GET_PROFILE_API_URL, HOME_URL, PACKAGES, PAYMENT_PLACE_ORDER_API_URL, PLACE_PRODUCT_ORDER_API_URL, USER_CRYPTO_PAYMENT_API_URL, USER_KYC_API, USER_TIERLOCK_STATUS_URL } from "../../Shared/constant";
 import CashPayComponent from "../CashPayComponent";
@@ -192,15 +192,10 @@ const CheckoutModal = (props) => {
     const [paymentMethod, setPaymentMethod] = useState("coinflow")
     const [ showHideCvv, setShowHideCvv ] = useState(false);
     const navigate = useNavigate();
-    const [ errorZip, setErrorZip ] = useState("");
     const [ zipCodeBillingValids, setZipCodeBillingValids ] = useState(false);
     const {payment_id} = useParams()
     const [ loading, setLoading ] = useState(false);
     const [ zipLoading, setZipLoading ]  = useState(false);
-
-    useEffect(() => {
-        GetZipCodes();
-    }, [ ]);
 
     useEffect(() => {
         setKycAddress({
@@ -219,19 +214,6 @@ const CheckoutModal = (props) => {
         setValue("email", profiledata?.email || "");
         setValue("birthdate", profiledata?.dob ? new Date(profiledata?.dob) : null);
     }, [profiledata, setValue]);
-
-    const GetZipCodes = async () => {
-        setZipLoading(true);
-        const response = await fetch("https://sweepscoinscash.s3.us-east-2.amazonaws.com/json/zipcodes.json");
-        const zipcodesdata = await response.json();
-        if(response?.status) {
-          setZipLoading(false);
-          dispatch(getAllZipCodes(zipcodesdata));
-        } else {
-          setZipLoading(false);
-          dispatch(getAllZipCodes([]));
-        };
-    };
 
     useEffect(()=>{
         if(payment_id){
@@ -457,9 +439,6 @@ const CheckoutModal = (props) => {
                 }
             }
         } else {
-            if(zipCodeBillingValids === false){
-                setErrorZip("Please enter valid zip")
-            }
             setCustomError(true);
             if(email === "") {
                 setErrorEmail("Email id cannot be empty");
@@ -1491,6 +1470,7 @@ const PayWithCoinFlow = (data) =>{
                                             await trigger("fname");
                                         }}
                                         placeholder="Enter first name"
+                                        disabled={zipLoading}
                                     />
                                     {fname !== "" && <AppImage src={images.common.successIcon} className="errorsuccessicon" alt={"icon"} width={18} height={18} />}
                                     {errors.fname && <div className="danger-color">{errors.fname.message}</div>}
@@ -1511,6 +1491,7 @@ const PayWithCoinFlow = (data) =>{
                                             await trigger("lname");
                                         }}
                                         placeholder="Enter last name"
+                                        disabled={zipLoading}
                                     />
                                     {lname !== "" && <AppImage src={images.common.successIcon} className="errorsuccessicon" alt={"icon"} width={18} height={18} />}
                                     {errors.lname && <div className="danger-color">{errors.lname.message}</div>}
@@ -1547,6 +1528,7 @@ const PayWithCoinFlow = (data) =>{
                                             }
                                         }}
                                         placeholder="Enter email"
+                                        disabled={zipLoading}
                                     />
                                     {EmailRegex.test(email) && <AppImage src={images.common.successIcon} className="errorsuccessicon" alt={"icon"} width={18} height={18} />}
                                     {errors.email && <div className="danger-color">{errors.email.message}</div>}
@@ -1559,6 +1541,7 @@ const PayWithCoinFlow = (data) =>{
                                             MobileNo={MobileNo}
                                             setMobileNo={setMobileNo}
                                             id={"checkoutflag"}
+                                            isPointer={zipLoading}
                                         />
                                         {MobileNo?.number?.toString()?.length === 10 && <AppImage src={images.common.successIcon} className="errorsuccessicon" alt={"icon"} width={18} height={18} />}
                                         {MobileNo?.number?.toString()?.length !== 10 && <div className="danger-color">{MobileError}</div>}
@@ -1589,6 +1572,7 @@ const PayWithCoinFlow = (data) =>{
                                 placeholderText="Date of Birth"
                                 maxDate={newDate}
                                 style={{display:"flex"}}
+                                disabled={zipLoading}
                             />
                             {Birthdate !== "" && Birthdate !== null && <AppImage src={images.common.successIcon} className="errorsuccessicon" alt={"icon"} width={18} height={18} />}
                             {errors.birthdate && <div className="danger-color">{errors.birthdate.message}</div>}
@@ -1611,7 +1595,8 @@ const PayWithCoinFlow = (data) =>{
                         CustomError={CustomError}
                         zipCodeBillingValids={zipCodeBillingValids}
                         setZipCodeBillingValids={setZipCodeBillingValids}
-                        isDisabled={isDisableBilling}
+                        isDisabled={isDisableBilling || zipLoading}
+                        setZipLookupLoading={setZipLoading}
                     />
                 </div>) : (stepUpdate === "paymentdetailsmethod" || (stepUpdate === "payment_option" && paymentMethod == 'cash_app')) ? (<PaymentMethedModal 
                     PaymentMethodModalState={PaymentMethodModalState} 

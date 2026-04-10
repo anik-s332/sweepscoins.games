@@ -1,9 +1,9 @@
 // @ts-nocheck
 /* eslint-disable */
 import { useEffect, useMemo, useState } from "react";
-import Head from "next/head";
 import { useRouter as useNextRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
+import Head from "next/head";
 import { Link, useParams } from "@/lib/router";
 import AppImage from "../Common/AppImage";
 import { BLOGS } from "../Shared/constant";
@@ -16,27 +16,44 @@ import {
 import { images } from "@/content";
 import { getBlogDetail, getBlogList } from "../../redux/actions";
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.sweepscoins.cash";
+
 const SOCIAL_ITEMS = [
   {
     label: "LinkedIn",
-    action: (url) => window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, "_blank", "noopener,noreferrer"),
+    action: (url) =>
+      window.open(
+        `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
+        "_blank",
+        "noopener,noreferrer"
+      ),
     short: "in",
   },
   {
     label: "Facebook",
-    action: (url) => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, "_blank", "noopener,noreferrer"),
+    action: (url) =>
+      window.open(
+        `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
+        "_blank",
+        "noopener,noreferrer"
+      ),
     short: "f",
   },
   {
     label: "X",
-    action: (url, title) => window.open(`https://x.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`, "_blank", "noopener,noreferrer"),
+    action: (url, title) =>
+      window.open(
+        `https://x.com/intent/tweet?url=${encodeURIComponent(
+          url
+        )}&text=${encodeURIComponent(title)}`,
+        "_blank",
+        "noopener,noreferrer"
+      ),
     short: "x",
   },
 ];
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.sweepscoins.cash";
-
-const BlogDetail = () => { 
+const BlogDetail = () => {
   const dispatch = useDispatch();
   const nextRouter = useNextRouter();
   const params = useParams();
@@ -114,9 +131,8 @@ const BlogDetail = () => {
   }, [blogDetail, blogList, dispatch, documentId]);
 
   const blog = blogDetail?.documentId === documentId ? blogDetail : null;
-  const currentUrl = typeof window !== "undefined" ? window.location.href : `${SITE_URL}${BLOGS}/${documentId}`;
-  const shareImage = blog?.image || `${SITE_URL}/sweepcoinscash-01.png`;
-  const shareDescription = blog?.excerpt || "Read the latest Sweeps Coins blog article, insights, and featured updates.";
+  const currentUrl = `${SITE_URL}${BLOGS}/${documentId}`;
+  const getShareUrl = () => (typeof window !== "undefined" ? window.location.href : currentUrl);
 
   if (loading) {
     return (
@@ -143,14 +159,21 @@ const BlogDetail = () => {
     <>
       <Head>
         <title>{blog.title} | Sweeps Coins</title>
-        <meta name="description" content={shareDescription} />
-        <meta property="og:title" content={`${blog.title} | Sweeps Coins`} />
-        <meta property="og:description" content={shareDescription} />
-        <meta property="og:image" content={shareImage} />
+
+        <meta name="description" content={blog.shortDescription || ""} />
+
+        {/* Open Graph */}
+        <meta property="og:title" content={blog.title} />
+        <meta property="og:description" content={blog.shortDescription || ""} />
+        <meta property="og:image" content={blog.image} />
         <meta property="og:url" content={currentUrl} />
-        <meta name="twitter:title" content={`${blog.title} | Sweeps Coins`} />
-        <meta name="twitter:description" content={shareDescription} />
-        <meta name="twitter:image" content={shareImage} />
+        <meta property="og:type" content="article" />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={blog.title} />
+        <meta name="twitter:description" content={blog.shortDescription || ""} />
+        <meta name="twitter:image" content={blog.image} />
       </Head>
       <section className="blogDetailPage">
         <div className="container-fluid">

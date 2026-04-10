@@ -27,6 +27,7 @@ const imageRemotePatterns = [
   process.env.NEXT_PUBLIC_STRAPI_URL,
   process.env.NEXT_PUBLIC_SITE_URL,
   process.env.NEXT_PUBLIC_CHECK_LOCATION_BASE_URL,
+  process.env.NEXT_PUBLIC_ZIP_BASE_URL,
 ].map(getRemotePattern).filter(Boolean);
 
 imageRemotePatterns.push({

@@ -2,7 +2,7 @@
 /* eslint-disable */
 import axios from 'axios';
 import { City, Country, State } from 'country-state-city';
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import { Controller, useForm } from "react-hook-form";
@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from 'react-toastify';
 import ProfileLoader from "../../assets/img/spinner_transferent.svg";
 import CloseBtn from "../../assets/img/x-mark (2).png";
-import { CallLogoutUser, ClearReduxFlow, GetOrderList, GetProductsIdWise, accountNavigate, getCreditlist, getOverCallingGeoLocation, getProductList, getRegioLcTime, getUser, updateProfilePic, updateUser, updateUserWallet, getAllZipCodes } from "../../redux/actions";
+import { CallLogoutUser, ClearReduxFlow, GetOrderList, GetProductsIdWise, accountNavigate, getCreditlist, getOverCallingGeoLocation, getProductList, getRegioLcTime, getUser, updateProfilePic, updateUser, updateUserWallet } from "../../redux/actions";
 import CommonModal from "../Common/CommonModal/index";
 import CountrySelectInput from "../Common/CountrySelectInput/CountryMobileInput";
 import CustomMendotoryMsg from "../Common/CustomMendotoryMsg";
@@ -32,11 +32,12 @@ import CommonBillingAddressForm from "../Common/CommonBillingAddressForm";
 import { subtractYearsFromDate } from "./function";
 import PostRequest from "./PostRequest";
 import AppImage from "../Common/AppImage";
+import useZipCodeLookup from "../Common/useZipCodeLookup";
 
 const Account = () => {
     const dispatch = useDispatch();
     const LocationUrl = window.location.href.split("/")[3];
-    const { referData,productidObjects, accessToken, orderlist, profiledata, accountUrl,creditList, products, geoComplyLocation, UniqueBrowserId, zipCodesAll } = useSelector((state) => state.allReducers);
+    const { referData,productidObjects, accessToken, orderlist, profiledata, accountUrl,creditList, products, geoComplyLocation, UniqueBrowserId } = useSelector((state) => state.allReducers);
     const [ CustomError, setCustomError ] = useState(false);
     const [ fname, setFname ] = useState((profiledata?.first_name === null || profiledata?.first_name === "") ? "" : profiledata?.first_name);
     const [ lname, setLname ] = useState((profiledata?.last_name === null || profiledata?.last_name === "") ? "" : profiledata?.last_name);
@@ -69,14 +70,11 @@ const Account = () => {
     });
     const [ SelectState, setSelectState ] = useState((profiledata?.address?.state===null||profiledata?.address?.state===""||profiledata?.address?.state===undefined)?"":profiledata?.address?.state);
     const [ SelectCity, setSelectCity ] = useState((profiledata?.address?.city===null||profiledata?.address?.city===""||profiledata?.address?.city===undefined)?"":profiledata?.address?.city);
-    const [stateIsoCode,setStateisoCode] = useState("");
     const [state_value,setStateValueForKyc] = useState('')
 
     const [optionsState, setOptionsState] = useState([]);
 
     const [optionsCity, setOptionsCity] = useState([]);
-    const [ errorZip, setErrorZip ] = useState("");
-
 
     const navigate = useNavigate();
     const {
@@ -154,6 +152,8 @@ const Account = () => {
     const [ searchNone, setSearchNone ] = useState(false);
     const [ zipCodeBillingValids, setZipCodeBillingValids ] = useState(false);
     const [ isDisableBilling, setisDisableBilling ] = useState(false);
+    const [ homeZipValid, setHomeZipValid ] = useState(false);
+    const [ billingZipLookupLoading, setBillingZipLookupLoading ] = useState(false);
     const [ redeemLoading, setRedeemLoading ] = useState(false);
     const axiosClient = (typeof window !== "undefined" && window.axios) ? window.axios : axios;
 
@@ -237,16 +237,60 @@ const Account = () => {
       }, [])
 
       const [loading,setLoading]  = useState(false);
-      const [zipLoading,setZipLoading]  = useState(false);
-      useEffect(() => {
-        GetZipCodes();
-      }, [ ]);
+
+      const applyHomeZipLookupResult = useCallback((zipData) => {
+        const matchedState = State.getStateByCodeAndCountry("US", zipData?.state);
+        const nextState = matchedState?.name || "";
+        const nextCity = zipData?.city || "";
+        const nextZip = zipData?.zip_code?.toString() || "";
+
+        setAddress((prevAddress) => ({
+            ...prevAddress,
+            zip: nextZip || prevAddress.zip,
+        }));
+
+        if (nextState) {
+            setSelectState(nextState);
+            setAccountValue("state", nextState);
+        }
+
+        if (nextCity) {
+            setSelectCity(nextCity);
+            setAccountValue("city", nextCity);
+        }
+
+        if (nextZip) {
+            setAccountValue("zip", nextZip);
+        }
+      }, [setAccountValue]);
+
+      const {
+        handleZipCodeChange: handleHomeZipChange,
+        isLoading: homeZipLookupLoading,
+        lookupZipCode: lookupHomeZipCode,
+        setZipError: setHomeZipError,
+        validateZipCodeField: validateHomeZipField,
+        zipError: homeZipError,
+      } = useZipCodeLookup({
+        zipCode: address?.zip,
+        onZipCodeChange: (value) => {
+            setAddress((prevAddress) => ({
+                ...prevAddress,
+                zip: value,
+            }));
+            setAccountValue("zip", value);
+        },
+        onLookupSuccess: applyHomeZipLookupResult,
+        onValidityChange: setHomeZipValid,
+      });
+
+      const zipLoading = homeZipLookupLoading || billingZipLookupLoading;
 
       const onProfileFormSubmit = (data) => {
         const isMobileValid = MobileNo?.number?.toString()?.length === 10;
         const isDateValid = Birthdate && Birthdate !== null;
         const isAddressValid = data.street1 && data.street1.trim() !== "";
-        const isZipValid = data.zip && data.zip.trim() !== "" && zipCodeBillingValids;
+        const isZipValid = data.zip && data.zip.trim() !== "" && homeZipValid;
         const hasCountry = data.country && data.country.trim() !== "";
         const hasState = data.state && data.state.trim() !== "";
         const hasCity = data.city && data.city.trim() !== "";
@@ -280,22 +324,6 @@ const Account = () => {
       const onProfileFormError = () => {
         setCustomError(true);
       };
-
-      const GetZipCodes = async () => {
-          setZipLoading(true);
-          const response = await fetch("https://sweepscoinscash.s3.us-east-2.amazonaws.com/json/zipcodes.json");
-          const zipcodesdata = await response?.json();
-
-          if(response?.status) {
-            setZipLoading(false);
-            dispatch(getAllZipCodes(zipcodesdata));
-            } else {
-            setZipLoading(false);
-            dispatch(getAllZipCodes([]));
-          };
-      };
-      
-
 
     useEffect(() => {
         UserGetAPI_Function();
@@ -445,7 +473,7 @@ const Account = () => {
         document.getElementById("accountflag")?.classList?.remove("active");
         if(Birthdate !== ""
             // && SSN !== ""
-            && address?.street1!==""&& address?.zip!==""&& ZipCodeValids === true&&SelectCountry !== "" &&SelectState!==""&&SelectCity!=="" &&fname !== "" && lname !== "" && MobileNo?.number?.toString()?.length === 10 && KycAddress?.country !== "" && KycAddress?.state !== "" && KycAddress?.city !== "" && KycAddress?.zip !== "" && zipCodeBillingValids === true && KycAddress?.street2 !== "") {
+            && address?.street1!==""&& address?.zip!==""&& homeZipValid === true&&SelectCountry !== "" &&SelectState!==""&&SelectCity!=="" &&fname !== "" && lname !== "" && MobileNo?.number?.toString()?.length === 10 && KycAddress?.country !== "" && KycAddress?.state !== "" && KycAddress?.city !== "" && KycAddress?.zip !== "" && zipCodeBillingValids === true && KycAddress?.street2 !== "") {
             // if(SSNRegex.test(SSN) === true){
                 const jsonData = JSON.stringify({ first_name: fname, last_name: lname, phone: MobileNo?.countrycode + " " + MobileNo?.number, location: geoComplyLocation,
                     "country":SelectCountry?.value,
@@ -480,8 +508,8 @@ const Account = () => {
                 });
         } else {
             setCustomError(true);
-            if(ZipCodeValids === false){
-                setErrorZip("Please enter valid zip")
+            if(homeZipValid === false){
+                validateHomeZipField(address?.zip);
             }
             if(MobileNo?.number === "") {
                 setMobileError("Phone Number cannot be empty");
@@ -494,7 +522,7 @@ const Account = () => {
     }
     const ProfileUpdate2= () =>{
         document.getElementById("accountflag")?.classList?.remove("active");
-        if(fname !== "" && lname !== "" && MobileNo?.number?.toString()?.length === 10 && KycAddress?.country !== "" && KycAddress?.state !== "" && KycAddress?.city !== "" && KycAddress?.zip !== "" && KycAddress?.street2 !== "") {
+        if(fname !== "" && lname !== "" && MobileNo?.number?.toString()?.length === 10 && KycAddress?.country !== "" && KycAddress?.state !== "" && KycAddress?.city !== "" && KycAddress?.zip !== "" && KycAddress?.street2 !== "" && homeZipValid === true && zipCodeBillingValids === true) {
             const jsonData = JSON.stringify({ 
                 "first_name": fname, 
                 "last_name": lname, 
@@ -532,6 +560,7 @@ const Account = () => {
             });
         } else {
             setCustomError(true);
+            validateHomeZipField(address?.zip);
 
             if(MobileNo?.number === "") {
                 setMobileError("Phone Number cannot be empty");
@@ -542,16 +571,6 @@ const Account = () => {
             }
         }
     }
-    const ValidZIP = (value) => {
-        if(value === "") {
-            setErrorZip("Zip cannot be empty");
-        } else if(ZipCodeValids === false) {
-            setErrorZip("Please enter valid zip")
-        } else {
-            setErrorZip("");
-        }
-    };
-
     const SubmitReferralRequest = ({ message }) =>{
         document.getElementById("accountflag")?.classList?.remove("active");
             setLoading(true)
@@ -887,8 +906,8 @@ const handleChange = (e) => {
         if (!/^\d*$/.test(sanitizedValue)) {
             return;
         }
-        if (sanitizedValue.length > 6) {
-            sanitizedValue = sanitizedValue.slice(0, 6);
+        if (sanitizedValue.length > 5) {
+            sanitizedValue = sanitizedValue.slice(0, 5);
         }
     }
 
@@ -931,15 +950,11 @@ const getStateIsoCodeByName = (countryIsoCode, stateName) => {
     const state = states.find(state => state.name === stateName);  
     return state ? state.isoCode : "";  
 };
-const ZipCodesFilter = Array.isArray(zipCodesAll)? zipCodesAll.filter((elm) => elm?.state?.toString() === stateIsoCode): [];
-const ZipCodeValids = ZipCodesFilter?.filter((elm) => elm?.zip_code?.toString() === address?.zip)?.length > 0;
-
 const fetchCities = (cisoCode, stateName) => { 
     const countryIsoCode = getCountryIsoCodeByName(cisoCode); 
    
     if (countryIsoCode && stateName) {
         const stateIsoCode = getStateIsoCodeByName(countryIsoCode, stateName);
-        setStateisoCode(stateIsoCode)
         if (stateIsoCode) {
             const cities = City.getCitiesOfState(countryIsoCode, stateIsoCode).map((city, index) => {
                 return {
@@ -964,7 +979,7 @@ const SelectCountryChange = (e) => {
 };
 const SelectStateChange = (e) => {
     const selectedState = e.target.value;
-    setErrorZip("")
+    setHomeZipError("")
     if (selectedState !== "") {
         setSelectState(selectedState);  
         setSelectCity("");  
@@ -979,7 +994,7 @@ const SelectStateChange = (e) => {
 
 const SelectCityChange = (e) => {
     const selectedCity = e.target.value;  
-    setErrorZip("")
+    setHomeZipError("")
     if (selectedCity !== "") {
         setSelectCity(selectedCity);  
     } else {
@@ -1013,7 +1028,7 @@ const SelectCityChange = (e) => {
                                 onClick={() => {
                                     dispatch(accountNavigate("my-account"));
                                     setCustomError(false)
-                                    setErrorZip("")
+                                    setHomeZipError("")
                                 }}
                             >My Account</a>
                             <Link to="/packages" className="accountsRoutingLink">Buy Bundles</Link>
@@ -1024,7 +1039,7 @@ const SelectCityChange = (e) => {
                                 onClick={() => {
                                     dispatch(accountNavigate("refer-earn"))
                                     setCustomError(false)
-                                    setErrorZip("")
+                                    setHomeZipError("")
                                 }
                             }>Refer & Earn</a>
                         </div>) : (<select className="selectAccountssct" 
@@ -1092,6 +1107,7 @@ const SelectCityChange = (e) => {
                                                         await triggerAccount("fname");
                                                     }}
                                                     placeholder="Enter first name"
+                                                    disabled={zipLoading}
                                                 />
                                                 {fname !== "" && <AppImage src={images.common.successIcon} className="errorsuccessicon" alt={"icon"} width={18} height={18} />}
                                                 {accountErrors.fname && <div className="danger-color">{accountErrors.fname.message}</div>}
@@ -1112,6 +1128,7 @@ const SelectCityChange = (e) => {
                                                         await triggerAccount("lname");
                                                     }}
                                                     placeholder="Enter last name"
+                                                    disabled={zipLoading}
                                                 />
                                                 {lname !== "" && <AppImage src={images.common.successIcon} className="errorsuccessicon" alt={"icon"} width={18} height={18} />}
                                                 {accountErrors.lname && <div className="danger-color">{accountErrors.lname.message}</div>}
@@ -1126,6 +1143,7 @@ const SelectCityChange = (e) => {
                                                     MobileNo={MobileNo}
                                                     setMobileNo={setMobileNo}
                                                     id={"accountflag"}
+                                                    isPointer={zipLoading}
                                                 />
                                                 {MobileNo?.number?.toString()?.length === 10 && <AppImage src={images.common.successIcon} className="errorsuccessicon" alt={"icon"} width={18} height={18} />}
                                                 {MobileNo?.number?.toString()?.length !== 10 && <div className="danger-color">{MobileError}</div>}
@@ -1149,7 +1167,7 @@ const SelectCityChange = (e) => {
                                                     placeholderText="Date of birth"
                                                     maxDate={newDate}
                                                     style={{display:"flex",}}
-                                                    disabled={profiledata?.kyc_verified}
+                                                    disabled={profiledata?.kyc_verified || zipLoading}
                                                 />
                                                 {Birthdate !== "" && Birthdate !== null && <AppImage src={images.common.successIcon} className="errorsuccessicon" alt={"icon"} width={18} height={18} />}
                                                 {accountErrors.birthdate && <div className="danger-color">{accountErrors.birthdate.message}</div>}
@@ -1171,7 +1189,7 @@ const SelectCityChange = (e) => {
                                         }}
                                         value={SelectCountry}
                                         aria-label="Default select example"
-                                        disabled={profiledata?.kyc_verified}
+                                        disabled={profiledata?.kyc_verified || zipLoading}
                                     >
                                         {CList?.map((elm, index) => {
                                             return(<option value={elm.name} key={index}>{elm.name}</option>)
@@ -1194,7 +1212,7 @@ const SelectCityChange = (e) => {
                                         await triggerAccount("state");
                                     }}
                                     aria-label="Default select example"
-                                    disabled={profiledata?.kyc_verified}
+                                    disabled={profiledata?.kyc_verified || zipLoading}
                                 >
                                   <option value="">Select State</option>
                                     {optionsState?.length > 0 ? (
@@ -1229,7 +1247,7 @@ const SelectCityChange = (e) => {
                                         await triggerAccount("city");
                                     }}
                                     aria-label="Default select example"
-                                    disabled={profiledata?.kyc_verified}
+                                    disabled={profiledata?.kyc_verified || zipLoading}
                                 >
                                        <option value="">Select City</option>
                                        {optionsCity?.length > 0 ? (
@@ -1253,24 +1271,56 @@ const SelectCityChange = (e) => {
                                     <input type="text"
                                         name="zip"
                                         className="form-control" 
+                                        style={{ paddingRight: "106px" }}
                                         {...registerAccount("zip", {
                                             required: "ZIP cannot be empty",
-                                            validate: (value) => (ZipCodeValids || "Enter valid ZIP")
+                                            validate: () => (homeZipValid || "Enter valid ZIP")
                                         })}
                                         value={address?.zip} 
                                         onChange={(e) => {
-                                            handleChange(e); 
-                                            setAccountValue("zip", e.target.value);
+                                            handleHomeZipChange(e.target.value);
                                         }} 
-                                        onKeyUp={(e) => ValidZIP(e.target.value)}
+                                        onBlur={() => validateHomeZipField(address?.zip)}
+                                        onKeyDown={(e) => {
+                                            if (e.key === "Enter") {
+                                                e.preventDefault();
+                                                lookupHomeZipCode(address?.zip);
+                                            }
+                                        }}
                                         placeholder={"Enter Zip Code"} 
                                         disabled={profiledata?.kyc_verified || zipLoading}
                                     />
-                                    {zipCodeBillingValids === true && <AppImage src={images.common.successIcon} className="errorsuccessicon" alt={"success icon"} width={18} height={18} />}
-                                    {zipCodeBillingValids === false && <AppImage src={images.common.errorIcon} className="errorsuccessicon" alt={"success icon"} width={18} height={18} />}
+                                    <button
+                                        type="button"
+                                        aria-label="Search ZIP code"
+                                        onClick={() => lookupHomeZipCode(address?.zip)}
+                                        disabled={profiledata?.kyc_verified || zipLoading}
+                                        style={{
+                                            position: "absolute",
+                                            right: "10px",
+                                            top: "50%",
+                                            transform: "translateY(-50%)",
+                                            border: "1px solid #d7d7dc",
+                                            background: "#f5f5f8",
+                                            padding: "0 10px",
+                                            height: "34px",
+                                            minWidth: "72px",
+                                            width: "72px",
+                                            lineHeight: 1,
+                                            borderRadius: "7px",
+                                            fontSize: "15px",
+                                            fontWeight: 400,
+                                            color: "#2a2a2a",
+                                            cursor: "pointer",
+                                        }}
+                                    >
+                                        {zipLoading ? "Searching" : "Search"}
+                                    </button>
+                                    {!zipLoading && (address?.zip?.length === 5 && homeZipValid === true) && <AppImage src={images.common.successIcon} className="errorsuccessicon" alt={"success icon"} width={18} height={18} style={{ right: "90px", top: "50%", transform: "translateY(-50%)" }} />}
+                                    {!zipLoading && (address?.zip?.length === 5 && homeZipValid === false) && <AppImage src={images.common.errorIcon} className="errorsuccessicon" alt={"success icon"} width={18} height={18} style={{ right: "90px", top: "50%", transform: "translateY(-50%)" }} />}
 
-                                    {accountErrors.zip && <div className="danger-color">{accountErrors.zip.message}</div>}
-                                    {errorZip !== "" && <div className="danger-color">{errorZip}</div>}
+                                    {!zipLoading && accountErrors.zip && <div className="danger-color">{accountErrors.zip.message}</div>}
+                                    {!zipLoading && homeZipError !== "" && <div className="danger-color">{homeZipError}</div>}
                                 </div>
                             </div>  
                         </div>
@@ -1288,7 +1338,7 @@ const SelectCityChange = (e) => {
                                         setAccountValue("street1", e.target.value);
                                         await triggerAccount("street1");
                                     }}
-                                    disabled={profiledata?.kyc_verified}
+                                    disabled={profiledata?.kyc_verified || zipLoading}
 
                                      placeholder="Enter address"
                                       />
@@ -1305,7 +1355,7 @@ const SelectCityChange = (e) => {
                                     type="checkbox" 
                                     id="termsconditions" 
                                     onClick={(e) => copyAddress(e)} 
-                                    disabled={SelectCountry === "" || SelectState === "" || SelectCity === "" || address?.zip === "" || ZipCodeValids === false || address?.street1 === ""}
+                                    disabled={zipLoading || SelectCountry === "" || SelectState === "" || SelectCity === "" || address?.zip === "" || homeZipValid === false || address?.street1 === ""}
                                 />
                                 <label htmlFor="termsconditions"> Same as Home Address</label>
                             </div>
@@ -1316,8 +1366,8 @@ const SelectCityChange = (e) => {
                                 CustomError={CustomError}
                                 zipCodeBillingValids={zipCodeBillingValids}
                                 setZipCodeBillingValids={setZipCodeBillingValids}
-                                isDisabled={isDisableBilling}
-                                zipLoading={zipLoading}
+                                isDisabled={isDisableBilling || zipLoading}
+                                setZipLookupLoading={setBillingZipLookupLoading}
                             />
 
                                     <div className="rowcustomright" >
