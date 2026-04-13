@@ -286,7 +286,7 @@ const SignUpSidebar = (props) => {
                     </div>
                 </div>
             </div>
-            <duv className="rowcustom">
+            <div className="rowcustom">
                 <div className="form-group">
                 <label>Referral code</label>
                 <div className="form-groupfiled">
@@ -302,7 +302,7 @@ const SignUpSidebar = (props) => {
                 />
                 </div>
                 </div>
-            </duv>
+            </div>
             <div className="rowcustom rowcustom-col-2 paswordfield">
                 <div className={errors?.password ? "form-group error" : "form-group"}>
                     <label>Password *

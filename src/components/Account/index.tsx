@@ -282,6 +282,8 @@ const Account = () => {
         },
         onLookupSuccess: applyHomeZipLookupResult,
         onValidityChange: setHomeZipValid,
+        state: SelectState,
+        city: SelectCity,
       });
 
       const zipLoading = homeZipLookupLoading || billingZipLookupLoading;
@@ -981,13 +983,26 @@ const SelectStateChange = (e) => {
     const selectedState = e.target.value;
     setHomeZipError("")
     if (selectedState !== "") {
-        setSelectState(selectedState);  
-        setSelectCity("");  
+        setSelectState(selectedState); 
+
+        // ✅ ADD HERE
+        setSelectCity("");
+        setAddress((prev) => ({ ...prev, zip: "" }));
+        setAccountValue("city", "");
+        setAccountValue("zip", "");
+
+
         fetchCities(SelectCountry, selectedState);  
 
     } else {
         setSelectState("");
-        setSelectCity("");  
+
+        // ✅ ALSO HERE (when cleared)
+        setSelectCity("");
+        setAddress((prev) => ({ ...prev, zip: "" }));
+        setAccountValue("state", "");
+        setAccountValue("city", "");
+        setAccountValue("zip", "");
     }
 
 };
@@ -997,8 +1012,16 @@ const SelectCityChange = (e) => {
     setHomeZipError("")
     if (selectedCity !== "") {
         setSelectCity(selectedCity);  
+        // ✅ ADD HERE
+        setAddress((prev) => ({ ...prev, zip: "" }));
+        setAccountValue("zip", "");
     } else {
-        setSelectCity("");  
+        setSelectCity(""); 
+        
+        // ✅ ALSO HERE (when cleared)
+        setAddress((prev) => ({ ...prev, zip: "" }));
+        setAccountValue("city", "");
+        setAccountValue("zip", "");
     }
 
 };
@@ -1268,57 +1291,57 @@ const SelectCityChange = (e) => {
                         <div className={accountErrors.zip ? "form-group error" : "form-group"}>
                                 <label>ZIP</label>
                                 <div className="form-groupfiled">
-                                    <input type="text"
-                                        name="zip"
-                                        className="form-control" 
-                                        style={{ paddingRight: "106px" }}
-                                        {...registerAccount("zip", {
-                                            required: "ZIP cannot be empty",
-                                            validate: () => (homeZipValid || "Enter valid ZIP")
-                                        })}
-                                        value={address?.zip} 
-                                        onChange={(e) => {
-                                            handleHomeZipChange(e.target.value);
-                                        }} 
-                                        onBlur={() => validateHomeZipField(address?.zip)}
-                                        onKeyDown={(e) => {
-                                            if (e.key === "Enter") {
-                                                e.preventDefault();
-                                                lookupHomeZipCode(address?.zip);
-                                            }
-                                        }}
-                                        placeholder={"Enter Zip Code"} 
-                                        disabled={profiledata?.kyc_verified || zipLoading}
-                                    />
-                                    <button
-                                        type="button"
-                                        aria-label="Search ZIP code"
-                                        onClick={() => lookupHomeZipCode(address?.zip)}
-                                        disabled={profiledata?.kyc_verified || zipLoading}
-                                        style={{
-                                            position: "absolute",
-                                            right: "10px",
-                                            top: "50%",
-                                            transform: "translateY(-50%)",
-                                            border: "1px solid #d7d7dc",
-                                            background: "#f5f5f8",
-                                            padding: "0 10px",
-                                            height: "34px",
-                                            minWidth: "72px",
-                                            width: "72px",
-                                            lineHeight: 1,
-                                            borderRadius: "7px",
-                                            fontSize: "15px",
-                                            fontWeight: 400,
-                                            color: "#2a2a2a",
-                                            cursor: "pointer",
-                                        }}
-                                    >
-                                        {zipLoading ? "Searching" : "Search"}
-                                    </button>
-                                    {!zipLoading && (address?.zip?.length === 5 && homeZipValid === true) && <AppImage src={images.common.successIcon} className="errorsuccessicon" alt={"success icon"} width={18} height={18} style={{ right: "90px", top: "50%", transform: "translateY(-50%)" }} />}
-                                    {!zipLoading && (address?.zip?.length === 5 && homeZipValid === false) && <AppImage src={images.common.errorIcon} className="errorsuccessicon" alt={"success icon"} width={18} height={18} style={{ right: "90px", top: "50%", transform: "translateY(-50%)" }} />}
-
+                                    <div style={{ position: "relative" }}>
+                                        <input type="text"
+                                            name="zip"
+                                            className="form-control" 
+                                            {...registerAccount("zip", {
+                                                required: "ZIP cannot be empty",
+                                                validate: () => (homeZipValid || "Enter valid ZIP")
+                                            })}
+                                            value={address?.zip} 
+                                            onChange={(e) => {
+                                                handleHomeZipChange(e.target.value);
+                                            }} 
+                                            onBlur={() => validateHomeZipField(address?.zip)}
+                                            onKeyDown={(e) => {
+                                                if (e.key === "Enter") {
+                                                    e.preventDefault();
+                                                    lookupHomeZipCode(address?.zip);
+                                                }
+                                            }}
+                                            placeholder={"Enter Zip Code"} 
+                                            disabled={profiledata?.kyc_verified || zipLoading}
+                                        />
+                                        {/* <button
+                                            type="button"
+                                            aria-label="Search ZIP code"
+                                            onClick={() => lookupHomeZipCode(address?.zip)}
+                                            disabled={profiledata?.kyc_verified || zipLoading}
+                                            style={{
+                                                position: "absolute",
+                                                right: "10px",
+                                                top: "50%",
+                                                transform: "translateY(-50%)",
+                                                border: "1px solid #d7d7dc",
+                                                background: "#f5f5f8",
+                                                padding: "0 10px",
+                                                height: "34px",
+                                                minWidth: "72px",
+                                                width: "72px",
+                                                lineHeight: 1,
+                                                borderRadius: "7px",
+                                                fontSize: "15px",
+                                                fontWeight: 400,
+                                                color: "#2a2a2a",
+                                                cursor: "pointer",
+                                            }}
+                                        >
+                                            {zipLoading ? "Searching" : "Search"}
+                                        </button> */}
+                                        {!zipLoading && (address?.zip?.length === 5 && homeZipValid === true) && <AppImage src={images.common.successIcon} className="errorsuccessicon" alt={"success icon"} width={18} height={18} style={{ right: "15px", top: "50%", transform: "translateY(-50%)" }} />}
+                                        {!zipLoading && (address?.zip?.length === 5 && homeZipValid === false) && <AppImage src={images.common.errorIcon} className="errorsuccessicon" alt={"success icon"} width={18} height={18} style={{ right: "15px", top: "50%", transform: "translateY(-50%)" }} />}
+                                    </div>
                                     {!zipLoading && accountErrors.zip && <div className="danger-color">{accountErrors.zip.message}</div>}
                                     {!zipLoading && homeZipError !== "" && <div className="danger-color">{homeZipError}</div>}
                                 </div>

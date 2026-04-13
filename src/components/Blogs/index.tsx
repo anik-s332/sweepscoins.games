@@ -180,7 +180,7 @@ const Blogs = () => {
                     />
                   </div>
 
-                  <div className="blogsSidebar__card">
+                  {/* <div className="blogsSidebar__card">
                     <h3>Social Links</h3>
                     <div className="blogsSidebar__socials">
                       {SOCIAL_ITEMS.map((item) => (
@@ -189,7 +189,7 @@ const Blogs = () => {
                         </a>
                       ))}
                     </div>
-                  </div>
+                  </div> */}
                 </aside>
               </div>
             </div>

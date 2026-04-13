@@ -45,8 +45,9 @@ const getSocialImage = (siteUrl: string, value?: string) => {
   const absoluteImage = ensureAbsoluteUrl(siteUrl, value);
   const lowered = absoluteImage.toLowerCase();
 
-  // Facebook sharing is most reliable with jpg/png assets.
-  if (lowered.endsWith(".webp") || lowered.endsWith(".avif") || lowered.endsWith(".svg")) {
+  // Certain older crawlers might still struggle with SVG/AVIF, 
+  // but modern platforms (Facebook, X, LinkedIn) support WebP.
+  if (lowered.endsWith(".svg")) {
     return `${siteUrl}/sweepcoinscash-01.png`;
   }
 

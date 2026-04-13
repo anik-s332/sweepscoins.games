@@ -18,6 +18,8 @@ const useZipCodeLookup = ({
   onZipCodeChange,
   onLookupSuccess,
   onValidityChange,
+  state,
+  city,
 }) => {
   const [zipError, setZipError] = useState("");
   const [isZipValid, setIsZipValid] = useState(false);
@@ -45,23 +47,45 @@ const useZipCodeLookup = ({
     (value) => {
       const nextZipCode = normalizeZipCode(value);
 
+      // ✅ BLOCK typing validation
+      if (nextZipCode && (!state || !city)) {
+        setZipError("Please select state and city first");
+        clearZipValidation();
+        onZipCodeChange(nextZipCode);
+        return nextZipCode;
+      }
+
       if (nextZipCode !== validatedZipRef.current) {
         clearZipValidation();
       }
 
-      if (nextZipCode.length < 5) {
-        setZipError("");
+      // ✅ ADD THIS BLOCK (your requirement)
+      if (state && city) {
+        if (nextZipCode.length > 0 && nextZipCode.length < 5) {
+          setZipError(ZIP_LOOKUP_ERROR); // "Please enter a valid ZIP code"
+        } else if (nextZipCode.length === 5) {
+          setZipError(""); // clear error when valid length
+        } else {
+          setZipError("");
+        }
       }
 
       onZipCodeChange(nextZipCode);
       return nextZipCode;
     },
-    [clearZipValidation, onZipCodeChange]
+    [clearZipValidation, onZipCodeChange, state, city]
   );
 
   const lookupZipCode = useCallback(
     async (customZipCode?: string) => {
       const nextZipCode = normalizeZipCode(customZipCode ?? zipCode);
+
+      // ✅ BLOCK API call
+      if (nextZipCode && (!state || !city)) {
+        clearZipValidation();
+        setZipError("Please select state and city first");
+        return false;
+      }
 
       if (!nextZipCode || nextZipCode.length !== 5) {
         clearZipValidation();
@@ -128,6 +152,12 @@ const useZipCodeLookup = ({
 
       const nextZipCode = normalizeZipCode(value ?? zipCode);
 
+      // ✅ VALIDATION
+      if (!state || !city) {
+        setZipError("Please select state and city first");
+        return false;
+      }
+
       if (!nextZipCode) {
         setZipError("Zip cannot be empty");
         return false;
@@ -146,7 +176,7 @@ const useZipCodeLookup = ({
       setZipError("");
       return true;
     },
-    [isLoading, isZipValid, zipCode]
+    [isLoading, isZipValid, zipCode, state, city]
   );
 
   useEffect(() => {

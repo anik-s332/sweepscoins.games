@@ -16,7 +16,7 @@ import {
 import { images } from "@/content";
 import { getBlogDetail, getBlogList } from "../../redux/actions";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.sweepscoins.cash";
+const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://www.sweepscoins.cash").replace(/\/$/, "");
 
 const SOCIAL_ITEMS = [
   {
@@ -158,22 +158,41 @@ const BlogDetail = () => {
   return (
     <>
       <Head>
-        <title>{blog.title} | Sweeps Coins</title>
+        <title>{blog.title}</title>
 
-        <meta name="description" content={blog.shortDescription || ""} />
+        <meta name="description" content={blog.excerpt} />
 
         {/* Open Graph */}
+        <meta property="og:site_name" content="Sweeps Coins" />
         <meta property="og:title" content={blog.title} />
-        <meta property="og:description" content={blog.shortDescription || ""} />
-        <meta property="og:image" content={blog.image} />
+        <meta property="og:description" content={blog.excerpt} />
+        <meta
+          property="og:image"
+          content={
+            (blog.image || images.common.defaultProduct)?.startsWith("http")
+              ? (blog.image || images.common.defaultProduct)
+              : `${SITE_URL}${(blog.image || images.common.defaultProduct)?.startsWith("/") ? "" : "/"}${blog.image || images.common.defaultProduct}`
+          }
+        />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         <meta property="og:url" content={currentUrl} />
         <meta property="og:type" content="article" />
+        <meta property="article:published_time" content={blog.publishedAt} />
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={blog.title} />
-        <meta name="twitter:description" content={blog.shortDescription || ""} />
-        <meta name="twitter:image" content={blog.image} />
+        <meta name="twitter:description" content={blog.excerpt || ""} />
+        <meta
+          name="twitter:image"
+          content={
+            (blog.image || images.common.defaultProduct)?.startsWith("http")
+              ? (blog.image || images.common.defaultProduct)
+              : `${SITE_URL}${(blog.image || images.common.defaultProduct)?.startsWith("/") ? "" : "/"}${blog.image || images.common.defaultProduct}`
+          }
+        />
+        <meta name="twitter:url" content={currentUrl} />
       </Head>
       <section className="blogDetailPage">
         <div className="container-fluid">
@@ -233,7 +252,7 @@ const BlogDetail = () => {
                 </article>
 
                 <aside className="blogDetailPage__sidebar">
-                  <div className="blogDetailPage__panel">
+                  {/* <div className="blogDetailPage__panel">
                     <h3>Share</h3>
                     <div className="blogDetailPage__share">
                       {SOCIAL_ITEMS.map((item) => (
@@ -248,7 +267,7 @@ const BlogDetail = () => {
                         </button>
                       ))}
                     </div>
-                  </div>
+                  </div> */}
 
                   <div className="blogDetailPage__panel">
                     <h3>Popular articles</h3>
