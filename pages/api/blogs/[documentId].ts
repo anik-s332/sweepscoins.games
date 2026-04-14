@@ -25,9 +25,9 @@ const buildStrapiHeaders = () => {
   return headers;
 };
 
-const buildEndpoint = (documentId: string) => {
-  const encodedId = encodeURIComponent(documentId);
-  const url = new URL(`${STRAPI_URL}/api/articles/${encodedId}`);
+const buildEndpoint = (slug: string) => {
+  const url = new URL(`${STRAPI_URL}/api/articles`);
+  url.searchParams.set("filters[slug][$eq]", slug);
   url.searchParams.set("populate", "*");
   return url.toString();
 };
@@ -43,10 +43,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ message: "Method not allowed." });
   }
 
-  const documentId = typeof req.query.documentId === "string" ? req.query.documentId : "";
+  const slug = typeof req.query.documentId === "string" ? req.query.documentId : "";
 
-  if (!documentId) {
-    return res.status(400).json({ message: "documentId is required." });
+  if (!slug) {
+    return res.status(400).json({ message: "slug is required." });
   }
 
   if (!STRAPI_URL) {
@@ -54,7 +54,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const response = await fetch(buildEndpoint(documentId), {
+    const response = await fetch(buildEndpoint(slug), {
       method: "GET",
       headers: buildStrapiHeaders(),
     });
@@ -66,7 +66,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     const result = await response.json();
-    return res.status(200).json(result);
+    const article = Array.isArray(result?.data) ? result.data[0] : null;
+
+    if (!article) {
+      return res.status(404).json({ message: "Blog not found for provided slug." });
+    }
+
+    return res.status(200).json({ ...result, data: article });
   } catch (_error) {
     return res.status(500).json({ message: "Unable to load blog details." });
   }

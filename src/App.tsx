@@ -3,6 +3,7 @@
 import axios from 'axios';
 import dynamic from "next/dynamic";
 import Head from "next/head";
+import { useRouter as useNextRouter } from "next/router";
 import Script from "next/script";
 import React, { useEffect, useState } from 'react';
 import { Accordion, Image } from 'react-bootstrap';
@@ -65,6 +66,7 @@ window.axios = axios;
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 function App() {
+    const nextRouter = useNextRouter();
     const [ SignUp, setSignUp ] = useState(false);
     const [ LoginSigupUp, setLoginSigupUp ] = useState(false);
     const [ LocationGet, setLocationGet ] = useState("");
@@ -107,11 +109,15 @@ function App() {
         Url: "",
     });
     const networkState = useNetworkState();
-    const currentPath = LocationGet || window.location.pathname;
+    const currentPathFromRouter = typeof nextRouter.asPath === "string" ? nextRouter.asPath.split("?")[0] : "";
+    const currentPath = currentPathFromRouter || LocationGet || window.location.pathname;
+    const currentPathSegment = currentPath.split("/")[1] || "";
     const shouldLoadCheckoutAssets =
         currentPath.startsWith(CHECK_OUT_PACKAGE) ||
         currentPath.startsWith(CHECK_OUT_PACKAGE_TIERLOCK) ||
         currentPath.startsWith(FREE_CREDIT);
+    const shouldShowHeaderFooter =
+        currentPathSegment !== "reset-password" && currentPathSegment !== "locate-check";
 
     useEffect(() => {
         if(LocationUrl === "?action=privacy-policy") {
@@ -349,7 +355,7 @@ function App() {
     <div className="wrapper" style={{paddingTop:(LocationUrl==="home" || LocationUrl==="locate-check") ? "0px":"90px"}}>
         <BrowserRouter>
             <LocationRedirect>
-            {(LocationGet.split("/")[1] !== "reset-password" && LocationGet.split("/")[1] !== "locate-check") && <Header setSignUp={setSignUp} setLoginSigupUp={setLoginSigupUp} setLocationGet={setLocationGet} />}
+            {shouldShowHeaderFooter && <Header setSignUp={setSignUp} setLoginSigupUp={setLoginSigupUp} setLocationGet={setLocationGet} />}
                 <ScrollToTop />
                 <Routes>
                     <Route path="*" element={<Navigate replace to={HOME_URL}/>} />
@@ -366,7 +372,7 @@ function App() {
                     <Route path={CHECK_OUT_PACKAGE_TIERLOCK} element={<TierlockPayment setLoginSigupUp={setLoginSigupUp} />} />
                     <Route path={`${FREE_CREDIT}/:free_credit`} element={<FreeCredit setLoginSigupUp={setLoginSigupUp} />} />
                     <Route path={BLOGS} element={<Blogs />} />
-                    <Route path={`${BLOGS}/:documentId`} element={<BlogDetail />} />
+                    <Route path={`${BLOGS}/:slug`} element={<BlogDetail />} />
                     <Route path={CONTACT} element={<Contact />} />
                     <Route
                         path={`${RESET_PASSWORD}/:roomId`}
@@ -375,7 +381,7 @@ function App() {
                     <Route path={PACKAGES} element={<Packages />} />
                     <Route path={USER_DATA_DETECTION} element={<Userdatadeletion />} />
                 </Routes>
-                {(LocationGet.split("/")[1] !== "reset-password" && LocationGet.split("/")[1] !== "locate-check") && <Footer />}
+                {shouldShowHeaderFooter && <Footer />}
                 <SignUpSidebar SignUp={SignUp} AllclearData={AllclearData} setAllclearData={setAllclearData} setSignUp={setSignUp} setLoginSigupUp={setLoginSigupUp} />
                 {LoginSigupUp && (<LoginSignupModal setLoginSigupUp={setLoginSigupUp} setSignUp={setSignUp} />)}
                 {SignUp && (<div className='backgroundmodal' onClick={() => ClickOutSideCloseSidebar()}></div>)}

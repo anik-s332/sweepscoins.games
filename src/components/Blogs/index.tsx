@@ -126,7 +126,7 @@ const Blogs = () => {
                   {!loading && !errorMessage && paginatedBlogs.length === 0 && <div className="blogsPage__state">No blogs found.</div>}
 
                   {!loading && !errorMessage && paginatedBlogs.map((blog) => (
-                    <Link key={blog.documentId} to={`${BLOGS}/${blog.documentId}`} className="blogCard">
+                    <Link key={blog.documentId} to={`${BLOGS}/${blog.slug || blog.documentId}`} className="blogCard">
                       <div className="blogCard__imageWrap">
                         {console.log("blog::", blog)}
                         <AppImage

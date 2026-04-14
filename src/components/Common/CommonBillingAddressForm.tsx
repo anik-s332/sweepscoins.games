@@ -20,10 +20,19 @@ const CommonBillingAddressForm = (props) => {
         }
     ];
     const applyZipLookupResult = useCallback((zipData) => {
+        const stateFromApi = zipData?.state?.toString()?.trim?.() || "";
+        const cityFromApi = zipData?.city?.toString()?.trim?.() || "";
+        const usStates = State.getStatesOfCountry("US");
+        const matchedState = usStates.find((item) =>
+            item?.isoCode === stateFromApi ||
+            item?.name?.toLowerCase?.() === stateFromApi?.toLowerCase?.()
+        );
+        const normalizedState = matchedState?.isoCode || stateFromApi;
+
         setKycAddress((prevAddress) => ({
             ...prevAddress,
-            state: zipData?.state || prevAddress.state,
-            city: zipData?.city || prevAddress.city,
+            state: normalizedState || prevAddress.state,
+            city: cityFromApi || prevAddress.city,
             zip: zipData?.zip_code?.toString() || prevAddress.zip,
         }));
     }, [setKycAddress]);
@@ -40,6 +49,8 @@ const CommonBillingAddressForm = (props) => {
         onZipCodeChange: (value) => setKycAddress((prevAddress) => ({ ...prevAddress, zip: value })),
         onLookupSuccess: applyZipLookupResult,
         onValidityChange: setZipCodeBillingValids,
+        state: KycAddress?.state,
+        city: KycAddress?.city,
     });
 
     useEffect(() => {
@@ -109,7 +120,7 @@ const CommonBillingAddressForm = (props) => {
                 const cities = City.getCitiesOfState(countryIsoCode, stateIsoCode).map((city, index) => {
                     return {
                         label: city.name,
-                        value: city.isoCode,  
+                        value: city.name,
                         key: index
                     };
                 });
@@ -121,6 +132,11 @@ const CommonBillingAddressForm = (props) => {
             setOptionsCity([]);  
         }
     }; 
+
+    const hasSelectedCityInOptions = optionsCity?.some(
+        (cityOption) =>
+            cityOption?.value?.toLowerCase?.() === KycAddress?.city?.toLowerCase?.()
+    );
 
     return (<React.Fragment>
         <div className="rowcustom rowcustom-col-2">
@@ -146,7 +162,7 @@ const CommonBillingAddressForm = (props) => {
                 <div className="form-groupfiled">
                     <select 
                         className="form-control" 
-                        onChange={(e) => setKycAddress({...KycAddress, state: e.target.value})} 
+                        onChange={(e) => setKycAddress({...KycAddress, state: e.target.value, city: ""})} 
                         value={KycAddress.state}
                         defaultValue={KycAddress.state} 
                         aria-label="Default select example"
@@ -174,6 +190,9 @@ const CommonBillingAddressForm = (props) => {
                         disabled={isDisabled || zipLookupLoading}
                     >
                         <option value="">Select City</option>
+                        {KycAddress?.city && !hasSelectedCityInOptions && (
+                            <option value={KycAddress.city}>{KycAddress.city}</option>
+                        )}
                         {optionsCity?.map((elm, index) => {
                             return(<option value={elm.value} key={index}>{elm.label}</option>)
                         })}
@@ -187,7 +206,6 @@ const CommonBillingAddressForm = (props) => {
                     <input 
                         type="text" 
                         className="form-control" 
-                        style={{ paddingRight: "106px" }}
                         placeholder={"Enter Zip Code"}
                         onBlur={() => validateZipCodeField(KycAddress?.zip)}
                         onChange={(e) => handleZipCodeChange(e.target.value)}
@@ -200,7 +218,7 @@ const CommonBillingAddressForm = (props) => {
                         value={KycAddress.zip}
                         disabled={isDisabled || zipLookupLoading}
                     />
-                    <button
+                    {/* <button
                         type="button"
                         aria-label="Search ZIP code"
                         onClick={() => lookupZipCode(KycAddress?.zip)}
@@ -225,9 +243,9 @@ const CommonBillingAddressForm = (props) => {
                         }}
                     >
                         {zipLookupLoading ? "Searching" : "Search"}
-                    </button>
-                    {!zipLookupLoading && (KycAddress.zip?.length === 5 && zipCodeBillingValids === true) && <AppImage src={images.common.successIcon} className="errorsuccessicon" alt={"success icon"} width={18} height={18} style={{ right: "90px", top: "50%", transform: "translateY(-50%)" }} />}
-                    {!zipLookupLoading && (KycAddress.zip?.length === 5 && zipCodeBillingValids === false) && <AppImage src={images.common.errorIcon} className="errorsuccessicon" alt={"success icon"} width={18} height={18} style={{ right: "90px", top: "50%", transform: "translateY(-50%)" }} />}
+                    </button> */}
+                    {!zipLookupLoading && (KycAddress.zip?.length === 5 && zipCodeBillingValids === true) && <AppImage src={images.common.successIcon} className="errorsuccessicon" alt={"success icon"} width={18} height={18} style={{ right: "15px", top: "50%", transform: "translateY(-50%)" }} />}
+                    {!zipLookupLoading && (KycAddress.zip?.length === 5 && zipCodeBillingValids === false) && <AppImage src={images.common.errorIcon} className="errorsuccessicon" alt={"success icon"} width={18} height={18} style={{ right: "15px", top: "50%", transform: "translateY(-50%)" }} />}
                     {!zipLookupLoading && zipError !== "" && <div className="danger-color">{zipError}</div>}
                 </div>
             </div>

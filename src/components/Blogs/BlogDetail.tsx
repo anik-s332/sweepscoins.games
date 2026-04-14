@@ -62,9 +62,17 @@ const BlogDetail = () => {
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const documentId = useMemo(() => {
+  const slug = useMemo(() => {
+    if (typeof params?.slug === "string" && params.slug) {
+      return params.slug;
+    }
+
     if (typeof params?.documentId === "string" && params.documentId) {
       return params.documentId;
+    }
+
+    if (typeof nextRouter.query?.slug === "string" && nextRouter.query.slug) {
+      return nextRouter.query.slug;
     }
 
     if (typeof nextRouter.query?.documentId === "string" && nextRouter.query.documentId) {
@@ -74,13 +82,13 @@ const BlogDetail = () => {
     const pathname = typeof nextRouter.asPath === "string" ? nextRouter.asPath.split("?")[0] : "";
     const segments = pathname.split("/").filter(Boolean);
     return segments[0] === "blogs" ? segments[1] || "" : "";
-  }, [nextRouter.asPath, nextRouter.query?.documentId, params?.documentId]);
+  }, [nextRouter.asPath, nextRouter.query?.documentId, nextRouter.query?.slug, params?.documentId, params?.slug]);
 
   useEffect(() => {
     let isMounted = true;
 
     const loadDetail = async () => {
-      if (!documentId) {
+      if (!slug) {
         if (isMounted) {
           setLoading(false);
           setErrorMessage("Blog not found.");
@@ -93,7 +101,7 @@ const BlogDetail = () => {
 
       try {
         const blogsPromise = Array.isArray(blogList) && blogList.length > 0 ? Promise.resolve(blogList) : fetchBlogs();
-        const detailPromise = blogDetail?.documentId === documentId ? Promise.resolve(blogDetail) : fetchBlogDetail(documentId);
+        const detailPromise = blogDetail?.slug === slug ? Promise.resolve(blogDetail) : fetchBlogDetail(slug);
         const [detailResponse, blogsResponse] = await Promise.all([detailPromise, blogsPromise]);
 
         if (!isMounted) {
@@ -108,7 +116,7 @@ const BlogDetail = () => {
         setPopularBlogs(
           detailResponse?.popularArticles?.length
             ? detailResponse.popularArticles
-            : blogsResponse.filter((item) => item.documentId !== documentId).slice(0, 5),
+            : blogsResponse.filter((item) => item.slug !== slug).slice(0, 5),
         );
         document.title = detailResponse?.title ? `${detailResponse.title} | Sweeps Coins` : "Blog Details | Sweeps Coins";
       } catch (error) {
@@ -128,10 +136,10 @@ const BlogDetail = () => {
     return () => {
       isMounted = false;
     };
-  }, [blogDetail, blogList, dispatch, documentId]);
+  }, [blogDetail, blogList, dispatch, slug]);
 
-  const blog = blogDetail?.documentId === documentId ? blogDetail : null;
-  const currentUrl = `${SITE_URL}${BLOGS}/${documentId}`;
+  const blog = blogDetail?.slug === slug ? blogDetail : null;
+  const currentUrl = `${SITE_URL}${BLOGS}/${slug}`;
   const getShareUrl = () => (typeof window !== "undefined" ? window.location.href : currentUrl);
 
   if (loading) {
@@ -231,7 +239,7 @@ const BlogDetail = () => {
                       <h3>Related articles</h3>
                       <div className="blogDetailPage__relatedGrid">
                         {blog.relatedBlogs.map((item) => (
-                          <Link key={item.documentId} to={`${BLOGS}/${item.documentId}`} className="blogDetailPage__relatedCard">
+                          <Link key={item.documentId} to={`${BLOGS}/${item.slug || item.documentId}`} className="blogDetailPage__relatedCard">
                             <AppImage
                               src={item.image || images.common.defaultProduct}
                               fallbackSrc={images.common.defaultProduct}
@@ -273,7 +281,7 @@ const BlogDetail = () => {
                     <h3>Popular articles</h3>
                     <div className="blogDetailPage__popular">
                       {popularBlogs.map((item) => (
-                        <Link key={item.documentId} to={`${BLOGS}/${item.documentId}`} className="blogDetailPage__popularItem">
+                        <Link key={item.documentId} to={`${BLOGS}/${item.slug || item.documentId}`} className="blogDetailPage__popularItem">
                           <AppImage
                             src={item.image || images.common.defaultProduct}
                             fallbackSrc={images.common.defaultProduct}

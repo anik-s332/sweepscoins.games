@@ -10,6 +10,7 @@ import {
 function LocationRedirect({ children }) {
   const navigate = useNavigate();
   const location = useLocation();
+  const POST_REDIRECT_URL_KEY = "PostLocationRedirectUrl";
 
   const locatePassed =
     typeof window !== "undefined" &&
@@ -19,6 +20,7 @@ function LocationRedirect({ children }) {
   const isTierlockRoute = location.pathname.startsWith(
     CHECK_OUT_PACKAGE_TIERLOCK,
   );
+  const isBlogDetailRoute = /^\/blogs\/[^/]+\/?$/.test(location.pathname);
 
   useEffect(() => {
     if (isTierlockRoute) {
@@ -26,6 +28,11 @@ function LocationRedirect({ children }) {
     }
 
     if (!locatePassed && !isLocatePage) {
+      if (isBlogDetailRoute) {
+        const redirectUrl = `${location.pathname}${location.search || ""}`;
+        sessionStorage.setItem(POST_REDIRECT_URL_KEY, redirectUrl);
+      }
+
       navigate("/locate-check", { replace: true });
       return;
     }
@@ -33,7 +40,7 @@ function LocationRedirect({ children }) {
     if (locatePassed && isLocatePage) {
       navigate(HOME_URL, { replace: true });
     }
-  }, [isLocatePage, isTierlockRoute, locatePassed, navigate]);
+  }, [isBlogDetailRoute, isLocatePage, isTierlockRoute, locatePassed, location.pathname, location.search, navigate]);
 
   return children;
 }

@@ -17,6 +17,7 @@ const LOCATE_SUCCESS_KEY = "LocateCheckSuccess";
 const LOCATE_PASSED_KEY = "LocateCheckPassed";
 const POST_REDIRECT_URL_KEY = "PostLocationRedirectUrl";
 const LOCATE_API_PATH = "/api/assure-locate";
+const BLOG_DETAIL_ROUTE_REGEX = /^\/blogs\/[^/]+\/?$/;
 
 const LocateCheck = () => {
   const navigate = useNavigate();
@@ -205,11 +206,16 @@ const LocateCheck = () => {
 
     if (isSpoofSafe && isProxySafe && isLocationSafe) {
       const redirectUrl = sessionStorage.getItem(POST_REDIRECT_URL_KEY);
+      const redirectPathname = redirectUrl ? redirectUrl.split("?")[0] : "";
+      const shouldRedirectToSavedPath =
+        !!redirectUrl &&
+        (redirectUrl.includes("/reset-password/") ||
+          BLOG_DETAIL_ROUTE_REGEX.test(redirectPathname));
 
       sessionStorage.setItem(LOCATE_PASSED_KEY, "true");
       sessionStorage.setItem(LOCATE_SUCCESS_KEY, "true");
 
-      if (redirectUrl && redirectUrl.includes("/reset-password/")) {
+      if (shouldRedirectToSavedPath) {
         sessionStorage.removeItem(POST_REDIRECT_URL_KEY);
         navigate(redirectUrl);
         return;

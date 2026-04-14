@@ -84,22 +84,29 @@ const resolveSiteUrlFromRequest = (context: Parameters<GetServerSideProps>[0]) =
   return getDefaultSiteUrl();
 };
 
-const getBlogSeo = async (siteUrl: string, documentId: string): Promise<SeoEntry | null> => {
-  if (!documentId) {
+const getBlogSeo = async (siteUrl: string, slug: string): Promise<SeoEntry | null> => {
+  if (!slug) {
     return null;
   }
 
   try {
-    const response = await fetch(getStrapiEndpoint(`/api/articles/${documentId}`, { populate: "*" }), {
+    const response = await fetch(
+      getStrapiEndpoint("/api/articles", {
+        "filters[slug][$eq]": slug,
+        populate: "*",
+      }),
+      {
       headers: getStrapiHeaders(),
-    });
+      },
+    );
 
     if (!response.ok) {
       return null;
     }
 
     const result = await response.json();
-    const blog = normalizeBlogDetailItem(result?.data);
+    const article = Array.isArray(result?.data) ? result.data[0] : null;
+    const blog = normalizeBlogDetailItem(article);
 
     if (!blog) {
       return null;

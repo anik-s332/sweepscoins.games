@@ -63,11 +63,7 @@ const Account = () => {
         zip: (profiledata?.address?.zipcode ===null||profiledata?.address?.zipcode===""||profiledata?.address?.zipcode===undefined)?"":profiledata?.address?.zipcode,
     })
 
-    const [ SelectCountry, setSelectCountry ] = useState({
-        key: 232,
-        label: "United States",
-        value: "US"
-    });
+    const [ SelectCountry, setSelectCountry ] = useState("United States");
     const [ SelectState, setSelectState ] = useState((profiledata?.address?.state===null||profiledata?.address?.state===""||profiledata?.address?.state===undefined)?"":profiledata?.address?.state);
     const [ SelectCity, setSelectCity ] = useState((profiledata?.address?.city===null||profiledata?.address?.city===""||profiledata?.address?.city===undefined)?"":profiledata?.address?.city);
     const [state_value,setStateValueForKyc] = useState('')
@@ -239,9 +235,15 @@ const Account = () => {
       const [loading,setLoading]  = useState(false);
 
       const applyHomeZipLookupResult = useCallback((zipData) => {
-        const matchedState = State.getStateByCodeAndCountry("US", zipData?.state);
-        const nextState = matchedState?.name || "";
-        const nextCity = zipData?.city || "";
+        const stateFromApi = zipData?.state?.toString()?.trim?.() || "";
+        const cityFromApi = zipData?.city?.toString()?.trim?.() || "";
+        const usStates = State.getStatesOfCountry("US");
+        const matchedState = usStates.find((item) =>
+            item?.isoCode === stateFromApi ||
+            item?.name?.toLowerCase?.() === stateFromApi?.toLowerCase?.()
+        );
+        const nextState = matchedState?.name || stateFromApi;
+        const nextCity = cityFromApi;
         const nextZip = zipData?.zip_code?.toString() || "";
 
         setAddress((prevAddress) => ({
@@ -364,7 +366,7 @@ const Account = () => {
 
             const payload = {
                 // ssn:SSN?.replace(/-/g, ""),
-                country: SelectCountry?.value,
+                country: getCountryIsoCodeByName(SelectCountry) || "US",
                 state: selectedState?.value,
                 city:SelectCity,
                 street_address:address.street1,
@@ -478,7 +480,7 @@ const Account = () => {
             && address?.street1!==""&& address?.zip!==""&& homeZipValid === true&&SelectCountry !== "" &&SelectState!==""&&SelectCity!=="" &&fname !== "" && lname !== "" && MobileNo?.number?.toString()?.length === 10 && KycAddress?.country !== "" && KycAddress?.state !== "" && KycAddress?.city !== "" && KycAddress?.zip !== "" && zipCodeBillingValids === true && KycAddress?.street2 !== "") {
             // if(SSNRegex.test(SSN) === true){
                 const jsonData = JSON.stringify({ first_name: fname, last_name: lname, phone: MobileNo?.countrycode + " " + MobileNo?.number, location: geoComplyLocation,
-                    "country":SelectCountry?.value,
+                    "country": getCountryIsoCodeByName(SelectCountry) || "US",
                     "city":SelectCity,
                     "state": SelectState,
                     "zipcode":address?.zip,
@@ -535,7 +537,7 @@ const Account = () => {
                 "billing_city": KycAddress.city,
                 "billing_zipcode": KycAddress.zip,
                 "billing_address": KycAddress.street2,
-                "country":SelectCountry?.value,
+                "country": getCountryIsoCodeByName(SelectCountry) || "US",
                 "city":SelectCity,
                 "state": SelectState,
                 "zipcode":address?.zip,
@@ -941,8 +943,8 @@ const fetchStates = (countryName) => {
     }
 };
 useEffect(()=>{
-    fetchStates(SelectCountry?.label)
-    fetchCities(SelectCountry?.label, SelectState);  
+    fetchStates(SelectCountry)
+    fetchCities(SelectCountry, SelectState);  
 
 },[SelectCountry, SelectState])
 
@@ -961,7 +963,7 @@ const fetchCities = (cisoCode, stateName) => {
             const cities = City.getCitiesOfState(countryIsoCode, stateIsoCode).map((city, index) => {
                 return {
                     label: city.name,
-                    value: city.isoCode,  
+                    value: city.name,
                     key: index
                 };
             });
@@ -1263,7 +1265,7 @@ const SelectCityChange = (e) => {
                                 <select
                                     className="form-control"
                                     {...registerAccount("city", { required: "City is required" })}
-                                    value={SelectCity}
+                                    value={SelectCity === "New York" ? "New York City" : SelectCity}
                                     onChange={async (e) => {
                                         SelectCityChange(e);
                                         setAccountValue("city", e.target.value);
@@ -1838,4 +1840,3 @@ const SelectCityChange = (e) => {
 }
 
 export default Account;
-

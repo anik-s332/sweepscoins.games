@@ -184,6 +184,7 @@ const getContentSource = (entry: Record<string, unknown>) =>
 export type BlogListItem = {
   id: number | string;
   documentId: string;
+  slug: string;
   title: string;
   excerpt: string;
   category: string;
@@ -225,11 +226,12 @@ export const normalizeBlogListItem = (rawItem: unknown): BlogListItem | null => 
     (typeof contentSource === "string" ? stripHtml(contentSource) : getBlocksText(contentSource));
 
   const title = pickFirstString(merged.title, merged.name, merged.heading, "Untitled Blog");
-  const documentId = pickFirstString(merged.documentId, merged.slug, slugify(title));
+  const slug = pickFirstString(merged.slug, merged.documentId, slugify(title));
 
   return {
-    id: (merged.id as number | string) || documentId,
-    documentId,
+    id: (merged.id as number | string) || slug,
+    documentId: slug,
+    slug,
     title,
     excerpt: excerptSource.slice(0, 180),
     category: categories[0] || pickFirstString(merged.categoryName, merged.type, "Business"),
@@ -336,9 +338,9 @@ export const fetchBlogs = async () => {
   return asArray(result?.data).map(normalizeBlogListItem).filter(Boolean) as BlogListItem[];
 };
 
-export const fetchBlogDetail = async (documentId: string) => {
-  const encodedId = encodeURIComponent(documentId);
-  const response = await fetch(`${BLOGS_API_BASE}/${encodedId}`);
+export const fetchBlogDetail = async (slug: string) => {
+  const encodedSlug = encodeURIComponent(slug);
+  const response = await fetch(`${BLOGS_API_BASE}/${encodedSlug}`);
 
   if (!response.ok) {
     const errorPayload = await response.json().catch(() => null);
